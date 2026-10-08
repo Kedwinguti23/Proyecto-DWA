@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Digital Story · Libros físicos y ebooks</title>
+<meta name="description" content="Libros físicos y ebooks. Descubre novelas, cuentos y lecturas cortas, y encuentra tu próxima lectura con nuestro quiz.">
+<link rel="preload" href="assets/fonts/baloo-2-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://digitalstory.example/">
+<meta name="theme-color" content="#6C4DF6">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Digital Story"><meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Digital Story · Libros físicos y ebooks"><meta property="og:url" content="https://digitalstory.example/">
+<meta property="og:description" content="Descubre novelas, cuentos y lecturas cortas. Haz el quiz y encuentra tu próxima lectura.">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="css/main.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","name":"Tirnaath y los cuentos de un explorador moderno","author":{"@type":"Person","name":"Wito Guti"},"numberOfPages":384,"inLanguage":"es","bookFormat":"https://schema.org/Paperback","offers":{"@type":"Offer","price":"22.90","priceCurrency":"USD","availability":"https://schema.org/InStock"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cómo recibo un ebook?","acceptedAnswer":{"@type":"Answer","text":"Al confirmar el pago recibes un enlace de descarga en tu correo. Puedes leerlo en el móvil, la tablet, el ordenador o un lector compatible."}},{"@type":"Question","name":"¿Cuánto tarda el envío de los libros físicos?","acceptedAnswer":{"@type":"Answer","text":"Los pedidos salen en 1 o 2 días hábiles y llegan en 3 a 7 días hábiles, según tu ubicación. El envío es gratis en pedidos de libros físicos desde $40."}},{"@type":"Question","name":"¿Puedo devolver un libro?","acceptedAnswer":{"@type":"Answer","text":"Sí. Los libros físicos se pueden devolver en 14 días si están en perfecto estado. Los ebooks no se devuelven una vez descargados, salvo que el archivo esté dañado."}},{"@type":"Question","name":"¿En qué formato vienen los ebooks?","acceptedAnswer":{"@type":"Answer","text":"En EPUB y PDF, para que puedas leerlos en tus propios dispositivos."}},{"@type":"Question","name":"¿Cómo funciona el quiz?","acceptedAnswer":{"@type":"Answer","text":"Respondes 5 preguntas sobre lo que te apetece leer y te recomendamos 3 libros del catálogo. No necesitas crear una cuenta."}}]}</script>
+</head>
+<body>
+<header class="header" id="header">
+  <div class="wrap header__row">
+    <a class="logo" href="#top" aria-label="Digital Story, inicio"><span class="logo__mark" aria-hidden="true">D</span>Digital Story</a>
+    <nav class="nav-desktop dropdown" aria-label="Principal">
+      <button class="nav-link" aria-expanded="false" aria-controls="explore">Explorar</button>
+      <div class="dropdown__panel" id="explore">
+        <a href="#catalogo">Géneros y autores</a><a href="#mas-vendidos">Colecciones temáticas</a><a href="#catalogo" data-apply="l:corta">Lecturas cortas</a><a href="#catalogo" data-apply="f:ebook">Ebooks</a>
+      </div>
+    </nav>
+    <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr-only">Buscar libros</span><input type="search" placeholder="Título, autor o tema"></label>
+    <button class="icon-btn" aria-label="Lista de deseos"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.600-7 10-7 10Z"/></svg><span class="badge" id="wishCount">0</span></button>
+    <button class="icon-btn" id="cartBtn" aria-label="Abrir carrito"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.500 11h10L20 8H6.500"/><circle cx="9" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg><span class="badge" id="cartCount">0</span></button>
+    <a class="btn btn--sm nav-desktop" href="#quiz">Encuentra tu lectura</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="poster" role="img" aria-label="Portada de Tirnaath y los cuentos de un explorador moderno, de Wito Guti">
+        <p class="poster__text" aria-hidden="true">Vive la exploración como nunca antes</p>
+        <span class="sticker" aria-hidden="true">Nuevo</span>
+        <span class="poster__chip" aria-hidden="true">Físico y ebook</span>
+        <div class="pcover pcover--main" aria-hidden="true"><span>TIRNAATH</span><span class="pcover__sub">y los cuentos de un explorador moderno</span><span class="pcover__author">Wito Guti</span></div>
+      </div>
+      <div class="hero__copy">
+        <h1>Tu próxima gran aventura empieza en una página</h1>
+        <p class="muted">Libros físicos con envío rápido y ebooks con descarga inmediata.</p>
+        <div class="hero__actions"><a class="btn" href="#quiz">Encuentra tu lectura</a><a class="btn btn--ghost" href="#libros">Explorar catálogo</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="wrap bento">
+      <article class="tile tile--feature">
+        <div class="book__cover" style="background:#2B1B7A;color:#FFC800;outline:3px solid #FFC800" aria-hidden="true">Tirnaath</div>
+        <div class="tile__body">
+          <span class="tag tag--offer">Novedad</span>
+          <h2>Tirnaath y los cuentos de un explorador moderno</h2>
+          <p class="book__author" style="color:#C9BFFF">Wito Guti</p>
+          <p>Una noche apareció en el mapa una península que no existía. Nadie ha podido explorarla, y Aymeri Beaumont está decidido a ser el primero.</p>
+          <div class="row" style="margin:0"><button class="btn btn--sun" data-add="tirnaath-y-los-cuentos-de-un-explorador-moderno">Añadir al carrito</button><span>Físico $22.90 / Ebook $9.90</span></div>
+        </div>
+      </article>
+      <article class="tile tile--quiz" id="quiz">
+        <div><h3>¿No sabes qué leer?</h3><p>Responde 5 preguntas y te recomendamos 3 libros a tu medida.</p></div>
+        <div><a class="btn" href="#quiz">Hacer el quiz</a></div>
+      </article>
+      <article class="tile tile--offer">
+        <div><span class="tag tag--offer">-20%</span><h3 style="margin-top:var(--s2)">Recetas para olvidar</h3><p>Oferta de la semana.</p></div>
+        <div><button class="btn btn--sun btn--sm" data-add="recetas-para-olvidar">Aprovechar</button></div>
+      </article>
+      <article class="tile tile--ebook">
+        <div><h3>Ebooks al instante</h3><p>Descarga al pagar y lee en cualquier dispositivo.</p></div>
+        <div><a class="btn btn--ghost btn--sm" href="#catalogo" data-apply="f:ebook">Ver ebooks</a></div>
+      </article>
+      <article class="tile tile--short">
+        <div style="margin-right:auto"><h3>Lecturas cortas</h3><p>Cuatro libros de menos de 150 páginas para terminar en una tarde.</p></div>
+        <a class="btn btn--ghost" href="#catalogo" data-apply="l:corta">Ver lecturas cortas</a>
+      </article>
+    </div>
+  </section>
+  <div class="wrap" id="shelves"><noscript><p class="muted">Activa JavaScript para ver el catálogo.</p></noscript></div>
+  <section class="pad" id="catalogo" aria-labelledby="cat-t">
+    <div class="wrap">
+      <div class="shelf__head"><div><h2 id="cat-t">Todo el catálogo</h2><p class="muted" id="catCount" aria-live="polite"></p></div>
+        <button class="btn btn--ghost btn--sm only-mob" id="openF" aria-haspopup="dialog">Filtros<span id="fCount"></span></button></div>
+      <div class="cat">
+        <div class="scrim" id="scrim" hidden></div>
+        <aside class="filters" id="filters" aria-label="Filtros del catálogo">
+          <div class="filters__top"><h3>Filtros</h3><button class="btn btn--ghost btn--sm" id="clearF">Limpiar</button></div>
+          <div id="fBody" style="display:grid;gap:var(--s4)"></div>
+          <button class="btn only-mob" id="applyF" style="justify-content:center">Ver resultados</button>
+        </aside>
+        <div>
+          <label class="search" style="flex:none;margin-bottom:var(--s4)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr-only">Buscar en el catálogo</span><input type="search" id="catSearch" placeholder="Título, autor o tema"></label>
+          <div class="grid" id="results"></div>
+          <div class="empty" id="empty" hidden><h3>No encontramos libros con esos filtros</h3><p class="muted">Quita alguno o empieza de nuevo.</p><button class="btn" id="clearE">Limpiar filtros</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="pad" aria-labelledby="fmt-t">
+    <div class="wrap">
+      <h2 id="fmt-t">Elige cómo quieres leer</h2>
+      <p class="muted" style="margin-top:var(--s2)">Cada historia está disponible en el formato que mejor se adapte a ti.</p>
+      <div class="cmp">
+        <article class="cmp__card cmp__card--p">
+          <span class="tag">Físico</span><h3>El placer del papel</h3>
+          <ul class="ticks"><li>Envío gratis en pedidos desde $40</li><li>Ideal para regalar y coleccionar</li><li>Sin pantallas ni baterías</li></ul>
+          <div><a class="btn" href="#catalogo" data-apply="f:fisico">Ver libros físicos</a></div>
+        </article>
+        <article class="cmp__card cmp__card--e">
+          <span class="tag tag--ebook">Ebook</span><h3>Lectura inmediata</h3>
+          <ul class="ticks"><li>Descarga al instante tras el pago</li><li>Lleva toda tu biblioteca en el móvil</li><li>Precios más bajos que en papel</li></ul>
+          <div><a class="btn btn--ghost" href="#catalogo" data-apply="f:ebook">Ver ebooks</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="pad" aria-labelledby="tes-t">
+    <div class="wrap">
+      <h2 id="tes-t">Lo que dicen los lectores</h2>
+      <div class="quotes">
+        <figure><blockquote>Hice el quiz y me recomendó justo lo que necesitaba. Terminé la novela en un fin de semana.</blockquote><figcaption><span class="avatar" style="background:#6C4DF6" aria-hidden="true">V</span><span><strong>Valeria M.</strong><br>Lectora de misterio</span></figcaption></figure>
+        <figure><blockquote>Los ebooks llegan al instante y el catálogo se navega de maravilla desde el móvil.</blockquote><figcaption><span class="avatar" style="background:#096B61" aria-hidden="true">C</span><span><strong>Carlos R.</strong><br>Lector de ebooks</span></figcaption></figure>
+        <figure><blockquote>Tirnaath me dio ganas de dibujar mi propio mapa. Ya espero el próximo libro de Wito.</blockquote><figcaption><span class="avatar" style="background:#B92D25" aria-hidden="true">D</span><span><strong>Daniela P.</strong><br>Fan de la fantasía</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+  <section class="pad" id="faq" aria-labelledby="faq-t">
+    <div class="wrap"><h2 id="faq-t">Preguntas frecuentes</h2><div class="faq"><details><summary>¿Cómo recibo un ebook?</summary><p>Al confirmar el pago recibes un enlace de descarga en tu correo. Puedes leerlo en el móvil, la tablet, el ordenador o un lector compatible.</p></details><details><summary>¿Cuánto tarda el envío de los libros físicos?</summary><p>Los pedidos salen en 1 o 2 días hábiles y llegan en 3 a 7 días hábiles, según tu ubicación. El envío es gratis en pedidos de libros físicos desde $40.</p></details><details><summary>¿Puedo devolver un libro?</summary><p>Sí. Los libros físicos se pueden devolver en 14 días si están en perfecto estado. Los ebooks no se devuelven una vez descargados, salvo que el archivo esté dañado.</p></details><details><summary>¿En qué formato vienen los ebooks?</summary><p>En EPUB y PDF, para que puedas leerlos en tus propios dispositivos.</p></details><details><summary>¿Cómo funciona el quiz?</summary><p>Respondes 5 preguntas sobre lo que te apetece leer y te recomendamos 3 libros del catálogo. No necesitas crear una cuenta.</p></details></div></div>
+  </section>
+  <section class="pad" aria-labelledby="news-t">
+    <div class="wrap">
+      <div class="news">
+        <h2 id="news-t">Una recomendación por semana</h2>
+        <p>Un libro, una razón para leerlo y las ofertas de la semana. Sin spam.</p>
+        <form id="newsForm" novalidate>
+          <div class="field"><label class="sr-only" for="nEmail">Correo electrónico</label><input type="email" id="nEmail" name="email" placeholder="tu@correo.com" autocomplete="email" maxlength="254" required><button class="btn" type="submit">Suscribirme</button></div>
+          <div class="hp" aria-hidden="true"><label>No rellenar<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <label class="consent"><input type="checkbox" id="nOk" required><span>Acepto recibir correos de Digital Story. Puedo darme de baja cuando quiera.</span></label>
+          <p class="news__msg" id="nMsg" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div><a class="logo" href="#top" aria-label="Digital Story, inicio"><span class="logo__mark" aria-hidden="true">D</span>Digital Story</a><p class="muted" style="margin-top:var(--s3)">Libros físicos y ebooks para descubrir tu próxima historia.</p></div>
+      <div><h2>Explorar</h2><ul><li><a href="#catalogo">Catálogo</a></li><li><a href="#mas-vendidos">Más vendidos</a></li><li><a href="#mundos-por-explorar">Colecciones</a></li><li><a href="#catalogo" data-apply="f:ebook">Ebooks</a></li></ul></div>
+      <div><h2>Ayuda</h2><ul><li><a href="#faq">Preguntas frecuentes</a></li><li><a href="#faq">Envíos y devoluciones</a></li><li><a href="#quiz">Encuentra tu lectura</a></li></ul></div>
+      <div><h2>Legal</h2><ul><li><a href="#">Privacidad</a></li><li><a href="#">Términos de compra</a></li><li><a href="#">Cookies</a></li></ul></div>
+    </div>
+    <small>© 2026 Digital Story. Todos los derechos reservados.</small>
+  </div>
+</footer>
+
+<dialog class="quiz" id="quizDlg" aria-labelledby="qTitle">
+  <div class="quiz__top">
+    <button class="icon-btn" id="qBack" aria-label="Pregunta anterior"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button>
+    <div class="bar" id="qBar" role="progressbar" aria-label="Progreso del quiz" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><i></i></div>
+    <button class="icon-btn" id="qClose" aria-label="Cerrar quiz"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <h2 id="qTitle" tabindex="-1"></h2>
+  <p class="muted" id="qSub"></p>
+  <div id="qBody"></div>
+</dialog>
+<dialog class="drawer" id="cartDlg" aria-labelledby="cTitle">
+  <div class="drawer__in">
+    <div class="drawer__head"><h2 id="cTitle" tabindex="-1">Tu carrito</h2><button class="icon-btn" id="cClose" aria-label="Cerrar carrito"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div id="cBody"></div>
+    <div id="cFoot" style="display:grid;gap:var(--s3)"></div>
+  </div>
+</dialog>
+<nav class="tabbar" aria-label="Navegación móvil">
+  <a href="#top"><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/></svg>Inicio</a>
+  <a href="#catalogo"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.500-3.500"/></svg>Explorar</a>
+  <a href="#quiz"><svg viewBox="0 0 24 24"><path d="m12 3 2.500 5.500 6 .7-4.400 4.100 1.200 5.900L12 16.300 6.700 19.200l1.200-5.900L3.500 9.200l6-.7z"/></svg>Quiz</a>
+  <a href="#"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.400-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 10c0 5.600-7 10-7 10Z"/></svg>Wishlist</a>
+  <a href="#" data-open-cart><svg viewBox="0 0 24 24"><path d="M3 4h2l2.500 11h10L20 8H6.500"/></svg>Carrito</a>
+</nav>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

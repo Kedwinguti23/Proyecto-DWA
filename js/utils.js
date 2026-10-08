@@ -1,0 +1,10 @@
+export const $=(s,r=document)=>r.querySelector(s);
+export const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+export const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n};
+export const bump=e=>{e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump')};
+export const money=n=>'$'+n.toFixed(2);
+export const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+export const cap=s=>s[0].toUpperCase()+s.slice(1);
+export const lenOf=n=>n<150?'corta':n<320?'media':'larga';
+export const mm=matchMedia('(prefers-reduced-motion:reduce)');
+export const goCat=()=>$('#catalogo').scrollIntoView({behavior:mm.matches?'auto':'smooth'});
