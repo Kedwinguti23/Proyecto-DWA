@@ -23,6 +23,8 @@ export const CONFIG = {
   // Mensajes base contextuales para WhatsApp
   whatsappMessages: {
     general: '¡Hola, Historias Fantásticas! Quisiera consultar sobre su catálogo de libros.',
+    // Mensaje del botón flotante: ventas y pedidos directos
+    sales: '¡Hola, Historias Fantásticas! Me gustaría hacer un pedido o consultar sobre un libro. ¿Me pueden ayudar?',
     writerPublish: '¡Hola! Me gustaría recibir información sobre la publicación y apoyo a escritores emergentes en Historias Fantásticas.',
     orderTemplate: (order) => {
       const itemsList = order.items

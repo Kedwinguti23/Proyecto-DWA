@@ -80,3 +80,62 @@
 .poster__chip{position:absolute;z-index:3;left:var(--s5);bottom:var(--s5);padding:.3rem .9rem;border-radius:var(--r-pill);background:#231F3D;color:#fff;font:700 var(--fs-sm) var(--font-body)}
 @media (max-width:760px){.hero__grid{grid-template-columns:1fr}.poster{min-height:26rem}}
 .row{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;margin-top:var(--s5)}
+
+/* ── Botón flotante WhatsApp ─────────────────────────────── */
+.wa-fab{
+  position:fixed;
+  bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));
+  right:1.5rem;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  gap:var(--s2);
+  width:3.25rem;
+  height:3.25rem;
+  border-radius:50%;
+  background:#25D366;
+  color:#fff;
+  box-shadow:0 4px 12px rgb(0 0 0/.25),0 2px 0 #1aaa52;
+  text-decoration:none;
+  overflow:hidden;
+  transition:width .3s var(--ease),border-radius .3s var(--ease),
+             box-shadow .2s,transform .2s var(--ease);
+  animation:wa-enter .6s var(--ease) both;
+}
+.wa-fab svg{
+  flex-shrink:0;
+  width:1.9rem;
+  height:1.9rem;
+  fill:currentColor;
+  margin-left:.67rem;
+  transition:margin .3s var(--ease);
+}
+.wa-fab__tip{
+  white-space:nowrap;
+  font:700 .9rem var(--font-body);
+  max-width:0;
+  opacity:0;
+  overflow:hidden;
+  transition:max-width .3s var(--ease),opacity .25s,padding .3s var(--ease);
+  padding-right:0;
+}
+/* Expandido al hacer hover en escritorio */
+@media(hover:hover){
+  .wa-fab:hover{
+    width:15rem;
+    border-radius:var(--r-pill);
+    box-shadow:0 6px 20px rgb(37 211 102/.45),0 2px 0 #1aaa52;
+    transform:translateY(-2px);
+  }
+  .wa-fab:hover svg{margin-left:var(--s3)}
+  .wa-fab:hover .wa-fab__tip{max-width:12rem;opacity:1;padding-right:var(--s4)}
+}
+/* En móvil queda redondo siempre; sube por encima del tabbar */
+@media(max-width:760px){
+  .wa-fab{bottom:calc(4.5rem + env(safe-area-inset-bottom,0px));right:1rem}
+}
+@keyframes wa-enter{
+  from{opacity:0;transform:scale(.5) translateY(1rem)}
+  to{opacity:1;transform:none}
+}
+
