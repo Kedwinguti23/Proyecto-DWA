@@ -31,7 +31,19 @@ group('Duración de lectura','l',[['','Cualquiera'],['corta','Corta (menos de 15
 const checked=n=>$$('input[name="'+n+'"]:checked',fBody).map(i=>i.value);
 function readState(){S.q=catSearch.value;S.f=checked('f');S.g=checked('g');S.h=checked('h');S.a=sel.value;S.max=+rg.value;S.l=($('input[name="l"]:checked',fBody)||{value:''}).value}
 function setControls(){catSearch.value=S.q;$$('input[type=checkbox]',fBody).forEach(i=>i.checked=S[i.name].includes(i.value));sel.value=S.a;rg.value=S.max;pOut.textContent='Hasta $'+S.max;$$('input[type=radio]',fBody).forEach(i=>i.checked=i.value===S.l)}
-const match=b=>{const q=norm(S.q.trim());return(!q||norm([b.t,b.a,...b.g,...b.h].join(' ')).includes(q))&&(!S.f.length||S.f.some(f=>f==='fisico'?b.p:b.e))&&(!S.g.length||S.g.some(x=>b.g.includes(x)))&&(!S.h.length||S.h.some(x=>b.h.includes(x)))&&(!S.a||b.a===S.a)&&Math.min(...[b.p,b.e].filter(Boolean))<=S.max&&(!S.l||lenOf(b.n)===S.l)};
+const effPrice = (b, p) => b.d > 0 ? (p * (100 - b.d) / 100) : p;
+const match = b => {
+  const q = norm(S.q.trim());
+  const validFormats = [b.p, b.e].filter(Boolean);
+  const minPrice = validFormats.length ? Math.min(...validFormats.map(p => effPrice(b, p))) : 0;
+  return (!q || norm([b.t, b.a, ...b.g, ...b.h].join(' ')).includes(q)) &&
+    (!S.f.length || S.f.some(f => f === 'fisico' ? b.p : (b.e && b.ebookAuthorized))) &&
+    (!S.g.length || S.g.some(x => b.g.includes(x))) &&
+    (!S.h.length || S.h.some(x => b.h.includes(x))) &&
+    (!S.a || b.a === S.a) &&
+    minPrice <= S.max &&
+    (!S.l || lenOf(b.n) === S.l);
+};
 function render(){
   const list=D.filter(match);results.replaceChildren(...list.map(card));
   $('#empty').hidden=list.length>0;

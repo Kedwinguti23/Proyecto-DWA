@@ -24,7 +24,11 @@
     <nav class="nav-desktop dropdown" aria-label="Principal">
       <button class="nav-link" aria-expanded="false" aria-controls="explore">Explorar</button>
       <div class="dropdown__panel" id="explore">
-        <a href="#catalogo">Géneros y autores</a><a href="#mas-vendidos">Colecciones temáticas</a><a href="#catalogo" data-apply="l:corta">Lecturas cortas</a><a href="#catalogo" data-apply="f:ebook">Ebooks</a>
+        <a href="#catalogo">Catálogo general</a>
+        <a href="#mas-vendidos">Colecciones temáticas</a>
+        <a href="#ofertas">Ofertas vigentes</a>
+        <a href="#escritores">Escritores emergentes</a>
+        <a href="#catalogo" data-apply="f:ebook">Ebooks autorizados</a>
       </div>
     </nav>
     <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr-only">Buscar libros</span><input type="search" placeholder="Título, autor o tema"></label>
@@ -101,6 +105,38 @@
       </div>
     </div>
   </section>
+
+  <section class="pad" id="ofertas" aria-labelledby="off-t">
+    <div class="wrap">
+      <div class="shelf__head">
+        <div>
+          <h2 id="off-t">Ofertas y Descuentos Vigentes</h2>
+          <p class="muted">Historias seleccionadas con descuento por tiempo limitado. Los precios rebajados se calculan automáticamente.</p>
+        </div>
+      </div>
+      <div class="grid" id="offersResults"></div>
+    </div>
+  </section>
+
+  <section class="pad" id="escritores" aria-labelledby="wri-t">
+    <div class="wrap">
+      <div class="shelf__head">
+        <div>
+          <h2 id="wri-t">Escritores Emergentes</h2>
+          <p class="muted">Apoyamos el talento literario emergente. Descubre sus obras y conoce a las nuevas voces de la literatura.</p>
+        </div>
+      </div>
+      <div class="grid" id="writersList"></div>
+      <div class="tile tile--short" style="margin-top:var(--s5);justify-content:space-between">
+        <div style="margin-right:auto">
+          <h3>¿Eres escritor y buscas publicar tu obra?</h3>
+          <p class="muted" style="margin:0">En Historias Fantásticas impulsamos autores locales y emergentes. Coordinemos por WhatsApp.</p>
+        </div>
+        <a class="btn btn--sun" id="writerPublishBtn" href="#">Escríbenos a WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
   <section class="pad" aria-labelledby="fmt-t">
     <div class="wrap">
       <h2 id="fmt-t">Elige cómo quieres leer</h2>
@@ -108,12 +144,12 @@
       <div class="cmp">
         <article class="cmp__card cmp__card--p">
           <span class="tag">Físico</span><h3>El placer del papel</h3>
-          <ul class="ticks"><li>Envío gratis en pedidos desde $40</li><li>Ideal para regalar y coleccionar</li><li>Sin pantallas ni baterías</li></ul>
+          <ul class="ticks"><li>Encuadernación de calidad y portadas de colección</li><li>Ideal para regalar y coleccionar</li><li>Lectura sin pantallas ni baterías</li></ul>
           <div><a class="btn" href="#catalogo" data-apply="f:fisico">Ver libros físicos</a></div>
         </article>
         <article class="cmp__card cmp__card--e">
           <span class="tag tag--ebook">Ebook</span><h3>Lectura inmediata</h3>
-          <ul class="ticks"><li>Descarga al instante tras el pago</li><li>Lleva toda tu biblioteca en el móvil</li><li>Precios más bajos que en papel</li></ul>
+          <ul class="ticks"><li>Descarga al instante tras coordinar tu pedido</li><li>Lleva toda tu biblioteca en el móvil o tablet</li><li>Precios más bajos que en papel</li></ul>
           <div><a class="btn btn--ghost" href="#catalogo" data-apply="f:ebook">Ver ebooks</a></div>
         </article>
       </div>
@@ -130,7 +166,7 @@
     </div>
   </section>
   <section class="pad" id="faq" aria-labelledby="faq-t">
-    <div class="wrap"><h2 id="faq-t">Preguntas frecuentes</h2><div class="faq"><details><summary>¿Cómo recibo un ebook?</summary><p>Al confirmar el pago recibes un enlace de descarga en tu correo. Puedes leerlo en el móvil, la tablet, el ordenador o un lector compatible.</p></details><details><summary>¿Cuánto tarda el envío de los libros físicos?</summary><p>Los pedidos salen en 1 o 2 días hábiles y llegan en 3 a 7 días hábiles, según tu ubicación. El envío es gratis en pedidos de libros físicos desde $40.</p></details><details><summary>¿Puedo devolver un libro?</summary><p>Sí. Los libros físicos se pueden devolver en 14 días si están en perfecto estado. Los ebooks no se devuelven una vez descargados, salvo que el archivo esté dañado.</p></details><details><summary>¿En qué formato vienen los ebooks?</summary><p>En EPUB y PDF, para que puedas leerlos en tus propios dispositivos.</p></details><details><summary>¿Cómo funciona el quiz?</summary><p>Respondes 5 preguntas sobre lo que te apetece leer y te recomendamos 3 libros del catálogo. No necesitas crear una cuenta.</p></details></div></div>
+    <div class="wrap"><h2 id="faq-t">Preguntas frecuentes</h2><div class="faq"><details><summary>¿Cómo recibo un ebook?</summary><p>Al confirmar el pedido y pago por WhatsApp, te compartimos el enlace de descarga o archivo digital directo. Puedes leerlo en móvil, tablet o lector compatible.</p></details><details><summary>¿Cómo se coordinan las entregas y envíos?</summary><p>Puedes retirar tu pedido en nuestro local en Colonia Vista Hermosa, San Miguel, o coordinamos envío a domicilio acordando la tarifa y tiempo por WhatsApp.</p></details><details><summary>¿Puedo devolver un libro?</summary><p>Sí. Los libros físicos se pueden cambiar o devolver si están en perfecto estado. Los ebooks no se devuelven una vez descargados, salvo defecto en el archivo.</p></details><details><summary>¿En qué formato vienen los ebooks?</summary><p>En formatos estándares (EPUB y PDF) para que los leas en cualquier dispositivo.</p></details><details><summary>¿Cómo funciona el quiz?</summary><p>Respondes 5 preguntas sobre lo que te apetece leer y te recomendamos 3 libros disponibles del catálogo. No necesitas crear una cuenta.</p></details></div></div>
   </section>
   <section class="pad" aria-labelledby="news-t">
     <div class="wrap">

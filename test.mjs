@@ -22,4 +22,6 @@ for(let i=0;i<5;i++)$('#qBody .choice').click();
 ck('quiz da 3 libros',$$('#qBody .book').length===3);
 $('#nEmail').value='malo';$('#newsForm').dispatchEvent(new w.Event('submit',{cancelable:true,bubbles:true}));
 ck('newsletter valida correo',$('#nMsg').textContent.includes('válido'));
+ck('sección ofertas vigentes',$$('#offersResults .book').length===1);
+ck('sección escritores (3)',$$('#writersList .writer-card').length===3);
 ck('sin errores JS',errs.length===0);if(errs.length)console.log(errs);

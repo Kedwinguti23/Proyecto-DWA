@@ -29,7 +29,7 @@ function ask(i){
 }
 function done(){
   qi=Q.length;prog(Q.length);qt.textContent='Tus 3 lecturas ideales';$('#qSub').textContent='Elegidas según tus 5 respuestas.';
-  const top=D.map(b=>[b,score(b,ans)]).filter(x=>x[1]>-5).sort((x,y)=>y[1]-x[1]).slice(0,3);
+  const top=D.filter(b=>b.available!==false).map(b=>[b,score(b,ans)]).filter(x=>x[1]>-5).sort((x,y)=>y[1]-x[1]).slice(0,3);
   const grid=el('div','grid');
   top.forEach(([b,s])=>{const c=card(b);c.insertBefore(el('span','tag tag--offer','Coincidencia '+Math.min(99,Math.round(Math.max(s,0)/10*100))+'%'),c.children[2]);grid.append(c)});
   const row=el('div','row'),again=el('button','btn btn--ghost','Repetir el quiz'),more=el('a','btn','Ver todo el catálogo');
