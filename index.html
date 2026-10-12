@@ -32,7 +32,7 @@
       </div>
     </nav>
     <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr-only">Buscar libros</span><input type="search" placeholder="Título, autor o tema"></label>
-    <button class="icon-btn" aria-label="Lista de deseos"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.600-7 10-7 10Z"/></svg><span class="badge" id="wishCount">0</span></button>
+    <button class="icon-btn" id="wishBtn" aria-label="Lista de deseos"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.600-7 10-7 10Z"/></svg><span class="badge" id="wishCount">0</span></button>
     <button class="icon-btn" id="cartBtn" aria-label="Abrir carrito"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.500 11h10L20 8H6.500"/><circle cx="9" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg><span class="badge" id="cartCount">0</span></button>
     <a class="btn btn--sm nav-desktop" href="#quiz">Encuentra tu lectura</a>
   </div>
@@ -213,11 +213,22 @@
     <div id="cFoot" style="display:grid;gap:var(--s3)"></div>
   </div>
 </dialog>
+<dialog class="drawer" id="wishDlg" aria-labelledby="wTitle">
+  <div class="drawer__in">
+    <div class="drawer__head">
+      <h2 id="wTitle" tabindex="-1">Lista de deseos</h2>
+      <button class="icon-btn" id="wClose" aria-label="Cerrar lista de deseos"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <p class="muted" style="margin:0;font-size:var(--fs-sm)">💡 Tus libros guardados se almacenan únicamente en este navegador.</p>
+    <div id="wBody"></div>
+    <div id="wFoot" style="display:grid;gap:var(--s3)"></div>
+  </div>
+</dialog>
 <nav class="tabbar" aria-label="Navegación móvil">
   <a href="#top"><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9H4z"/></svg>Inicio</a>
   <a href="#catalogo"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.500-3.500"/></svg>Explorar</a>
   <a href="#quiz"><svg viewBox="0 0 24 24"><path d="m12 3 2.500 5.500 6 .7-4.400 4.100 1.200 5.900L12 16.300 6.700 19.200l1.200-5.900L3.500 9.200l6-.7z"/></svg>Quiz</a>
-  <a href="#"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.400-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 10c0 5.600-7 10-7 10Z"/></svg>Wishlist</a>
+  <a href="#" data-open-wish><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.400-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 10c0 5.600-7 10-7 10Z"/></svg>Wishlist</a>
   <a href="#" data-open-cart><svg viewBox="0 0 24 24"><path d="M3 4h2l2.500 11h10L20 8H6.500"/></svg>Carrito</a>
 </nav>
 

@@ -15,6 +15,7 @@ ck('filtro ebook autorizados (5)',$$('#results .book').length===5);
 $('#clearF').click();ck('limpiar filtros (14)',$$('#results .book').length===14);
 $('a[data-apply="l:corta"]').click();ck('lecturas cortas (4)',$$('#results .book').length===4);
 $('.book .wish').click();ck('wishlist cuenta 1',$('#wishCount').textContent==='1');
+$('#wishBtn').click();ck('drawer wishlist con 1 línea',$$('#wBody .line').length===1);
 $('.book [data-add]').click();ck('carrito cuenta 1',$('#cartCount').textContent==='1');
 $('#cartBtn').click();ck('drawer con 1 línea',$$('#cBody .line').length===1);
 $('a[href="#quiz"]').click();
