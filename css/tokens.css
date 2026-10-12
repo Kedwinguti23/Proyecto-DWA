@@ -1,9 +1,10 @@
 /* ===== tokens.css ===== */
+/* Historias Fantásticas v2.0 - Solo modo claro */
 :root{
   --violet:#6C4DF6; --violet-700:#4A2FCB; --violet-100:#F3EFFF;
-  --coral:#DF382C; --coral-700:#A82119;
+  --coral:#D32F24; --coral-700:#A82119;
   --sun:#FFC800; --sun-700:#C99700;
-  --teal:#0E8F82; --teal-700:#096B61; --teal-100:#DDF6F3;
+  --teal:#0B7A6E; --teal-700:#085C53; --teal-100:#E6F6F4;
   --sky:#1CB0F6;
   --ink:#231F3D; --ink-soft:#5B5675;
   --bg:#FFFFFF; --surface:#FFFFFF; --line:#E4DEF5;
@@ -15,10 +16,4 @@
   --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem; --s7:3rem; --s8:4.5rem;
   --r-md:16px; --r-pill:999px;
   --ease:cubic-bezier(.3,1.4,.5,1);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --violet-100:#2A2350; --teal-100:#123A38; --bg:#17142B; --surface:#221E3D; --line:#3A3468; --ink:#F4F1FF; --ink-soft:#B9B3D6; --teal:#3ED6C4;
-}}
-:root[data-theme="dark"]{
-  --violet-100:#2A2350; --teal-100:#123A38; --bg:#17142B; --surface:#221E3D; --line:#3A3468; --ink:#F4F1FF; --ink-soft:#B9B3D6; --teal:#3ED6C4;
 }

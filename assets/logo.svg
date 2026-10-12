@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" width="240" height="64" fill="none">
+  <!-- Símbolo: Libro abierto con destello mágico (Historias Fantásticas) -->
+  <rect x="4" y="6" width="52" height="52" rx="14" fill="#6C4DF6"/>
+  <!-- Páginas del libro -->
+  <path d="M16 42c5-3 10-3 14 0V22c-4-3-9-3-14 0v20Z" fill="#FFFFFF"/>
+  <path d="M44 42c-5-3-10-3-14 0V22c4-3 9-3 14 0v20Z" fill="#F3EFFF"/>
+  <!-- Destello de fantasía / estrella -->
+  <path d="M30 14l1.5 3.5L35 19l-3.5 1.5L30 24l-1.5-3.5L25 19l3.5-1.5L30 14Z" fill="#FFC800"/>
+  <circle cx="21" cy="18" r="1.5" fill="#FFC800"/>
+  <circle cx="39" cy="18" r="1.5" fill="#FFC800"/>
+  <!-- Tipografía del logo -->
+  <text x="68" y="32" font-family="'Baloo 2', 'Nunito', sans-serif" font-size="20" font-weight="800" fill="#231F3D">Historias</text>
+  <text x="68" y="49" font-family="'Baloo 2', 'Nunito', sans-serif" font-size="16" font-weight="700" fill="#6C4DF6">Fantásticas</text>
+</svg>
