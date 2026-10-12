@@ -11,7 +11,7 @@ const $=s=>d.querySelector(s),$$=s=>[...d.querySelectorAll(s)],ck=(n,v)=>console
 ck('5 carruseles',$$('#shelves .shelf').length===5);
 ck('catálogo con 14 libros',$$('#results .book').length===14);
 const eb=$('input[name="f"][value="ebook"]');eb.checked=true;$('#fBody').dispatchEvent(new w.Event('input',{bubbles:true}));
-ck('filtro ebook (13)',$$('#results .book').length===13);
+ck('filtro ebook autorizados (5)',$$('#results .book').length===5);
 $('#clearF').click();ck('limpiar filtros (14)',$$('#results .book').length===14);
 $('a[data-apply="l:corta"]').click();ck('lecturas cortas (4)',$$('#results .book').length===4);
 $('.book .wish').click();ck('wishlist cuenta 1',$('#wishCount').textContent==='1');

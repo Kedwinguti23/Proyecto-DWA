@@ -1,11 +1,40 @@
-// Carga y normaliza el catálogo (data/books.json es la fuente única)
-const price=(b,t)=>{const f=b.formats.find(x=>x.type===t);return f?Number(f.price):0};
-export async function loadCatalog(){
-  const res=await fetch('data/books.json');
-  if(!res.ok)throw new Error('No se pudo cargar el catálogo');
-  const j=await res.json();
-  const books=j.books.map(b=>({id:String(b.id),t:String(b.title),a:String(b.author),p:price(b,'fisico'),e:price(b,'ebook'),
-    bg:b.cover.bg,fg:b.cover.fg,f:(b.isNew?'n':'')+(b.bestseller?'b':''),c:b.collections,d:Number(b.discountPct)||0,
-    g:b.genres,h:b.themes,n:Number(b.pages),mq:[b.quiz.mood,b.quiz.pace]}));
-  return{books,collections:j.collections};
+// Carga y normaliza el catálogo consumiendo la capa desacoplada js/api.js
+import {getBooks, getCollections, getWriters} from './api.js';
+
+export async function loadCatalog() {
+  const [rawBooks, rawCollections, writers] = await Promise.all([
+    getBooks(),
+    getCollections(),
+    getWriters()
+  ]);
+
+  const books = rawBooks.map(b => {
+    return {
+      id: String(b.id),
+      t: String(b.title),
+      a: String(b.author),
+      authorId: b.authorId || '',
+      p: b.physicalPrice,
+      e: b.ebookPrice,
+      bg: b.cover.bg,
+      fg: b.cover.fg,
+      f: (b.isNew ? 'n' : '') + (b.bestseller ? 'b' : '') + (b.featured ? 'f' : ''),
+      c: Array.isArray(b.collections) ? b.collections : (b.collection ? [b.collection] : []),
+      d: Number(b.discountPct) || 0,
+      g: b.genres || [],
+      h: b.themes || [],
+      n: Number(b.pages) || 0,
+      readingTime: Number(b.readingTime) || 0,
+      synopsis: b.synopsis || '',
+      available: b.available !== false,
+      ebookAuthorized: Boolean(b.ebookAuthorized),
+      mq: b.quiz ? [b.quiz.mood, b.quiz.pace] : ['', '']
+    };
+  });
+
+  return {
+    books,
+    collections: rawCollections,
+    writers
+  };
 }

@@ -1,589 +1,496 @@
 {
- "currency": "USD",
- "collections": [
-  {
-   "id": "mundos-por-explorar",
-   "title": "Mundos por explorar",
-   "description": "Aventuras, mapas y lugares que no están en ningún atlas."
-  },
-  {
-   "id": "misterio-de-una-tarde",
-   "title": "Misterio de una tarde",
-   "description": "Historias para leer de una sentada."
-  },
-  {
-   "id": "para-llorar-con-gusto",
-   "title": "Para llorar con gusto",
-   "description": "Emociones fuertes con final amable."
-  },
-  {
-   "id": "lecturas-de-fin-de-semana",
-   "title": "Lecturas de fin de semana",
-   "description": "Libros breves para terminar antes del lunes."
-  }
- ],
- "books": [
-  {
-   "id": "tirnaath-y-los-cuentos-de-un-explorador-moderno",
-   "title": "Tirnaath y los cuentos de un explorador moderno",
-   "author": "Wito Guti",
-   "genres": [
-    "aventura",
-    "fantasía"
-   ],
-   "themes": [
-    "exploración",
-    "misterio"
-   ],
-   "pages": 384,
-   "readingMinutes": 500,
-   "formats": [
+  "currency": "USD",
+  "collections": [
     {
-     "type": "fisico",
-     "price": 22.9
+      "id": "mundos-por-explorar",
+      "name": "Mundos por explorar",
+      "slogan": "Aventuras, mapas y lugares que no están en ningún atlas.",
+      "bookIds": [
+        "tirnaath-y-los-cuentos-de-un-explorador-moderno",
+        "el-cartografo-de-nubes",
+        "manual-para-perderse-bien",
+        "atlas-de-islas-imposibles"
+      ]
     },
     {
-     "type": "ebook",
-     "price": 9.9
-    }
-   ],
-   "collections": [
-    "mundos-por-explorar"
-   ],
-   "cover": {
-    "bg": "#2B1B7A",
-    "fg": "#FFC800"
-   },
-   "synopsis": "Una noche apareció en el mapa una península que no existía: Tirnaath. Nadie ha podido explorarla, y Aymeri Beaumont está decidido a ser el primero.",
-   "quiz": {
-    "mood": "aventura",
-    "pace": "pausado"
-   },
-   "isNew": true,
-   "bestseller": true,
-   "featured": true,
-   "discountPct": 0
-  },
-  {
-   "id": "la-casa-de-los-espejos",
-   "title": "La casa de los espejos",
-   "author": "Lucía Ferrer",
-   "genres": [
-    "misterio"
-   ],
-   "themes": [
-    "secretos",
-    "familia"
-   ],
-   "pages": 296,
-   "readingMinutes": 385,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 18.9
+      "id": "misterio-de-una-tarde",
+      "name": "Misterio de una tarde",
+      "slogan": "Historias fascinantes para leer y resolver de una sola sentada.",
+      "bookIds": [
+        "la-casa-de-los-espejos",
+        "ultima-estacion-nunca",
+        "los-relojes-de-valdemar",
+        "tres-cuentos-y-una-tormenta"
+      ]
     },
     {
-     "type": "ebook",
-     "price": 8.5
-    }
-   ],
-   "collections": [
-    "misterio-de-una-tarde"
-   ],
-   "cover": {
-    "bg": "#6C4DF6",
-    "fg": "#FFFFFF"
-   },
-   "synopsis": "Cada espejo de la casa refleja una habitación que ya no existe. Clara heredó las llaves y una pregunta: ¿quién vive en los reflejos?",
-   "quiz": {
-    "mood": "misterio",
-    "pace": "rapido"
-   },
-   "isNew": false,
-   "bestseller": true,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "cien-noches-de-lluvia",
-   "title": "Cien noches de lluvia",
-   "author": "Mateo Argueta",
-   "genres": [
-    "romance",
-    "drama"
-   ],
-   "themes": [
-    "duelo",
-    "esperanza"
-   ],
-   "pages": 240,
-   "readingMinutes": 310,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 16.5
+      "id": "para-llorar-con-gusto",
+      "name": "Para llorar con gusto",
+      "slogan": "Emociones profundas, despedidas y reencuentros con final amable.",
+      "bookIds": [
+        "cien-noches-de-lluvia",
+        "cartas-al-faro",
+        "el-invierno-de-las-abejas"
+      ]
     },
     {
-     "type": "ebook",
-     "price": 7.5
+      "id": "lecturas-de-fin-de-semana",
+      "name": "Lecturas de fin de semana",
+      "slogan": "Libros breves y cautivadores para terminar antes de que llegue el lunes.",
+      "bookIds": [
+        "recetas-para-olvidar",
+        "manual-para-perderse-bien",
+        "pequenas-ciencias-del-asombro",
+        "bitacora-de-un-insomne"
+      ]
     }
-   ],
-   "collections": [
-    "para-llorar-con-gusto"
-   ],
-   "cover": {
-    "bg": "#0E8F82",
-    "fg": "#FFFFFF"
-   },
-   "synopsis": "Tras una pérdida, Nora escribe una carta por cada noche de lluvia. La cien no llegará a quien ella cree.",
-   "quiz": {
-    "mood": "emotivo",
-    "pace": "pausado"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "recetas-para-olvidar",
-   "title": "Recetas para olvidar",
-   "author": "Ana Beltrán",
-   "genres": [
-    "humor",
-    "novela corta"
-   ],
-   "themes": [
-    "cocina",
-    "desamor"
-   ],
-   "pages": 148,
-   "readingMinutes": 190,
-   "formats": [
+  ],
+  "writers": [
     {
-     "type": "fisico",
-     "price": 12
+      "id": "marta-olmos",
+      "name": "Marta Olmos",
+      "bio": "Autora emergente y apasionada de la cartografía imaginaria. Explora geografías imposibles y naufragios poéticos en su literatura de viajes y fantasía.",
+      "bookIds": [
+        "atlas-de-islas-imposibles"
+      ]
     },
     {
-     "type": "ebook",
-     "price": 5.9
-    }
-   ],
-   "collections": [
-    "lecturas-de-fin-de-semana"
-   ],
-   "cover": {
-    "bg": "#C2410C",
-    "fg": "#FFFFFF"
-   },
-   "synopsis": "Un recetario que empezó como terapia y terminó en el negocio más inesperado del barrio.",
-   "quiz": {
-    "mood": "humor",
-    "pace": "rapido"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 20
-  },
-  {
-   "id": "el-cartografo-de-nubes",
-   "title": "El cartógrafo de nubes",
-   "author": "Sofía Quintanilla",
-   "genres": [
-    "fantasía"
-   ],
-   "themes": [
-    "mapas",
-    "viajes"
-   ],
-   "pages": 412,
-   "readingMinutes": 535,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 24.9
+      "id": "wito-guti",
+      "name": "Wito Guti",
+      "bio": "Cronista de mundos lejanos y narrador de aventuras modernas. Su obra construye universos con mitologías propias inspiradas en antiguos exploradores.",
+      "bookIds": [
+        "tirnaath-y-los-cuentos-de-un-explorador-moderno"
+      ]
     },
     {
-     "type": "ebook",
-     "price": 10.9
+      "id": "ana-beltran",
+      "name": "Ana Beltrán",
+      "bio": "Escritora de ficción contemporánea y humor cotidiano. Combina el arte culinario y las relaciones humanas en narraciones cálidas y ágiles.",
+      "bookIds": [
+        "recetas-para-olvidar"
+      ]
     }
-   ],
-   "collections": [
-    "mundos-por-explorar"
-   ],
-   "cover": {
-    "bg": "#1CB0F6",
-    "fg": "#231F3D"
-   },
-   "synopsis": "Hay quien dibuja montañas y hay quien dibuja lo que flota sobre ellas. Iri hará el primer mapa del cielo.",
-   "quiz": {
-    "mood": "aventura",
-    "pace": "pausado"
-   },
-   "isNew": true,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "ultima-estacion-nunca",
-   "title": "Última estación: Nunca",
-   "author": "Diego Romero",
-   "genres": [
-    "thriller",
-    "misterio"
-   ],
-   "themes": [
-    "trenes",
-    "identidad"
-   ],
-   "pages": 328,
-   "readingMinutes": 425,
-   "formats": [
+  ],
+  "books": [
     {
-     "type": "fisico",
-     "price": 19.5
+      "id": "tirnaath-y-los-cuentos-de-un-explorador-moderno",
+      "title": "Tirnaath y los cuentos de un explorador moderno",
+      "author": "Wito Guti",
+      "authorId": "wito-guti",
+      "genres": ["aventura", "fantasía"],
+      "themes": ["exploración", "misterio"],
+      "pages": 384,
+      "readingTime": 500,
+      "collection": "mundos-por-explorar",
+      "collections": ["mundos-por-explorar"],
+      "available": true,
+      "ebookAuthorized": true,
+      "formats": {
+        "physical": { "price": 22.9 },
+        "ebook": { "price": 9.9 }
+      },
+      "cover": {
+        "bg": "#2B1B7A",
+        "fg": "#FFC800"
+      },
+      "synopsis": "Una noche apareció en el mapa una península que no existía: Tirnaath. Nadie ha podido explorarla, y Aymeri Beaumont está decidido a ser el primero.",
+      "quiz": {
+        "mood": "aventura",
+        "pace": "pausado"
+      },
+      "isNew": true,
+      "bestseller": true,
+      "featured": true
     },
     {
-     "type": "ebook",
-     "price": 8.9
-    }
-   ],
-   "collections": [
-    "misterio-de-una-tarde"
-   ],
-   "cover": {
-    "bg": "#231F3D",
-    "fg": "#FFC800"
-   },
-   "synopsis": "Un tren sin paradas y un pasajero que no recuerda haberse subido. Quedan cinco vagones para descubrir por qué.",
-   "quiz": {
-    "mood": "misterio",
-    "pace": "rapido"
-   },
-   "isNew": false,
-   "bestseller": true,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "manual-para-perderse-bien",
-   "title": "Manual para perderse bien",
-   "author": "Camila Rojas",
-   "genres": [
-    "ensayo",
-    "viajes"
-   ],
-   "themes": [
-    "exploración",
-    "calma"
-   ],
-   "pages": 132,
-   "readingMinutes": 170,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 11.9
+      "id": "la-casa-de-los-espejos",
+      "title": "La casa de los espejos",
+      "author": "Lucía Ferrer",
+      "authorId": "lucia-ferrer",
+      "genres": ["misterio"],
+      "themes": ["secretos", "familia"],
+      "pages": 296,
+      "readingTime": 385,
+      "collection": "misterio-de-una-tarde",
+      "collections": ["misterio-de-una-tarde"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 18.9 }
+      },
+      "cover": {
+        "bg": "#6C4DF6",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Cada espejo de la casa refleja una habitación que ya no existe. Clara heredó las llaves y una pregunta: ¿quién vive en los reflejos?",
+      "quiz": {
+        "mood": "misterio",
+        "pace": "rapido"
+      },
+      "isNew": false,
+      "bestseller": true,
+      "featured": false
     },
     {
-     "type": "ebook",
-     "price": 5.5
-    }
-   ],
-   "collections": [
-    "lecturas-de-fin-de-semana",
-    "mundos-por-explorar"
-   ],
-   "cover": {
-    "bg": "#FFC800",
-    "fg": "#231F3D"
-   },
-   "synopsis": "Ensayos breves sobre caminar sin destino, cambiar de ruta y volver distinto.",
-   "quiz": {
-    "mood": "reflexivo",
-    "pace": "pausado"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "cartas-al-faro",
-   "title": "Cartas al faro",
-   "author": "Elena Vidal",
-   "genres": [
-    "romance",
-    "epistolar"
-   ],
-   "themes": [
-    "mar",
-    "memoria"
-   ],
-   "pages": 176,
-   "readingMinutes": 230,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 14.9
+      "id": "cien-noches-de-lluvia",
+      "title": "Cien noches de lluvia",
+      "author": "Mateo Argueta",
+      "authorId": "mateo-argueta",
+      "genres": ["romance", "drama"],
+      "themes": ["duelo", "esperanza"],
+      "pages": 240,
+      "readingTime": 310,
+      "collection": "para-llorar-con-gusto",
+      "collections": ["para-llorar-con-gusto"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 16.5 }
+      },
+      "cover": {
+        "bg": "#0B7A6E",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Tras una pérdida, Nora escribe una carta por cada noche de lluvia. La cien no llegará a quien ella cree.",
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
     },
     {
-     "type": "ebook",
-     "price": 6.9
-    }
-   ],
-   "collections": [
-    "para-llorar-con-gusto"
-   ],
-   "cover": {
-    "bg": "#0B5A8F",
-    "fg": "#FFFFFF"
-   },
-   "synopsis": "Durante un invierno, dos desconocidos se escriben a través de un faro que ya no funciona.",
-   "quiz": {
-    "mood": "emotivo",
-    "pace": "pausado"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "los-relojes-de-valdemar",
-   "title": "Los relojes de Valdemar",
-   "author": "Andrés Solís",
-   "genres": [
-    "ciencia ficción"
-   ],
-   "themes": [
-    "tiempo",
-    "tecnología"
-   ],
-   "pages": 360,
-   "readingMinutes": 470,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 21
+      "id": "recetas-para-olvidar",
+      "title": "Recetas para olvidar",
+      "author": "Ana Beltrán",
+      "authorId": "ana-beltran",
+      "genres": ["humor", "novela corta"],
+      "themes": ["cocina", "desamor"],
+      "pages": 148,
+      "readingTime": 190,
+      "collection": "lecturas-de-fin-de-semana",
+      "collections": ["lecturas-de-fin-de-semana"],
+      "available": true,
+      "ebookAuthorized": true,
+      "offer": {
+        "percent": 20,
+        "start": "2026-01-01",
+        "end": "2026-12-31"
+      },
+      "formats": {
+        "physical": { "price": 12.0 },
+        "ebook": { "price": 5.9 }
+      },
+      "cover": {
+        "bg": "#C2410C",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Un recetario que empezó como terapia y terminó en el negocio más inesperado del barrio.",
+      "quiz": {
+        "mood": "humor",
+        "pace": "rapido"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
     },
     {
-     "type": "ebook",
-     "price": 9.5
-    }
-   ],
-   "collections": [
-    "misterio-de-una-tarde"
-   ],
-   "cover": {
-    "bg": "#4A2FCB",
-    "fg": "#FFFFFF"
-   },
-   "synopsis": "En Valdemar, cada reloj marca un tiempo distinto. Cuando uno se detiene, alguien desaparece.",
-   "quiz": {
-    "mood": "aventura",
-    "pace": "rapido"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "pequenas-ciencias-del-asombro",
-   "title": "Pequeñas ciencias del asombro",
-   "author": "Ramiro Paz",
-   "genres": [
-    "divulgación"
-   ],
-   "themes": [
-    "ciencia",
-    "curiosidad"
-   ],
-   "pages": 208,
-   "readingMinutes": 270,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 17.9
+      "id": "el-cartografo-de-nubes",
+      "title": "El cartógrafo de nubes",
+      "author": "Sofía Quintanilla",
+      "authorId": "sofia-quintanilla",
+      "genres": ["fantasía"],
+      "themes": ["mapas", "viajes"],
+      "pages": 412,
+      "readingTime": 535,
+      "collection": "mundos-por-explorar",
+      "collections": ["mundos-por-explorar"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 24.9 }
+      },
+      "cover": {
+        "bg": "#1CB0F6",
+        "fg": "#231F3D"
+      },
+      "synopsis": "Hay quien dibuja montañas y hay quien dibuja lo que flota sobre ellas. Iri hará el primer mapa del cielo.",
+      "quiz": {
+        "mood": "aventura",
+        "pace": "pausado"
+      },
+      "isNew": true,
+      "bestseller": false,
+      "featured": false
     },
     {
-     "type": "ebook",
-     "price": 7.9
-    }
-   ],
-   "collections": [
-    "lecturas-de-fin-de-semana"
-   ],
-   "cover": {
-    "bg": "#19C3B1",
-    "fg": "#231F3D"
-   },
-   "synopsis": "Cuarenta preguntas cotidianas, desde por qué llueve hasta por qué bostezamos, respondidas con ejemplos.",
-   "quiz": {
-    "mood": "reflexivo",
-    "pace": "pausado"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "tres-cuentos-y-una-tormenta",
-   "title": "Tres cuentos y una tormenta",
-   "author": "Nora Salgado",
-   "genres": [
-    "cuentos"
-   ],
-   "themes": [
-    "naturaleza",
-    "suspenso"
-   ],
-   "pages": 112,
-   "readingMinutes": 145,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 10.5
+      "id": "ultima-estacion-nunca",
+      "title": "Última estación: Nunca",
+      "author": "Diego Romero",
+      "authorId": "diego-romero",
+      "genres": ["thriller", "misterio"],
+      "themes": ["trenes", "identidad"],
+      "pages": 328,
+      "readingTime": 425,
+      "collection": "misterio-de-una-tarde",
+      "collections": ["misterio-de-una-tarde"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 19.5 }
+      },
+      "cover": {
+        "bg": "#231F3D",
+        "fg": "#FFC800"
+      },
+      "synopsis": "Un tren sin paradas y un pasajero que no recuerda haberse subido. Quedan cinco vagones para descubrir por qué.",
+      "quiz": {
+        "mood": "misterio",
+        "pace": "rapido"
+      },
+      "isNew": false,
+      "bestseller": true,
+      "featured": false
     },
     {
-     "type": "ebook",
-     "price": 4.9
-    }
-   ],
-   "collections": [
-    "lecturas-de-fin-de-semana",
-    "misterio-de-una-tarde"
-   ],
-   "cover": {
-    "bg": "#DF382C",
-    "fg": "#FFFFFF"
-   },
-   "synopsis": "Tres relatos que suceden a la vez, bajo la misma tormenta, en tres casas distintas.",
-   "quiz": {
-    "mood": "misterio",
-    "pace": "rapido"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "el-invierno-de-las-abejas",
-   "title": "El invierno de las abejas",
-   "author": "Julia Mendoza",
-   "genres": [
-    "drama"
-   ],
-   "themes": [
-    "naturaleza",
-    "familia"
-   ],
-   "pages": 264,
-   "readingMinutes": 345,
-   "formats": [
-    {
-     "type": "fisico",
-     "price": 17.5
+      "id": "manual-para-perderse-bien",
+      "title": "Manual para perderse bien",
+      "author": "Camila Rojas",
+      "authorId": "camila-rojas",
+      "genres": ["ensayo", "viajes"],
+      "themes": ["exploración", "calma"],
+      "pages": 132,
+      "readingTime": 170,
+      "collection": "lecturas-de-fin-de-semana",
+      "collections": ["lecturas-de-fin-de-semana", "mundos-por-explorar"],
+      "available": true,
+      "ebookAuthorized": true,
+      "formats": {
+        "physical": { "price": 11.9 },
+        "ebook": { "price": 5.5 }
+      },
+      "cover": {
+        "bg": "#FFC800",
+        "fg": "#231F3D"
+      },
+      "synopsis": "Ensayos breves sobre caminar sin destino, cambiar de ruta y volver distinto.",
+      "quiz": {
+        "mood": "reflexivo",
+        "pace": "pausado"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
     },
     {
-     "type": "ebook",
-     "price": 7.5
-    }
-   ],
-   "collections": [
-    "para-llorar-con-gusto"
-   ],
-   "cover": {
-    "bg": "#F2A900",
-    "fg": "#231F3D"
-   },
-   "synopsis": "Cuando las colmenas del abuelo enmudecen, tres generaciones se reúnen por primera vez en años.",
-   "quiz": {
-    "mood": "emotivo",
-    "pace": "pausado"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "bitacora-de-un-insomne",
-   "title": "Bitácora de un insomne",
-   "author": "Iván Cortés",
-   "genres": [
-    "humor",
-    "ensayo"
-   ],
-   "themes": [
-    "noche",
-    "vida cotidiana"
-   ],
-   "pages": 144,
-   "readingMinutes": 185,
-   "formats": [
+      "id": "cartas-al-faro",
+      "title": "Cartas al faro",
+      "author": "Elena Vidal",
+      "authorId": "elena-vidal",
+      "genres": ["romance", "epistolar"],
+      "themes": ["mar", "memoria"],
+      "pages": 176,
+      "readingTime": 230,
+      "collection": "para-llorar-con-gusto",
+      "collections": ["para-llorar-con-gusto"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 14.9 }
+      },
+      "cover": {
+        "bg": "#0B5A8F",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Durante un invierno, dos desconocidos se escriben a través de un faro que ya no funciona.",
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
     {
-     "type": "ebook",
-     "price": 4.5
-    }
-   ],
-   "collections": [
-    "lecturas-de-fin-de-semana"
-   ],
-   "cover": {
-    "bg": "#7A5CFA",
-    "fg": "#FFFFFF"
-   },
-   "synopsis": "Reflexiones de madrugada sobre todo lo que no debería pensarse a las tres de la mañana.",
-   "quiz": {
-    "mood": "humor",
-    "pace": "rapido"
-   },
-   "isNew": false,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  },
-  {
-   "id": "atlas-de-islas-imposibles",
-   "title": "Atlas de islas imposibles",
-   "author": "Marta Olmos",
-   "genres": [
-    "ilustrado",
-    "aventura"
-   ],
-   "themes": [
-    "mapas",
-    "imaginación"
-   ],
-   "pages": 190,
-   "readingMinutes": 245,
-   "formats": [
+      "id": "los-relojes-de-valdemar",
+      "title": "Los relojes de Valdemar",
+      "author": "Andrés Solís",
+      "authorId": "andres-solis",
+      "genres": ["ciencia ficción"],
+      "themes": ["tiempo", "tecnología"],
+      "pages": 360,
+      "readingTime": 470,
+      "collection": "misterio-de-una-tarde",
+      "collections": ["misterio-de-una-tarde"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 21.0 }
+      },
+      "cover": {
+        "bg": "#4A2FCB",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "En Valdemar, cada reloj marca un tiempo distinto. Cuando uno se detiene, alguien desaparece.",
+      "quiz": {
+        "mood": "aventura",
+        "pace": "rapido"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
     {
-     "type": "fisico",
-     "price": 26
+      "id": "pequenas-ciencias-del-asombro",
+      "title": "Pequeñas ciencias del asombro",
+      "author": "Ramiro Paz",
+      "authorId": "ramiro-paz",
+      "genres": ["divulgación"],
+      "themes": ["ciencia", "curiosidad"],
+      "pages": 208,
+      "readingTime": 270,
+      "collection": "lecturas-de-fin-de-semana",
+      "collections": ["lecturas-de-fin-de-semana"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 17.9 }
+      },
+      "cover": {
+        "bg": "#19C3B1",
+        "fg": "#231F3D"
+      },
+      "synopsis": "Cuarenta preguntas cotidianas, desde por qué llueve hasta por qué bostezamos, respondidas con ejemplos.",
+      "quiz": {
+        "mood": "reflexivo",
+        "pace": "pausado"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "tres-cuentos-y-una-tormenta",
+      "title": "Tres cuentos y una tormenta",
+      "author": "Nora Salgado",
+      "authorId": "nora-salgado",
+      "genres": ["cuentos"],
+      "themes": ["naturaleza", "suspenso"],
+      "pages": 112,
+      "readingTime": 145,
+      "collection": "lecturas-de-fin-de-semana",
+      "collections": ["lecturas-de-fin-de-semana", "misterio-de-una-tarde"],
+      "available": false,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 10.5 }
+      },
+      "cover": {
+        "bg": "#D32F24",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Tres relatos que suceden a la vez, bajo la misma tormenta, en tres casas distintas. (Ejemplo de libro agotado).",
+      "quiz": {
+        "mood": "misterio",
+        "pace": "rapido"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "el-invierno-de-las-abejas",
+      "title": "El invierno de las abejas",
+      "author": "Julia Mendoza",
+      "authorId": "julia-mendoza",
+      "genres": ["drama"],
+      "themes": ["naturaleza", "familia"],
+      "pages": 264,
+      "readingTime": 345,
+      "collection": "para-llorar-con-gusto",
+      "collections": ["para-llorar-con-gusto"],
+      "available": true,
+      "ebookAuthorized": false,
+      "offer": {
+        "percent": 15,
+        "start": "2025-01-01",
+        "end": "2025-02-01"
+      },
+      "formats": {
+        "physical": { "price": 17.5 }
+      },
+      "cover": {
+        "bg": "#F2A900",
+        "fg": "#231F3D"
+      },
+      "synopsis": "Cuando las colmenas del abuelo enmudecen, tres generaciones se reúnen por primera vez en años. (Ejemplo con oferta vencida que vuelve a su precio normal).",
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "bitacora-de-un-insomne",
+      "title": "Bitácora de un insomne",
+      "author": "Iván Cortés",
+      "authorId": "ivan-cortes",
+      "genres": ["humor", "ensayo"],
+      "themes": ["noche", "vida cotidiana"],
+      "pages": 144,
+      "readingTime": 185,
+      "collection": "lecturas-de-fin-de-semana",
+      "collections": ["lecturas-de-fin-de-semana"],
+      "available": true,
+      "ebookAuthorized": true,
+      "formats": {
+        "ebook": { "price": 4.5 }
+      },
+      "cover": {
+        "bg": "#7A5CFA",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Reflexiones de madrugada sobre todo lo que no debería pensarse a las tres de la mañana.",
+      "quiz": {
+        "mood": "humor",
+        "pace": "rapido"
+      },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "atlas-de-islas-imposibles",
+      "title": "Atlas de islas imposibles",
+      "author": "Marta Olmos",
+      "authorId": "marta-olmos",
+      "genres": ["ilustrado", "aventura"],
+      "themes": ["mapas", "imaginación"],
+      "pages": 190,
+      "readingTime": 245,
+      "collection": "mundos-por-explorar",
+      "collections": ["mundos-por-explorar"],
+      "available": true,
+      "ebookAuthorized": true,
+      "formats": {
+        "physical": { "price": 26.0 },
+        "ebook": { "price": 11.5 }
+      },
+      "cover": {
+        "bg": "#0B7A6E",
+        "fg": "#FFC800"
+      },
+      "synopsis": "Cuarenta islas que nunca existieron, con sus mapas, su historia y la mejor manera de naufragar en ellas.",
+      "quiz": {
+        "mood": "aventura",
+        "pace": "pausado"
+      },
+      "isNew": true,
+      "bestseller": false,
+      "featured": false
     }
-   ],
-   "collections": [
-    "mundos-por-explorar"
-   ],
-   "cover": {
-    "bg": "#0E8F82",
-    "fg": "#FFC800"
-   },
-   "synopsis": "Cuarenta islas que nunca existieron, con sus mapas, su historia y la mejor manera de naufragar en ellas.",
-   "quiz": {
-    "mood": "aventura",
-    "pace": "pausado"
-   },
-   "isNew": true,
-   "bestseller": false,
-   "featured": false,
-   "discountPct": 0
-  }
- ]
+  ]
 }
