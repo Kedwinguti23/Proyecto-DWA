@@ -36,6 +36,7 @@ export function initCart(D) {
     }
     items.forEach(l => {
       const b = byId[l.i], row = el('article', 'line'), cv = el('div', 'line__cover'); cv.style.background = b.bg; cv.setAttribute('aria-hidden', 'true');
+      if(b.img){const im=el('img');im.src=b.img;im.alt='';im.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block';cv.append(im)}
       const info = el('div'), seg = el('div', 'seg'); info.append(el('h3', null, b.t), el('p', 'book__author', b.a));
       seg.setAttribute('role', 'group'); seg.setAttribute('aria-label', 'Formato de ' + b.t);
       [['fisico', 'Físico', b.p], ['ebook', 'Ebook', b.e]].filter(x => x[2]).forEach(([f, lb]) => { const s = el('button', null, lb); s.dataset.k = l.i + f; s.setAttribute('aria-pressed', l.fmt === f); s.onclick = () => setFmt(l, f); seg.append(s) });
