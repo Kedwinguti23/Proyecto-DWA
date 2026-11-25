@@ -63,6 +63,9 @@ dialog.drawer::backdrop{background:rgb(35 31 61/.55)}
 #cBody,#wBody{flex:1;overflow:auto;display:grid;align-content:start;gap:var(--s3)}
 .line{display:grid;grid-template-columns:3.5rem 1fr auto;gap:var(--s3);padding:var(--s3);border:2px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
 .line__cover{aspect-ratio:2/3;border-radius:6px;box-shadow:inset 5px 0 0 rgb(0 0 0/.2)}
+.line__cover--image{padding:0;overflow:hidden;box-shadow:none}
+.line__cover--image img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+button.line__cover{border:0;padding:0;cursor:pointer}
 .line h3{font-size:1rem}
 .line .book__author{margin:0}
 .seg{display:inline-flex;gap:4px;margin-top:var(--s2);flex-wrap:wrap}
@@ -136,6 +139,10 @@ dialog.order-dlg section{padding:var(--s5);overflow:auto}
 .order-consent{display:flex;gap:var(--s2);align-items:flex-start;font-size:.88rem;margin-bottom:var(--s4)}
 .order-consent input{margin-top:.2rem;accent-color:var(--violet)}
 .order-submit{width:100%;justify-content:center}
+.order-privacy{margin-bottom:var(--s4);border:2px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
+.order-privacy summary{padding:var(--s3) var(--s4);cursor:pointer;font-weight:700;color:var(--violet)}
+.order-privacy p{padding:0 var(--s4) var(--s3);font-size:.85rem;color:var(--ink-soft)}
+.order-field [aria-invalid="true"],.order-consent input[aria-invalid="true"]{outline:3px solid var(--coral);outline-offset:2px}
 /* Pantalla de confirmación */
 .order-confirm{
   display:grid;
@@ -190,6 +197,8 @@ dialog.order-dlg section{padding:var(--s5);overflow:auto}
 .news .consent{display:flex;gap:var(--s2);align-items:flex-start;text-align:left;font-size:.85rem}
 .news .consent input{margin-top:.25rem;accent-color:var(--sun)}
 .news__msg{min-height:1.5rem;margin:0;font-weight:700}
+.news__legal{font-size:.8rem;color:#fff}
+.news__legal a{color:var(--sun);font-weight:700}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .foot{margin-top:var(--s7);padding-block:var(--s7) var(--s6);border-top:2px solid var(--line)}
 .foot__grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:var(--s6)}
@@ -206,3 +215,7 @@ dialog.order-dlg section{padding:var(--s5);overflow:auto}
 .contact-card__icon{font-size:1.8rem;line-height:1;flex-shrink:0}
 .contact-card h3{font-size:1rem;margin-bottom:var(--s1)}
 .contact-card p{margin:0;color:var(--ink-soft);font-size:.95rem;line-height:1.5}
+
+/* ── Aviso de privacidad (RNF10) ───────────────────────────── */
+.legal{display:grid;gap:var(--s3);margin-top:var(--s5);max-width:760px;padding:var(--s5);border:2px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
+.legal p{margin:0}

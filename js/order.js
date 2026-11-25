@@ -8,12 +8,14 @@ export function initOrder() {
   const dlg = $('#orderDlg');
   if (!dlg) return;
 
-  const form       = $('#orderForm');
-  const summary    = $('#orderSummary');
-  const confirm    = $('#orderConfirm');
-  const errBox     = $('#orderErr');
-  const deliveryRa = () => [...document.querySelectorAll('input[name="deliveryType"]')];
-  const addrWrap   = $('#addrWrap');
+  const form        = $('#orderForm');
+  const summary     = $('#orderSummary');
+  const confirm     = $('#orderConfirm');
+  const errBox      = $('#orderErr');
+  const confirmWa   = $('#confirmWa');
+  const confirmHint = $('#confirmHint');
+  const deliveryRa  = () => [...document.querySelectorAll('input[name="deliveryType"]')];
+  const addrWrap    = $('#addrWrap');
 
   // Mostrar/ocultar campo de dirección según forma de entrega
   dlg.addEventListener('change', e => {
@@ -24,11 +26,54 @@ export function initOrder() {
     }
   });
 
-  // Renderizar resumen del carrito cada vez que se abre el diálogo
+  // Limpiar el error de un campo en cuanto se corrige
+  form.addEventListener('input', clearFieldError);
+  form.addEventListener('change', clearFieldError);
+  function clearFieldError(e) {
+    if (e.target.hasAttribute('aria-invalid')) {
+      e.target.removeAttribute('aria-invalid');
+      errBox.textContent = '';
+    }
+  }
+
+  // Validación en el cliente (RF09). La API vuelve a validar por su lado.
+  function validate(items, delivery) {
+    const errors = [];
+    form.querySelectorAll('[aria-invalid]').forEach(x => x.removeAttribute('aria-invalid'));
+
+    const required = (input, msg) => {
+      if (!input.value.trim()) {
+        input.setAttribute('aria-invalid', 'true');
+        errors.push(msg);
+      }
+    };
+
+    required($('#orderName'), 'Escribe tu nombre completo.');
+
+    const digits = $('#orderPhone').value.replace(/\D/g, '');
+    if (digits.length < 8 || digits.length > 15) {
+      $('#orderPhone').setAttribute('aria-invalid', 'true');
+      errors.push('Escribe un teléfono válido (entre 8 y 15 dígitos).');
+    }
+
+    if (!['retiro', 'envio'].includes(delivery)) {
+      errors.push('Elige una forma de entrega.');
+    } else if (delivery === 'envio') {
+      required($('#orderAddress'), 'Escribe la dirección de entrega.');
+    }
+
+    if (!$('#orderPrivacy').checked) {
+      $('#orderPrivacy').setAttribute('aria-invalid', 'true');
+      errors.push('Debes aceptar el aviso de privacidad.');
+    }
+
+    if (!items.length) errors.push('Tu carrito está vacío.');
+    return errors;
+  }
+
+  // Cerrar con click fuera o con el botón (Esc queda disponible)
   dlg.addEventListener('click', e => { if (e.target === dlg) closeOrder(); });
   $('#orderClose').onclick = closeOrder;
-
-  dlg.addEventListener('cancel', e => e.preventDefault()); // evitar Esc sin confirmación
 
   function closeOrder() {
     dlg.close();
@@ -37,8 +82,10 @@ export function initOrder() {
     summary.hidden = false;
     errBox.textContent = '';
     form.reset();
+    form.querySelectorAll('[aria-invalid]').forEach(x => x.removeAttribute('aria-invalid'));
     addrWrap.hidden = true;
     $('#orderAddress').required = false;
+    if (confirmWa) { confirmWa.hidden = true; confirmWa.removeAttribute('href'); }
   }
 
   // Renderizar resumen lateral antes de abrir
@@ -48,7 +95,6 @@ export function initOrder() {
     const items = cart.getItems();
     if (!items.length) return;
 
-    // Renderizar resumen
     summary.replaceChildren();
     const ul = el('ul', 'order-summary__list');
     items.forEach(it => {
@@ -69,26 +115,34 @@ export function initOrder() {
   // Envío del formulario
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    errBox.textContent = '';
+
+    const cart = window.__cart;
+    const items = cart ? cart.getItems() : [];
+    const delivery = deliveryRa().find(r => r.checked)?.value || 'retiro';
+
+    const errors = validate(items, delivery);
+    if (errors.length) {
+      errBox.textContent = errors.join(' ');
+      form.querySelector('[aria-invalid="true"]')?.focus();
+      return;
+    }
+
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
     btn.textContent = 'Enviando…';
 
     try {
-      const cart = window.__cart;
-      const items = cart.getItems();
-      const delivery = deliveryRa().find(r => r.checked)?.value || 'retiro';
-
       const orderInput = {
-        customerName:  form.orderName.value.trim(),
-        customerPhone: form.orderPhone.value.trim(),
+        customerName:  $('#orderName').value.trim(),
+        customerPhone: $('#orderPhone').value.trim(),
         deliveryType:  delivery,
-        address:       delivery === 'envio' ? form.orderAddress.value.trim() : '',
-        notes:         form.orderNotes.value.trim(),
+        address:       delivery === 'envio' ? $('#orderAddress').value.trim() : '',
+        notes:         $('#orderNotes').value.trim(),
         items:         items.map(it => ({id: it.id, format: it.format, qty: it.qty, price: it.price})),
         total:         cart.total()
       };
 
+      // La API recalcula precios y valida disponibilidad; el total de aquí es orientativo.
       const order = await createOrder(orderInput);
 
       // Abrir WhatsApp con mensaje prellenado
@@ -102,9 +156,20 @@ export function initOrder() {
         items:        order.items,
         total:        order.total
       });
-      window.open(`${CONFIG.whatsapp.link}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      const waUrl = `${CONFIG.whatsapp.link}?text=${encodeURIComponent(msg)}`;
+      const popup = window.open(waUrl, '_blank');
+      if (popup) popup.opener = null;
 
-      // Vaciar carrito
+      if (confirmWa) {
+        confirmWa.href = waUrl;
+        confirmWa.hidden = Boolean(popup);
+      }
+      if (confirmHint) {
+        confirmHint.textContent = popup
+          ? 'Se abrió WhatsApp con el resumen. Coordinaremos el pago y la entrega por chat.'
+          : 'Si no se abrió WhatsApp, abre el enlace de abajo para continuar.';
+      }
+
       cart.clear();
 
       // Pantalla de confirmación
@@ -121,6 +186,5 @@ export function initOrder() {
     }
   });
 
-  // Cierre del diálogo desde la pantalla de confirmación
   $('#confirmClose').onclick = () => { closeOrder(); dlg.close(); };
 }

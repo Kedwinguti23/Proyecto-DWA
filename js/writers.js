@@ -1,5 +1,4 @@
 import {$, el} from './utils.js';
-import {CONFIG} from './config.js';
 import {openBookDetail} from './cards.js';
 
 export function initWriters(writers, books) {
@@ -23,7 +22,7 @@ export function initWriters(writers, books) {
     const titleBox = el('div');
     const h3 = el('h3', null, w.name);
     h3.style.margin = '0';
-    const tag = el('span', 'tag', 'Autor emergente');
+    const tag = el('span', 'tag', w.emerging ? 'Autor emergente' : 'Autor del catálogo');
     titleBox.append(h3, tag);
     head.append(avatar, titleBox);
 
@@ -57,13 +56,4 @@ export function initWriters(writers, books) {
     cardEl.append(head, bio, booksBox);
     container.append(cardEl);
   });
-
-  // Botón para publicar obra (WhatsApp)
-  const callToAction = $('#writerPublishBtn');
-  if (callToAction) {
-    const textMsg = encodeURIComponent(CONFIG.whatsappMessages.writerPublish);
-    callToAction.href = `https://wa.me/${CONFIG.whatsapp.raw}?text=${textMsg}`;
-    callToAction.target = '_blank';
-    callToAction.rel = 'noopener noreferrer';
-  }
 }

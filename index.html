@@ -9,15 +9,18 @@
 <link rel="preload" href="assets/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://historiasfantasticas.example/">
+<meta name="hf-site-url" content="https://historiasfantasticas.example">
 <meta name="theme-color" content="#6C4DF6">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Historias Fantásticas"><meta property="og:locale" content="es_SV">
 <meta property="og:title" content="Historias Fantásticas | Librería en San Miguel, El Salvador"><meta property="og:url" content="https://historiasfantasticas.example/">
 <meta property="og:description" content="Librería Historias Fantásticas en San Miguel, El Salvador. Libros físicos y ebooks para descubrir tu próxima lectura.">
 <meta name="twitter:card" content="summary_large_image">
-<!-- PENDIENTE: og:image definitiva cuando el cliente apruebe el diseño final -->
+<!-- Imagen provisional aprobada para la Fase 1; el dominio se ajusta en CONFIG (P06) -->
 <meta property="og:image" content="https://historiasfantasticas.example/assets/og-cover.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Historias Fantásticas — libros físicos y ebooks en San Miguel">
 <meta name="twitter:image" content="https://historiasfantasticas.example/assets/og-cover.png">
+<meta name="twitter:image:alt" content="Historias Fantásticas — libros físicos y ebooks en San Miguel">
 <link rel="stylesheet" href="css/main.css">
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -66,9 +69,11 @@
 }</script>
 </head>
 <body>
+<!-- Icono de WhatsApp reutilizable: la URL se configura en js/config.js -->
+<svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute"><symbol id="icon-wa" viewBox="0 0 24 24"><path d="M20.52 3.48A11.84 11.84 0 0 0 12 0C5.37 0 0 5.37 0 12a11.87 11.87 0 0 0 1.59 5.97L0 24l6.22-1.63A11.86 11.86 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52Zm-8.52 18.4a9.84 9.84 0 0 1-5.01-1.37l-.36-.22-3.7.97.98-3.6-.23-.37A9.84 9.84 0 0 1 2.17 12C2.17 6.57 6.57 2.17 12 2.17S21.83 6.57 21.83 12 17.43 21.88 12 21.88Zm5.39-7.37c-.3-.15-1.76-.87-2.03-.96-.28-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.17 8.17 0 0 1-2.4-1.48 9 9 0 0 1-1.66-2.07c-.17-.3 0-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.57-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.07c.14.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35Z"/></symbol></svg>
 <header class="header" id="header">
   <div class="wrap header__row">
-    <a class="logo" href="#top" aria-label="Historias Fantásticas, inicio"><span class="logo__mark" aria-hidden="true">HF</span>Historias Fantásticas</a>
+    <a class="logo" href="#top" aria-label="Historias Fantásticas, inicio"><img class="logo__img" data-logo src="assets/logo.svg" alt="Historias Fantásticas"></a>
     <nav class="nav-desktop dropdown" aria-label="Principal">
       <button class="nav-link" aria-expanded="false" aria-controls="explore">Explorar</button>
       <div class="dropdown__panel" id="explore">
@@ -82,6 +87,7 @@
     <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="sr-only">Buscar libros</span><input type="search" placeholder="Título, autor o tema"></label>
     <button class="icon-btn" id="wishBtn" aria-label="Lista de deseos"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.600-7 10-7 10Z"/></svg><span class="badge" id="wishCount">0</span></button>
     <button class="icon-btn" id="cartBtn" aria-label="Abrir carrito"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.500 11h10L20 8H6.500"/><circle cx="9" cy="19" r="1"/><circle cx="17" cy="19" r="1"/></svg><span class="badge" id="cartCount">0</span></button>
+    <a class="icon-btn header__wa" id="headerWaBtn" href="#" data-wa="sales" aria-label="Contactar por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-wa"></use></svg></a>
     <a class="btn btn--sm nav-desktop" href="#quiz">Encuentra tu lectura</a>
   </div>
 </header>
@@ -89,11 +95,11 @@
 <main id="top">
   <section class="hero">
     <div class="wrap hero__grid">
-      <div class="poster" role="img" aria-label="Portada de Tirnaath y los cuentos de un explorador moderno, de Wito Guti">
-        <p class="poster__text" aria-hidden="true">Vive la exploración como nunca antes</p>
-        <span class="sticker" aria-hidden="true">Nuevo</span>
+      <div class="poster" role="img" aria-label="Portada de 1984, de George Orwell">
+        <p class="poster__text" aria-hidden="true">La verdad también se compra</p>
+        <span class="sticker" aria-hidden="true">Top ventas</span>
         <span class="poster__chip" aria-hidden="true">Físico y ebook</span>
-        <div class="pcover pcover--main" aria-hidden="true"><span>TIRNAATH</span><span class="pcover__sub">y los cuentos de un explorador moderno</span><span class="pcover__author">Wito Guti</span></div>
+        <img class="poster__cover" src="assets/Portadas%20de%20libros/1984.webp" alt="" loading="eager" decoding="async">
       </div>
       <div class="hero__copy">
         <h1>Tu próxima gran aventura empieza en una página</h1>
@@ -106,13 +112,13 @@
   <section class="pad">
     <div class="wrap bento">
       <article class="tile tile--feature">
-        <div class="book__cover" style="background:#2B1B7A;color:#FFC800;outline:3px solid #FFC800" aria-hidden="true">Tirnaath</div>
+        <img class="book__cover book__cover--image" src="assets/Portadas%20de%20libros/1984.webp" alt="Portada de 1984, de George Orwell" style="outline:3px solid #FFC800">
         <div class="tile__body">
-          <span class="tag tag--offer">Novedad</span>
-          <h2>Tirnaath y los cuentos de un explorador moderno</h2>
-          <p class="book__author" style="color:#C9BFFF">Wito Guti</p>
-          <p>Una noche apareció en el mapa una península que no existía. Nadie ha podido explorarla, y Aymeri Beaumont está decidido a ser el primero.</p>
-          <div class="row" style="margin:0"><button class="btn btn--sun" data-add="tirnaath-y-los-cuentos-de-un-explorador-moderno">Añadir al carrito</button><span>Físico $22.90 / Ebook $9.90</span></div>
+          <span class="tag tag--offer">Top ventas</span>
+          <h2>1984</h2>
+          <p class="book__author" style="color:#C9BFFF">George Orwell</p>
+          <p>En una sociedad donde el Estado observa cada gesto y reescribe el pasado, Winston Smith intenta conservar una verdad que el sistema quiere borrar.</p>
+          <div class="row" style="margin:0"><button class="btn btn--sun" data-add="1984">Añadir al carrito</button><span>Físico $22.90 / Ebook $9.90</span></div>
         </div>
       </article>
       <article class="tile tile--quiz" id="quiz">
@@ -120,8 +126,8 @@
         <div><a class="btn" href="#quiz">Hacer el quiz</a></div>
       </article>
       <article class="tile tile--offer">
-        <div><span class="tag tag--offer">-20%</span><h3 style="margin-top:var(--s2)">Recetas para olvidar</h3><p>Oferta de la semana.</p></div>
-        <div><button class="btn btn--sun btn--sm" data-add="recetas-para-olvidar">Aprovechar</button></div>
+        <div><span class="tag tag--offer">-20%</span><h3 style="margin-top:var(--s2)">El coronel no tiene quien le escriba</h3><p>Oferta de la semana.</p></div>
+        <div><button class="btn btn--sun btn--sm" data-add="el-coronel-no-tiene-quien-le-escriba">Aprovechar</button></div>
       </article>
       <article class="tile tile--ebook">
         <div><h3>Ebooks al instante</h3><p>Descarga al pagar y lee en cualquier dispositivo.</p></div>
@@ -171,7 +177,7 @@
       <div class="shelf__head">
         <div>
           <h2 id="wri-t">Escritores Emergentes</h2>
-          <p class="muted">Apoyamos el talento literario emergente. Descubre sus obras y conoce a las nuevas voces de la literatura.</p>
+          <p class="muted">Autores presentes en el catálogo y un espacio abierto a nuevas voces salvadoreñas que quieran publicar con nosotros.</p>
         </div>
       </div>
       <div class="grid" id="writersList"></div>
@@ -180,7 +186,7 @@
           <h3>¿Eres escritor y buscas publicar tu obra?</h3>
           <p class="muted" style="margin:0">En Historias Fantásticas impulsamos autores locales y emergentes. Coordinemos por WhatsApp.</p>
         </div>
-        <a class="btn btn--sun" id="writerPublishBtn" href="#">Escríbenos a WhatsApp</a>
+        <a class="btn btn--sun" id="writerPublishBtn" href="#" data-wa="writerPublish">Escríbenos a WhatsApp</a>
       </div>
     </div>
   </section>
@@ -209,7 +215,7 @@
       <div class="quotes">
         <figure><blockquote>Hice el quiz y me recomendó justo lo que necesitaba. Terminé la novela en un fin de semana.</blockquote><figcaption><span class="avatar" style="background:#6C4DF6" aria-hidden="true">V</span><span><strong>Valeria M.</strong><br>Lectora de misterio</span></figcaption></figure>
         <figure><blockquote>Los ebooks llegan al instante y el catálogo se navega de maravilla desde el móvil.</blockquote><figcaption><span class="avatar" style="background:#096B61" aria-hidden="true">C</span><span><strong>Carlos R.</strong><br>Lector de ebooks</span></figcaption></figure>
-        <figure><blockquote>Tirnaath me dio ganas de dibujar mi propio mapa. Ya espero el próximo libro de Wito.</blockquote><figcaption><span class="avatar" style="background:#B92D25" aria-hidden="true">D</span><span><strong>Daniela P.</strong><br>Fan de la fantasía</span></figcaption></figure>
+        <figure><blockquote>El infinito en un junco me recordó por qué me encanta entrar en una librería. Lo recomendé a todo mi club de lectura.</blockquote><figcaption><span class="avatar" style="background:#B92D25" aria-hidden="true">D</span><span><strong>Daniela P.</strong><br>Fan de los clásicos</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -225,6 +231,7 @@
           <div class="field"><label class="sr-only" for="nEmail">Correo electrónico</label><input type="email" id="nEmail" name="email" placeholder="tu@correo.com" autocomplete="email" maxlength="254" required><button class="btn" type="submit">Suscribirme</button></div>
           <div class="hp" aria-hidden="true"><label>No rellenar<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
           <label class="consent"><input type="checkbox" id="nOk" required><span>Acepto recibir correos de Historias Fantásticas. Puedo darme de baja cuando quiera.</span></label>
+          <p class="news__legal">Usamos tu correo solo para la recomendación semanal. <a href="#privacidad">Aviso de privacidad</a>.</p>
           <p class="news__msg" id="nMsg" role="status"></p>
         </form>
       </div>
@@ -256,8 +263,8 @@
           <div>
             <h3>WhatsApp</h3>
             <p>+503 7757 8592</p>
-            <a id="contactWaBtn" class="btn btn--sm" style="margin-top:var(--s3)" href="https://wa.me/50377578592" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" style="fill:currentColor;flex-shrink:0"><path d="M20.52 3.48A11.84 11.84 0 0 0 12 0C5.37 0 0 5.37 0 12a11.87 11.87 0 0 0 1.59 5.97L0 24l6.22-1.63A11.86 11.86 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52Zm-8.52 18.4a9.84 9.84 0 0 1-5.01-1.37l-.36-.22-3.7.97.98-3.6-.23-.37A9.84 9.84 0 0 1 2.17 12C2.17 6.57 6.57 2.17 12 2.17S21.83 6.57 21.83 12 17.43 21.88 12 21.88Zm5.39-7.37c-.3-.15-1.76-.87-2.03-.96-.28-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.17 8.17 0 0 1-2.4-1.48 9 9 0 0 1-1.66-2.07c-.17-.3 0-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.57-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.07c.14.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35Z"/></svg>
+            <a id="contactWaBtn" class="btn btn--sm" style="margin-top:var(--s3)" href="#" data-wa="general">
+              <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" style="fill:currentColor;flex-shrink:0"><use href="#icon-wa"></use></svg>
               Escribir por WhatsApp
             </a>
           </div>
@@ -266,14 +273,25 @@
     </div>
   </section>
 
+  <!-- ── Aviso de privacidad (RNF10) ───────────────────────── -->
+  <section class="pad" id="privacidad" aria-labelledby="priv-t">
+    <div class="wrap">
+      <h2 id="priv-t">Aviso de privacidad</h2>
+      <div class="legal">
+        <p class="privacy-text"></p>
+        <p>Solo el administrador de Historias Fantásticas puede consultar estos datos. No los vendemos ni los compartimos con terceros. Puedes darte de baja de la recomendación semanal desde el enlace que incluye cada correo o escribiéndonos por WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 <footer class="foot">
   <div class="wrap">
     <div class="foot__grid">
-      <div><a class="logo" href="#top" aria-label="Historias Fantásticas, inicio"><span class="logo__mark" aria-hidden="true">HF</span>Historias Fantásticas</a><p class="muted" style="margin-top:var(--s3)">Librería en San Miguel, El Salvador. Libros físicos y ebooks para descubrir tu próxima gran historia.</p><p class="muted" style="font-size:var(--fs-sm);margin-top:var(--s2)">Colonia Vista Hermosa, San Miguel<br>Lunes a sábado, 8:00 a. m. a 8:00 p. m.</p></div>
-      <div><h2>Explorar</h2><ul><li><a href="#catalogo">Catálogo</a></li><li><a href="#mas-vendidos">Más vendidos</a></li><li><a href="#mundos-por-explorar">Colecciones</a></li><li><a href="#catalogo" data-apply="f:ebook">Ebooks</a></li></ul></div>
-      <div><h2>Ayuda</h2><ul><li><a href="#faq">Preguntas frecuentes</a></li><li><a href="#faq">Envíos y devoluciones</a></li><li><a href="#quiz">Encuentra tu lectura</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
-      <div><h2>Legal</h2><ul><li><a href="#">Privacidad</a></li><li><a href="#">Términos de compra</a></li><li><a href="#">Cookies</a></li></ul></div>
+      <div><a class="logo" href="#top" aria-label="Historias Fantásticas, inicio"><img class="logo__img" data-logo src="assets/logo.svg" alt="Historias Fantásticas"></a><p class="muted" style="margin-top:var(--s3)">Librería en San Miguel, El Salvador. Libros físicos y ebooks para descubrir tu próxima gran historia.</p><p class="muted" style="font-size:var(--fs-sm);margin-top:var(--s2)">Colonia Vista Hermosa, San Miguel<br>Lunes a sábado, 8:00 a. m. a 8:00 p. m.</p></div>
+      <div><h2>Explorar</h2><ul><li><a href="#catalogo">Catálogo</a></li><li><a href="#mas-vendidos">Más vendidos</a></li><li><a href="#aventuras-y-mundos-extraordinarios">Colecciones</a></li><li><a href="#catalogo" data-apply="f:ebook">Ebooks</a></li></ul></div>
+      <div><h2>Ayuda</h2><ul><li><a href="#faq">Preguntas frecuentes</a></li><li><a href="#faq">Envíos y devoluciones</a></li><li><a href="#quiz">Encuentra tu lectura</a></li><li><a href="#contacto">Contacto</a></li><li><a href="#" data-wa="general">WhatsApp</a></li></ul></div>
+      <div><h2>Legal</h2><ul><li><a href="#privacidad">Privacidad</a></li><li><a href="#faq">Envíos y devoluciones</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
     </div>
     <small>© 2026 Historias Fantásticas. Todos los derechos reservados.</small>
   </div>
@@ -333,9 +351,13 @@
           <textarea id="orderNotes" name="orderNotes" rows="3" placeholder="Alguna preferencia o indicación especial…"></textarea>
         </div>
         <label class="order-consent">
-          <input type="checkbox" name="orderPrivacy" required>
-          <span>He leído el <a href="#faq" target="_blank">aviso de privacidad</a>. Mis datos se usan solo para gestionar este pedido.</span>
+          <input type="checkbox" id="orderPrivacy" name="orderPrivacy" required>
+          <span>He leído el <a href="#privacidad">aviso de privacidad</a>. Mis datos se usan solo para gestionar este pedido.</span>
         </label>
+        <details class="order-privacy">
+          <summary>Aviso de privacidad</summary>
+          <p class="privacy-text"></p>
+        </details>
         <button type="submit" class="btn order-submit">Confirmar pedido por WhatsApp</button>
       </form>
       <!-- Pantalla de confirmación (se muestra tras enviar) -->
@@ -344,7 +366,8 @@
         <h3>¡Pedido enviado!</h3>
         <p>Tu número de pedido es:</p>
         <p class="order-confirm__code" id="confirmCode"></p>
-        <p class="muted">Se abrió WhatsApp con el resumen. Coordinaremos el pago y la entrega por chat.</p>
+        <p class="muted" id="confirmHint">Se abrió WhatsApp con el resumen. Coordinaremos el pago y la entrega por chat.</p>
+        <a class="btn btn--sm" id="confirmWa" href="#" target="_blank" rel="noopener noreferrer" hidden>Abrir WhatsApp manualmente</a>
         <button class="btn" id="confirmClose">Listo</button>
       </div>
     </section>
@@ -369,8 +392,8 @@
   <a href="#" data-open-cart><svg viewBox="0 0 24 24"><path d="M3 4h2l2.500 11h10L20 8H6.500"/></svg>Carrito</a>
 </nav>
 
-<a id="waFab" class="wa-fab" href="https://wa.me/50377578592" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
-  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.52 3.48A11.84 11.84 0 0 0 12 0C5.37 0 0 5.37 0 12a11.87 11.87 0 0 0 1.59 5.97L0 24l6.22-1.63A11.86 11.86 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52Zm-8.52 18.4a9.84 9.84 0 0 1-5.01-1.37l-.36-.22-3.7.97.98-3.6-.23-.37A9.84 9.84 0 0 1 2.17 12C2.17 6.57 6.57 2.17 12 2.17S21.83 6.57 21.83 12 17.43 21.88 12 21.88Zm5.39-7.37c-.3-.15-1.76-.87-2.03-.96-.28-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.17 8.17 0 0 1-2.4-1.48 9 9 0 0 1-1.66-2.07c-.17-.3 0-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.57-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.07c.14.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35Z"/></svg>
+<a id="waFab" class="wa-fab" href="#" data-wa="sales" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#icon-wa"></use></svg>
   <span class="wa-fab__tip">Escríbenos por WhatsApp</span>
 </a>
 <script type="module" src="js/main.js"></script>

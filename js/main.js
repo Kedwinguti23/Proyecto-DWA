@@ -11,12 +11,43 @@ import {initWriters} from './writers.js';
 import {initOrder} from './order.js';
 import {CONFIG} from './config.js';
 
-// Botón flotante WhatsApp: apunta al mensaje de ventas/pedidos
-const waFab = document.getElementById('waFab');
-if (waFab) {
-  const msg = encodeURIComponent(CONFIG.whatsappMessages.sales);
-  waFab.href = `${CONFIG.whatsapp.link}?text=${msg}`;
+// Enlaces de WhatsApp, logo y datos estructurados desde un único lugar (RNF07)
+function initBrandAndWhatsApp() {
+  const base = document.querySelector('meta[name="hf-base"]')?.content || '';
+  document.querySelectorAll('[data-logo]').forEach(img => {
+    img.src = `${base}${CONFIG.logoUrl}`;
+  });
+
+  document.querySelectorAll('[data-wa]').forEach(a => {
+    const msg = CONFIG.whatsappMessages[a.dataset.wa];
+    if (!msg) return;
+    a.href = `${CONFIG.whatsapp.link}?text=${encodeURIComponent(msg)}`;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+  });
+
+  // Sincronizar JSON-LD con la configuración centralizada y el dominio del build
+  const siteUrl = document.querySelector('meta[name="hf-site-url"]')?.content || CONFIG.pendingConfirmations.productionDomain;
+  const ld = document.querySelector('script[type="application/ld+json"]');
+  if (ld) {
+    try {
+      const data = JSON.parse(ld.textContent);
+      const store = (data['@graph'] || []).find(x => x['@type'] === 'BookStore');
+      if (store) {
+        store.telephone = '+' + CONFIG.whatsapp.raw;
+        store.url = siteUrl.replace(/\/$/, '') + '/';
+        if (store.address) {
+          store.address.streetAddress = CONFIG.location.address;
+          store.address.addressLocality = CONFIG.location.city;
+          store.address.addressCountry = CONFIG.location.country;
+        }
+        if (store.contactPoint) store.contactPoint.telephone = '+' + CONFIG.whatsapp.raw;
+      }
+      ld.textContent = JSON.stringify(data);
+    } catch (_) {}
+  }
 }
+initBrandAndWhatsApp();
 
 // Botón WhatsApp de la sección Contacto
 const contactWaBtn = document.getElementById('contactWaBtn');

@@ -2,87 +2,86 @@
   "currency": "USD",
   "collections": [
     {
-      "id": "mundos-por-explorar",
-      "name": "Mundos por explorar",
-      "slogan": "Aventuras, mapas y lugares que no están en ningún atlas.",
+      "id": "aventuras-y-mundos-extraordinarios",
+      "name": "Aventuras y mundos extraordinarios",
+      "slogan": "Viajes, islas y reinos que se salen de lo cotidiano.",
       "bookIds": [
-        "tirnaath-y-los-cuentos-de-un-explorador-moderno",
-        "el-cartografo-de-nubes",
-        "manual-para-perderse-bien",
-        "atlas-de-islas-imposibles"
+        "la-isla-del-tesoro",
+        "los-viajes-de-gulliver",
+        "guia-del-autoestopista-galactico",
+        "juego-de-tronos",
+        "harry-potter-y-la-piedra-filosofal"
       ]
     },
     {
-      "id": "misterio-de-una-tarde",
-      "name": "Misterio de una tarde",
-      "slogan": "Historias fascinantes para leer y resolver de una sola sentada.",
+      "id": "misterio-y-suspenso",
+      "name": "Misterio y suspenso",
+      "slogan": "Crímenes, secretos y lecturas que no puedes soltar.",
       "bookIds": [
-        "la-casa-de-los-espejos",
-        "ultima-estacion-nunca",
-        "los-relojes-de-valdemar",
-        "tres-cuentos-y-una-tormenta"
+        "asesinato-en-el-orient-express",
+        "dracula",
+        "crimen-y-castigo",
+        "el-visitante",
+        "siete-muertes-de-evelyn-hardcastle"
       ]
     },
     {
-      "id": "para-llorar-con-gusto",
-      "name": "Para llorar con gusto",
-      "slogan": "Emociones profundas, despedidas y reencuentros con final amable.",
+      "id": "clasicos-para-empezar",
+      "name": "Clásicos para empezar",
+      "slogan": "Obras imprescindibles para construir tu biblioteca.",
       "bookIds": [
-        "cien-noches-de-lluvia",
-        "cartas-al-faro",
-        "el-invierno-de-las-abejas"
+        "orgullo-y-prejuicio",
+        "cumbres-borrascosas",
+        "nuestra-senora-de-paris",
+        "el-coronel-no-tiene-quien-le-escriba",
+        "ficciones"
       ]
     },
     {
-      "id": "lecturas-de-fin-de-semana",
-      "name": "Lecturas de fin de semana",
-      "slogan": "Libros breves y cautivadores para terminar antes de que llegue el lunes.",
+      "id": "ideas-que-transforman",
+      "name": "Ideas que transforman",
+      "slogan": "Libros que cuestionan el mundo y la forma de contarlo.",
       "bookIds": [
-        "recetas-para-olvidar",
-        "manual-para-perderse-bien",
-        "pequenas-ciencias-del-asombro",
-        "bitacora-de-un-insomne"
+        "1984",
+        "el-mito-de-sisifo",
+        "el-infinito-en-un-junco",
+        "una-breve-historia-de-casi-todo",
+        "grub"
       ]
     }
   ],
   "writers": [
     {
-      "id": "marta-olmos",
-      "name": "Marta Olmos",
-      "bio": "Autora emergente y apasionada de la cartografía imaginaria. Explora geografías imposibles y naufragios poéticos en su literatura de viajes y fantasía.",
-      "bookIds": [
-        "atlas-de-islas-imposibles"
-      ]
+      "id": "george-orwell",
+      "name": "George Orwell",
+      "bio": "Escritor y periodista británico, autor de novelas que definieron la literatura distópica del siglo XX. Su obra explora el poder, la verdad y la memoria colectiva.",
+      "bookIds": ["1984"]
     },
     {
-      "id": "wito-guti",
-      "name": "Wito Guti",
-      "bio": "Cronista de mundos lejanos y narrador de aventuras modernas. Su obra construye universos con mitologías propias inspiradas en antiguos exploradores.",
-      "bookIds": [
-        "tirnaath-y-los-cuentos-de-un-explorador-moderno"
-      ]
+      "id": "agatha-christie",
+      "name": "Agatha Christie",
+      "bio": "Maestra de la novela de misterio y una de las escritoras más leídas de todos los tiempos. Sus historias convierten cada pista en una invitación a leer más rápido.",
+      "bookIds": ["asesinato-en-el-orient-express"]
     },
     {
-      "id": "ana-beltran",
-      "name": "Ana Beltrán",
-      "bio": "Escritora de ficción contemporánea y humor cotidiano. Combina el arte culinario y las relaciones humanas en narraciones cálidas y ágiles.",
-      "bookIds": [
-        "recetas-para-olvidar"
-      ]
+      "id": "gabriel-garcia-marquez",
+      "name": "Gabriel García Márquez",
+      "bio": "Narrador colombiano y Premio Nobel de Literatura. Su prosa retrata la vida cotidiana con una intensidad que hacía de la literatura un espejo de América Latina.",
+      "bookIds": ["el-coronel-no-tiene-quien-le-escriba"]
     }
   ],
   "books": [
     {
-      "id": "tirnaath-y-los-cuentos-de-un-explorador-moderno",
-      "title": "Tirnaath y los cuentos de un explorador moderno",
-      "author": "Wito Guti",
-      "authorId": "wito-guti",
-      "genres": ["aventura", "fantasía"],
-      "themes": ["exploración", "misterio"],
-      "pages": 384,
-      "readingTime": 500,
-      "collection": "mundos-por-explorar",
-      "collections": ["mundos-por-explorar"],
+      "id": "1984",
+      "title": "1984",
+      "author": "George Orwell",
+      "authorId": "george-orwell",
+      "genres": ["ciencia ficción", "distopía"],
+      "themes": ["poder", "vigilancia", "memoria"],
+      "pages": 328,
+      "readingTime": 425,
+      "collection": "ideas-que-transforman",
+      "collections": ["ideas-que-transforman"],
       "available": true,
       "ebookAuthorized": true,
       "formats": {
@@ -90,87 +89,190 @@
         "ebook": { "price": 9.9 }
       },
       "cover": {
-        "bg": "#2B1B7A",
+        "image": "assets/Portadas%20de%20libros/1984.webp",
+        "bg": "#231F3D",
         "fg": "#FFC800"
       },
-      "synopsis": "Una noche apareció en el mapa una península que no existía: Tirnaath. Nadie ha podido explorarla, y Aymeri Beaumont está decidido a ser el primero.",
-      "quiz": {
-        "mood": "aventura",
-        "pace": "pausado"
-      },
-      "isNew": true,
+      "synopsis": "En una sociedad donde el Estado observa cada gesto y reescribe el pasado, Winston Smith intenta conservar una verdad que el sistema quiere borrar.",
+      "quiz": { "mood": "reflexivo", "pace": "pausado" },
+      "isNew": false,
       "bestseller": true,
       "featured": true
     },
     {
-      "id": "la-casa-de-los-espejos",
-      "title": "La casa de los espejos",
-      "author": "Lucía Ferrer",
-      "authorId": "lucia-ferrer",
-      "genres": ["misterio"],
-      "themes": ["secretos", "familia"],
-      "pages": 296,
-      "readingTime": 385,
-      "collection": "misterio-de-una-tarde",
-      "collections": ["misterio-de-una-tarde"],
+      "id": "asesinato-en-el-orient-express",
+      "title": "Asesinato en el Orient Express",
+      "author": "Agatha Christie",
+      "authorId": "agatha-christie",
+      "genres": ["misterio", "novela negra"],
+      "themes": ["investigación", "secretos"],
+      "pages": 256,
+      "readingTime": 330,
+      "collection": "misterio-y-suspenso",
+      "collections": ["misterio-y-suspenso"],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
         "physical": { "price": 18.9 }
       },
       "cover": {
-        "bg": "#6C4DF6",
+        "image": "assets/Portadas%20de%20libros/asesinatoexpresoriente.webp",
+        "bg": "#0B5A8F",
         "fg": "#FFFFFF"
       },
-      "synopsis": "Cada espejo de la casa refleja una habitación que ya no existe. Clara heredó las llaves y una pregunta: ¿quién vive en los reflejos?",
-      "quiz": {
-        "mood": "misterio",
-        "pace": "rapido"
-      },
+      "synopsis": "Un tren detenido por la nieve, un pasajero muerto y trece sospechosos. Hercule Poirot tiene una noche para descubrir quién miente.",
+      "quiz": { "mood": "misterio", "pace": "rapido" },
       "isNew": false,
       "bestseller": true,
       "featured": false
     },
     {
-      "id": "cien-noches-de-lluvia",
-      "title": "Cien noches de lluvia",
-      "author": "Mateo Argueta",
-      "authorId": "mateo-argueta",
+      "id": "guia-del-autoestopista-galactico",
+      "title": "Guía del autoestopista galáctico",
+      "author": "Douglas Adams",
+      "authorId": "douglas-adams",
+      "genres": ["ciencia ficción", "humor"],
+      "themes": ["viajes", "imaginación"],
+      "pages": 296,
+      "readingTime": 385,
+      "collection": "aventuras-y-mundos-extraordinarios",
+      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 21.0 }
+      },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/autoestopista.webp",
+        "bg": "#1CB0F6",
+        "fg": "#231F3D"
+      },
+      "synopsis": "La Tierra va a ser demolida para construir una autopista hiperespacial. Arthur Dent huye con una toalla, un amigo extraterrestre y una guía poco fiable.",
+      "quiz": { "mood": "humor", "pace": "rapido" },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "una-breve-historia-de-casi-todo",
+      "title": "Una breve historia de casi todo",
+      "author": "Bill Bryson",
+      "authorId": "bill-bryson",
+      "genres": ["divulgación", "ensayo"],
+      "themes": ["ciencia", "curiosidad"],
+      "pages": 640,
+      "readingTime": 820,
+      "collection": "ideas-que-transforman",
+      "collections": ["ideas-que-transforman"],
+      "available": true,
+      "ebookAuthorized": true,
+      "formats": {
+        "physical": { "price": 26.0 },
+        "ebook": { "price": 4.5 }
+      },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/BreveHistoriaDeCasiTodo.webp",
+        "bg": "#19C3B1",
+        "fg": "#231F3D"
+      },
+      "synopsis": "Un recorrido divertido y riguroso por las preguntas más grandes de la ciencia: cómo empezó el universo, por qué somos aquí y qué sabemos realmente.",
+      "quiz": { "mood": "reflexivo", "pace": "pausado" },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "crimen-y-castigo",
+      "title": "Crimen y castigo",
+      "author": "Fiódor Dostoyevski",
+      "authorId": "fiodor-dostoyevski",
+      "genres": ["drama", "novela psicológica"],
+      "themes": ["culpa", "justicia"],
+      "pages": 560,
+      "readingTime": 720,
+      "collection": "misterio-y-suspenso",
+      "collections": ["misterio-y-suspenso"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 24.9 }
+      },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/CrimenCastigo.webp",
+        "bg": "#4A2FCB",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Raskólnikov cree que un crimen puede justificarse con una idea. La ciudad, su conciencia y Sonya demuestran lo contrario.",
+      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "cumbres-borrascosas",
+      "title": "Cumbres borrascosas",
+      "author": "Emily Brontë",
+      "authorId": "emily-bronte",
       "genres": ["romance", "drama"],
-      "themes": ["duelo", "esperanza"],
-      "pages": 240,
-      "readingTime": 310,
-      "collection": "para-llorar-con-gusto",
-      "collections": ["para-llorar-con-gusto"],
+      "themes": ["obsesión", "familia"],
+      "pages": 416,
+      "readingTime": 540,
+      "collection": "clasicos-para-empezar",
+      "collections": ["clasicos-para-empezar"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 17.9 }
+      },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/cumbres.webp",
+        "bg": "#0B7A6E",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "En los páramos de Yorkshire, Heathcliff y Catherine convierten el amor en una promesa imposible que atraviesa generaciones.",
+      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "dracula",
+      "title": "Drácula",
+      "author": "Bram Stoker",
+      "authorId": "bram-stoker",
+      "genres": ["terror", "misterio"],
+      "themes": ["sobrenatural", "secretos"],
+      "pages": 416,
+      "readingTime": 535,
+      "collection": "misterio-y-suspenso",
+      "collections": ["misterio-y-suspenso"],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
         "physical": { "price": 16.5 }
       },
       "cover": {
-        "bg": "#0B7A6E",
+        "image": "assets/Portadas%20de%20libros/Dracula.webp",
+        "bg": "#D32F24",
         "fg": "#FFFFFF"
       },
-      "synopsis": "Tras una pérdida, Nora escribe una carta por cada noche de lluvia. La cien no llegará a quien ella cree.",
-      "quiz": {
-        "mood": "emotivo",
-        "pace": "pausado"
-      },
+      "synopsis": "Diarios, cartas y telegramas reconstruyen la llegada de un conde a Inglaterra y la lucha de un pequeño grupo por detenerlo.",
+      "quiz": { "mood": "misterio", "pace": "rapido" },
       "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "recetas-para-olvidar",
-      "title": "Recetas para olvidar",
-      "author": "Ana Beltrán",
-      "authorId": "ana-beltran",
-      "genres": ["humor", "novela corta"],
-      "themes": ["cocina", "desamor"],
-      "pages": 148,
-      "readingTime": 190,
-      "collection": "lecturas-de-fin-de-semana",
-      "collections": ["lecturas-de-fin-de-semana"],
+      "id": "el-coronel-no-tiene-quien-le-escriba",
+      "title": "El coronel no tiene quien le escriba",
+      "author": "Gabriel García Márquez",
+      "authorId": "gabriel-garcia-marquez",
+      "genres": ["novela corta", "drama"],
+      "themes": ["esperanza", "justicia"],
+      "pages": 112,
+      "readingTime": 145,
+      "collection": "clasicos-para-empezar",
+      "collections": ["clasicos-para-empezar"],
       "available": true,
       "ebookAuthorized": true,
       "offer": {
@@ -183,87 +285,27 @@
         "ebook": { "price": 5.9 }
       },
       "cover": {
-        "bg": "#C2410C",
-        "fg": "#FFFFFF"
-      },
-      "synopsis": "Un recetario que empezó como terapia y terminó en el negocio más inesperado del barrio.",
-      "quiz": {
-        "mood": "humor",
-        "pace": "rapido"
-      },
-      "isNew": false,
-      "bestseller": false,
-      "featured": false
-    },
-    {
-      "id": "el-cartografo-de-nubes",
-      "title": "El cartógrafo de nubes",
-      "author": "Sofía Quintanilla",
-      "authorId": "sofia-quintanilla",
-      "genres": ["fantasía"],
-      "themes": ["mapas", "viajes"],
-      "pages": 412,
-      "readingTime": 535,
-      "collection": "mundos-por-explorar",
-      "collections": ["mundos-por-explorar"],
-      "available": true,
-      "ebookAuthorized": false,
-      "formats": {
-        "physical": { "price": 24.9 }
-      },
-      "cover": {
-        "bg": "#1CB0F6",
+        "image": "assets/Portadas%20de%20libros/ElCoronel.webp",
+        "bg": "#F2A900",
         "fg": "#231F3D"
       },
-      "synopsis": "Hay quien dibuja montañas y hay quien dibuja lo que flota sobre ellas. Iri hará el primer mapa del cielo.",
-      "quiz": {
-        "mood": "aventura",
-        "pace": "pausado"
-      },
-      "isNew": true,
+      "synopsis": "Un coronel retirado espera cada viernes la carta que reconozca sus derechos, mientras su pueblo y su casa se quedan sin dinero.",
+      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "ultima-estacion-nunca",
-      "title": "Última estación: Nunca",
-      "author": "Diego Romero",
-      "authorId": "diego-romero",
-      "genres": ["thriller", "misterio"],
-      "themes": ["trenes", "identidad"],
-      "pages": 328,
-      "readingTime": 425,
-      "collection": "misterio-de-una-tarde",
-      "collections": ["misterio-de-una-tarde"],
-      "available": true,
-      "ebookAuthorized": false,
-      "formats": {
-        "physical": { "price": 19.5 }
-      },
-      "cover": {
-        "bg": "#231F3D",
-        "fg": "#FFC800"
-      },
-      "synopsis": "Un tren sin paradas y un pasajero que no recuerda haberse subido. Quedan cinco vagones para descubrir por qué.",
-      "quiz": {
-        "mood": "misterio",
-        "pace": "rapido"
-      },
-      "isNew": false,
-      "bestseller": true,
-      "featured": false
-    },
-    {
-      "id": "manual-para-perderse-bien",
-      "title": "Manual para perderse bien",
-      "author": "Camila Rojas",
-      "authorId": "camila-rojas",
-      "genres": ["ensayo", "viajes"],
-      "themes": ["exploración", "calma"],
-      "pages": 132,
-      "readingTime": 170,
-      "collection": "lecturas-de-fin-de-semana",
-      "collections": ["lecturas-de-fin-de-semana", "mundos-por-explorar"],
+      "id": "ficciones",
+      "title": "Ficciones",
+      "author": "Jorge Luis Borges",
+      "authorId": "jorge-luis-borges",
+      "genres": ["cuentos", "fantasía"],
+      "themes": ["laberintos", "realidad"],
+      "pages": 148,
+      "readingTime": 190,
+      "collection": "clasicos-para-empezar",
+      "collections": ["clasicos-para-empezar"],
       "available": true,
       "ebookAuthorized": true,
       "formats": {
@@ -271,145 +313,163 @@
         "ebook": { "price": 5.5 }
       },
       "cover": {
-        "bg": "#FFC800",
-        "fg": "#231F3D"
+        "image": "assets/Portadas%20de%20libros/ficciones.webp",
+        "bg": "#6C4DF6",
+        "fg": "#FFFFFF"
       },
-      "synopsis": "Ensayos breves sobre caminar sin destino, cambiar de ruta y volver distinto.",
-      "quiz": {
-        "mood": "reflexivo",
-        "pace": "pausado"
-      },
+      "synopsis": "Bibliotecas infinitas, detectives imposibles y destinos que se bifurcan: diecisiete relatos que reinventan lo que puede ser un cuento.",
+      "quiz": { "mood": "reflexivo", "pace": "rapido" },
       "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "cartas-al-faro",
-      "title": "Cartas al faro",
-      "author": "Elena Vidal",
-      "authorId": "elena-vidal",
-      "genres": ["romance", "epistolar"],
-      "themes": ["mar", "memoria"],
-      "pages": 176,
-      "readingTime": 230,
-      "collection": "para-llorar-con-gusto",
-      "collections": ["para-llorar-con-gusto"],
+      "id": "juego-de-tronos",
+      "title": "Juego de tronos",
+      "author": "George R. R. Martin",
+      "authorId": "george-r-r-martin",
+      "genres": ["fantasía", "aventura"],
+      "themes": ["poder", "familias"],
+      "pages": 688,
+      "readingTime": 880,
+      "collection": "aventuras-y-mundos-extraordinarios",
+      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 22.9 }
+      },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/GameofThrones.webp",
+        "bg": "#231F3D",
+        "fg": "#FFC800"
+      },
+      "synopsis": "Siete reinos, una corona y muchas familias dispuestas a todo. La primera entrega de la saga que redefinió la fantasía épica.",
+      "quiz": { "mood": "aventura", "pace": "pausado" },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "grub",
+      "title": "Grub",
+      "author": "Elise Blackwell",
+      "authorId": "elise-blackwell",
+      "genres": ["humor", "novela"],
+      "themes": ["escritura", "vida cotidiana"],
+      "pages": 336,
+      "readingTime": 430,
+      "collection": "ideas-que-transforman",
+      "collections": ["ideas-que-transforman"],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
         "physical": { "price": 14.9 }
       },
       "cover": {
-        "bg": "#0B5A8F",
+        "image": "assets/Portadas%20de%20libros/Grub.webp",
+        "bg": "#C2410C",
         "fg": "#FFFFFF"
       },
-      "synopsis": "Durante un invierno, dos desconocidos se escriben a través de un faro que ya no funciona.",
-      "quiz": {
-        "mood": "emotivo",
-        "pace": "pausado"
-      },
+      "synopsis": "Una reescritura satírica sobre escritores, editoriales y ambiciones literarias en el mercado actual.",
+      "quiz": { "mood": "humor", "pace": "rapido" },
       "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "los-relojes-de-valdemar",
-      "title": "Los relojes de Valdemar",
-      "author": "Andrés Solís",
-      "authorId": "andres-solis",
-      "genres": ["ciencia ficción"],
-      "themes": ["tiempo", "tecnología"],
-      "pages": 360,
-      "readingTime": 470,
-      "collection": "misterio-de-una-tarde",
-      "collections": ["misterio-de-una-tarde"],
+      "id": "harry-potter-y-la-piedra-filosofal",
+      "title": "Harry Potter y la piedra filosofal",
+      "author": "J. K. Rowling",
+      "authorId": "j-k-rowling",
+      "genres": ["fantasía", "aventura"],
+      "themes": ["amistad", "magia"],
+      "pages": 264,
+      "readingTime": 340,
+      "collection": "aventuras-y-mundos-extraordinarios",
+      "collections": ["aventuras-y-mundos-extraordinarios"],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 21.0 }
+        "physical": { "price": 19.5 }
       },
       "cover": {
-        "bg": "#4A2FCB",
-        "fg": "#FFFFFF"
+        "image": "assets/Portadas%20de%20libros/HarryPotter.webp",
+        "bg": "#2B1B7A",
+        "fg": "#FFC800"
       },
-      "synopsis": "En Valdemar, cada reloj marca un tiempo distinto. Cuando uno se detiene, alguien desaparece.",
-      "quiz": {
-        "mood": "aventura",
-        "pace": "rapido"
-      },
+      "synopsis": "Harry descubre que es hijo de dos magos y que su primer año en Hogwarts esconde un misterio sobre la piedra filosofal.",
+      "quiz": { "mood": "aventura", "pace": "rapido" },
       "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "pequenas-ciencias-del-asombro",
-      "title": "Pequeñas ciencias del asombro",
-      "author": "Ramiro Paz",
-      "authorId": "ramiro-paz",
-      "genres": ["divulgación"],
-      "themes": ["ciencia", "curiosidad"],
-      "pages": 208,
-      "readingTime": 270,
-      "collection": "lecturas-de-fin-de-semana",
-      "collections": ["lecturas-de-fin-de-semana"],
+      "id": "el-infinito-en-un-junco",
+      "title": "El infinito en un junco",
+      "author": "Irene Vallejo",
+      "authorId": "irene-vallejo",
+      "genres": ["ensayo", "divulgación"],
+      "themes": ["libros", "historia"],
+      "pages": 452,
+      "readingTime": 580,
+      "collection": "ideas-que-transforman",
+      "collections": ["ideas-que-transforman"],
       "available": true,
-      "ebookAuthorized": false,
+      "ebookAuthorized": true,
       "formats": {
-        "physical": { "price": 17.9 }
+        "physical": { "price": 24.9 },
+        "ebook": { "price": 11.5 }
       },
       "cover": {
-        "bg": "#19C3B1",
-        "fg": "#231F3D"
+        "image": "assets/Portadas%20de%20libros/InfinitoJunco.webp",
+        "bg": "#0B7A6E",
+        "fg": "#FFC800"
       },
-      "synopsis": "Cuarenta preguntas cotidianas, desde por qué llueve hasta por qué bostezamos, respondidas con ejemplos.",
-      "quiz": {
-        "mood": "reflexivo",
-        "pace": "pausado"
-      },
-      "isNew": false,
-      "bestseller": false,
+      "synopsis": "Un viaje por casi treinta siglos de historia del libro, desde los papiros de Alejandría hasta las bibliotecas que hoy protegemos.",
+      "quiz": { "mood": "reflexivo", "pace": "pausado" },
+      "isNew": true,
+      "bestseller": true,
       "featured": false
     },
     {
-      "id": "tres-cuentos-y-una-tormenta",
-      "title": "Tres cuentos y una tormenta",
-      "author": "Nora Salgado",
-      "authorId": "nora-salgado",
-      "genres": ["cuentos"],
-      "themes": ["naturaleza", "suspenso"],
-      "pages": 112,
-      "readingTime": 145,
-      "collection": "lecturas-de-fin-de-semana",
-      "collections": ["lecturas-de-fin-de-semana", "misterio-de-una-tarde"],
-      "available": false,
+      "id": "la-isla-del-tesoro",
+      "title": "La isla del tesoro",
+      "author": "Robert Louis Stevenson",
+      "authorId": "robert-louis-stevenson",
+      "genres": ["aventura"],
+      "themes": ["mapas", "piratas"],
+      "pages": 144,
+      "readingTime": 185,
+      "collection": "aventuras-y-mundos-extraordinarios",
+      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "available": true,
       "ebookAuthorized": false,
       "formats": {
         "physical": { "price": 10.5 }
       },
       "cover": {
-        "bg": "#D32F24",
-        "fg": "#FFFFFF"
+        "image": "assets/Portadas%20de%20libros/LaIslaDelTesoro.webp",
+        "bg": "#0B5A8F",
+        "fg": "#FFC800"
       },
-      "synopsis": "Tres relatos que suceden a la vez, bajo la misma tormenta, en tres casas distintas. (Ejemplo de libro agotado).",
-      "quiz": {
-        "mood": "misterio",
-        "pace": "rapido"
-      },
+      "synopsis": "Jim Hawkins encuentra un mapa, se embarca rumbo a una isla y descubre que la tripulación esconde más de un secreto.",
+      "quiz": { "mood": "aventura", "pace": "rapido" },
       "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "el-invierno-de-las-abejas",
-      "title": "El invierno de las abejas",
-      "author": "Julia Mendoza",
-      "authorId": "julia-mendoza",
-      "genres": ["drama"],
-      "themes": ["naturaleza", "familia"],
-      "pages": 264,
-      "readingTime": 345,
-      "collection": "para-llorar-con-gusto",
-      "collections": ["para-llorar-con-gusto"],
+      "id": "los-viajes-de-gulliver",
+      "title": "Los viajes de Gulliver",
+      "author": "Jonathan Swift",
+      "authorId": "jonathan-swift",
+      "genres": ["aventura", "sátira"],
+      "themes": ["viajes", "sociedad"],
+      "pages": 336,
+      "readingTime": 435,
+      "collection": "aventuras-y-mundos-extraordinarios",
+      "collections": ["aventuras-y-mundos-extraordinarios"],
       "available": true,
       "ebookAuthorized": false,
       "offer": {
@@ -421,74 +481,148 @@
         "physical": { "price": 17.5 }
       },
       "cover": {
+        "image": "assets/Portadas%20de%20libros/losviajesdegulliver.webp",
+        "bg": "#1CB0F6",
+        "fg": "#231F3D"
+      },
+      "synopsis": "Liliput, Brobdingnag y la isla voladora de Laputa son el escenario de una sátira sobre el poder y la condición humana.",
+      "quiz": { "mood": "aventura", "pace": "pausado" },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "nuestra-senora-de-paris",
+      "title": "Nuestra Señora de París",
+      "author": "Victor Hugo",
+      "authorId": "victor-hugo",
+      "genres": ["drama", "romance"],
+      "themes": ["familia", "justicia"],
+      "pages": 512,
+      "readingTime": 660,
+      "collection": "clasicos-para-empezar",
+      "collections": ["clasicos-para-empezar"],
+      "available": false,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 21.0 }
+      },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/NuestraseñoraParis.webp",
+        "bg": "#6C4DF6",
+        "fg": "#FFFFFF"
+      },
+      "synopsis": "Quasímodo, Esmeralda y Claude Frollo habitan una catedral que es testigo de amores imposibles y decisiones fatales.",
+      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "isNew": false,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "orgullo-y-prejuicio",
+      "title": "Orgullo y prejuicio",
+      "author": "Jane Austen",
+      "authorId": "jane-austen",
+      "genres": ["romance", "humor"],
+      "themes": ["amor", "familia"],
+      "pages": 464,
+      "readingTime": 600,
+      "collection": "clasicos-para-empezar",
+      "collections": ["clasicos-para-empezar"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 14.9 }
+      },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/OrgulloYPrejuicio.webp",
         "bg": "#F2A900",
         "fg": "#231F3D"
       },
-      "synopsis": "Cuando las colmenas del abuelo enmudecen, tres generaciones se reúnen por primera vez en años. (Ejemplo con oferta vencida que vuelve a su precio normal).",
-      "quiz": {
-        "mood": "emotivo",
-        "pace": "pausado"
-      },
+      "synopsis": "Elizabeth Bennet y el señor Darcy deben desaprender sus primeras impresiones antes de descubrir que el orgullo y el prejuicio dicen más de uno que del otro.",
+      "quiz": { "mood": "emotivo", "pace": "pausado" },
       "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "bitacora-de-un-insomne",
-      "title": "Bitácora de un insomne",
-      "author": "Iván Cortés",
-      "authorId": "ivan-cortes",
-      "genres": ["humor", "ensayo"],
-      "themes": ["noche", "vida cotidiana"],
-      "pages": 144,
-      "readingTime": 185,
-      "collection": "lecturas-de-fin-de-semana",
-      "collections": ["lecturas-de-fin-de-semana"],
+      "id": "siete-muertes-de-evelyn-hardcastle",
+      "title": "Las siete muertes de Evelyn Hardcastle",
+      "author": "Stuart Turton",
+      "authorId": "stuart-turton",
+      "genres": ["misterio", "ciencia ficción"],
+      "themes": ["tiempo", "identidad"],
+      "pages": 480,
+      "readingTime": 615,
+      "collection": "misterio-y-suspenso",
+      "collections": ["misterio-y-suspenso"],
       "available": true,
-      "ebookAuthorized": true,
+      "ebookAuthorized": false,
       "formats": {
-        "ebook": { "price": 4.5 }
+        "physical": { "price": 18.9 }
       },
       "cover": {
-        "bg": "#7A5CFA",
+        "image": "assets/Portadas%20de%20libros/sietemuertes.webp",
+        "bg": "#4A2FCB",
         "fg": "#FFFFFF"
       },
-      "synopsis": "Reflexiones de madrugada sobre todo lo que no debería pensarse a las tres de la mañana.",
-      "quiz": {
-        "mood": "humor",
-        "pace": "rapido"
+      "synopsis": "El mismo día, el mismo asesinato y siete cuerpos distintos: Aiden debe resolver el crimen antes de que la noche se repita otra vez.",
+      "quiz": { "mood": "misterio", "pace": "rapido" },
+      "isNew": true,
+      "bestseller": false,
+      "featured": false
+    },
+    {
+      "id": "el-mito-de-sisifo",
+      "title": "El mito de Sísifo",
+      "author": "Albert Camus",
+      "authorId": "albert-camus",
+      "genres": ["ensayo", "filosofía"],
+      "themes": ["absurdo", "vida cotidiana"],
+      "pages": 128,
+      "readingTime": 165,
+      "collection": "ideas-que-transforman",
+      "collections": ["ideas-que-transforman"],
+      "available": true,
+      "ebookAuthorized": false,
+      "formats": {
+        "physical": { "price": 11.9 }
       },
+      "cover": {
+        "image": "assets/Portadas%20de%20libros/Sisifo.webp",
+        "bg": "#231F3D",
+        "fg": "#FFC800"
+      },
+      "synopsis": "Camus toma el castigo de Sísifo para preguntar cómo vivir cuando no hay respuestas definitivas. Una lectura breve y destabilizadora.",
+      "quiz": { "mood": "reflexivo", "pace": "rapido" },
       "isNew": false,
       "bestseller": false,
       "featured": false
     },
     {
-      "id": "atlas-de-islas-imposibles",
-      "title": "Atlas de islas imposibles",
-      "author": "Marta Olmos",
-      "authorId": "marta-olmos",
-      "genres": ["ilustrado", "aventura"],
-      "themes": ["mapas", "imaginación"],
-      "pages": 190,
-      "readingTime": 245,
-      "collection": "mundos-por-explorar",
-      "collections": ["mundos-por-explorar"],
+      "id": "el-visitante",
+      "title": "El visitante",
+      "author": "Stephen King",
+      "authorId": "stephen-king",
+      "genres": ["thriller", "misterio"],
+      "themes": ["identidad", "sobrenatural"],
+      "pages": 592,
+      "readingTime": 760,
+      "collection": "misterio-y-suspenso",
+      "collections": ["misterio-y-suspenso"],
       "available": true,
-      "ebookAuthorized": true,
+      "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 26.0 },
-        "ebook": { "price": 11.5 }
+        "physical": { "price": 19.5 }
       },
       "cover": {
-        "bg": "#0B7A6E",
-        "fg": "#FFC800"
+        "image": "assets/Portadas%20de%20libros/visitante.webp",
+        "bg": "#D32F24",
+        "fg": "#FFFFFF"
       },
-      "synopsis": "Cuarenta islas que nunca existieron, con sus mapas, su historia y la mejor manera de naufragar en ellas.",
-      "quiz": {
-        "mood": "aventura",
-        "pace": "pausado"
-      },
-      "isNew": true,
+      "synopsis": "Un niño ha sido asesinado y el principal sospechoso sostiene que el verdadero culpable es un hombre que solo existe en su mente.",
+      "quiz": { "mood": "misterio", "pace": "pausado" },
+      "isNew": false,
       "bestseller": false,
       "featured": false
     }

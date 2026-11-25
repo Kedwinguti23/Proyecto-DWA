@@ -1,319 +1,489 @@
-// Panel de Administración Simulado — Historias Fantásticas (T-04)
-// MOCK: reemplazar por llamada HTTP al backend cuando exista autenticación y API real.
-
+// Panel de administración MOCK (RF14, RF15, RNF09).
+// Toda la persistencia pasa por js/api.js: cambiar la capa de datos no obliga a tocar esta UI.
+import {$, $$, el, money} from '../js/utils.js';
+import {login, logout, isAuthenticated} from '../js/auth.js';
 import {
-  getOrders,
-  updateOrderStatus,
-  getBooks,
-  adminSaveBook,
-  getSubscriptions,
-  unsubscribe,
-  adminDeleteSubscription
+  getOrders, updateOrderStatus, getBooks, getBook, getCollections, getWriters,
+  getSubscriptions, subscribe, unsubscribe, adminSaveBook, adminDeleteBook,
+  adminToggleAvailability, adminSaveCollection, adminDeleteCollection,
+  adminSaveWriter, adminDeleteWriter, getWeeklyPick, setWeeklyPick
 } from '../js/api.js';
 
-const ORDER_STATUSES = ['Nuevo', 'Confirmado', 'Pagado', 'Entregado', 'Cancelado'];
-
-const $ = (s, r = document) => r.querySelector(s);
-const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-
-let allBooks = [];
-let toastTimer;
-
-function showToast(msg) {
-  const t = $('#admToast');
-  t.textContent = msg;
-  t.hidden = false;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { t.hidden = true; }, 2800);
-}
-
-function formatDate(iso) {
-  if (!iso) return '—';
+const STATUSES = ['Nuevo', 'Confirmado', 'Pagado', 'Entregado', 'Cancelado'];
+const statusMsg = (text, error = false) => {
+  const node = $('#adminStatus');
+  node.textContent = text || '';
+  node.style.color = error ? 'var(--coral)' : 'var(--teal-700)';
+};
+const slug = value => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const list = value => String(value || '').split(',').map(x => x.trim()).filter(Boolean);
+const fmtDate = iso => {
   const d = new Date(iso);
-  return isNaN(d) ? iso : d.toLocaleString('es-SV', { dateStyle: 'medium', timeStyle: 'short' });
-}
-
-function money(n) {
-  return '$' + Number(n || 0).toFixed(2);
-}
-
-// ── Navegación por pestañas ──────────────────────────────────
-function initTabs() {
-  const tabs = $$('[role="tab"]');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => {
-        const active = t === tab;
-        t.setAttribute('aria-selected', String(active));
-        const panel = $('#' + t.getAttribute('aria-controls'));
-        if (panel) panel.hidden = !active;
-      });
-    });
+  return isNaN(d) ? String(iso || '') : d.toLocaleString('es-SV', {dateStyle: 'medium', timeStyle: 'short'});
+};
+const btn = (label, onClick, cls = 'btn btn--sm') => {
+  const b = el('button', cls, label);
+  b.type = 'button';
+  b.onclick = onClick;
+  return b;
+};
+const row = (title, meta, actions, tags = []) => {
+  const node = el('div', 'admin-row');
+  const main = el('div', 'admin-row__main');
+  main.append(el('strong', null, title));
+  if (meta) main.append(el('div', 'admin-row__meta', meta));
+  if (tags.length) {
+    const wrap = el('div');
+    tags.forEach(t => wrap.append(el('span', `admin-tag${t.tone ? ' admin-tag--' + t.tone : ''}`, t.label)));
+    main.append(wrap);
+  }
+  const acts = el('div', 'admin-row__actions');
+  actions.forEach(a => acts.append(a));
+  node.append(main, acts);
+  return node;
+};
+// Confirmación en dos pasos (evita borrados accidentales y es accesible sin window.confirm)
+const deleteBtn = onConfirm => {
+  let armed = false;
+  const b = btn('Eliminar', async () => {
+    if (!armed) { armed = true; b.textContent = '¿Confirmar borrado?'; return; }
+    await onConfirm();
   });
+  return b;
+};
+
+// ---------------------------------------------------------------- login
+function enterPanel() {
+  $('#loginView').hidden = true;
+  $('#adminView').hidden = false;
+  $$('.admin-tab')[0].setAttribute('aria-selected', 'true');
+  refreshAll();
+}
+$('#loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  try {
+    login($('#loginUser').value, $('#loginPass').value);
+    $('#loginErr').textContent = '';
+    $('#loginPass').value = '';
+    enterPanel();
+  } catch (err) {
+    $('#loginErr').textContent = err.message;
+  }
+});
+$('#logoutBtn').onclick = () => {
+  logout();
+  $('#adminView').hidden = true;
+  $('#loginView').hidden = false;
+  $('#loginPass').value = '';
+};
+if (isAuthenticated()) enterPanel();
+
+// ---------------------------------------------------------------- tabs
+$$('.admin-tab').forEach(tab => {
+  tab.onclick = () => {
+    $$('.admin-tab').forEach(x => x.setAttribute('aria-selected', String(x === tab)));
+    $$('.admin-section').forEach(s => { s.hidden = s.id !== `tab-${tab.dataset.tab}`; });
+    refreshTab(tab.dataset.tab);
+  };
+});
+async function refreshAll() {
+  await Promise.all([renderOrders(), renderBooks(), renderCollections(), renderWriters(),
+    renderOffers(), renderPick(), renderSubs()]);
+}
+async function refreshTab(tab) {
+  const views = {
+    pedidos: renderOrders, catalogo: renderBooks, colecciones: renderCollections,
+    escritores: renderWriters, ofertas: renderOffers, recomendacion: renderPick,
+    suscriptores: renderSubs
+  };
+  await (views[tab] || renderOrders)();
 }
 
-// ── Pestaña 1: Pedidos ───────────────────────────────────────
+// ---------------------------------------------------------------- pedidos
+$('#orderStatusFilter').onchange = () => renderOrders();
+$('#orderDateFilter').onchange = () => renderOrders();
+$('#orderRefreshBtn').onclick = () => renderOrders();
+
 async function renderOrders() {
-  // MOCK: reemplazar por llamada HTTP al backend (GET /api/orders)
-  const orders = (await getOrders()).sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  );
-  $('#countOrders').textContent = orders.length;
+  const box = $('#ordersList');
+  box.replaceChildren();
+  try {
+    const orders = await getOrders();
+    const status = $('#orderStatusFilter').value;
+    const date = $('#orderDateFilter').value;
+    const visible = orders.filter(o =>
+      (!status || o.status === status) && (!date || String(o.createdAt || '').slice(0, 10) === date));
 
-  const container = $('#ordersList');
-  if (!orders.length) {
-    container.innerHTML = `
-      <div class="adm-empty">
-        <h3>No hay pedidos registrados todavía</h3>
-        <p class="adm-muted">Los pedidos realizados desde el carrito de la tienda aparecerán aquí.</p>
-      </div>`;
-    return;
-  }
-
-  container.replaceChildren(...orders.map(order => {
-    const card = document.createElement('article');
-    card.className = 'adm-card';
-
-    const itemsHtml = (order.items || [])
-      .map(it => `<li>${it.title} (${it.format === 'ebook' ? 'Ebook' : 'Físico'}) × ${it.qty} — <strong>${money(it.price * it.qty)}</strong></li>`)
-      .join('');
-
-    const delivery = order.deliveryType === 'envio'
-      ? `Envío a domicilio (${order.address || 'sin dirección'})`
-      : 'Retiro en local';
-
-    card.innerHTML = `
-      <div class="adm-card__top">
-        <div>
-          <span class="adm-code">${order.id}</span>
-          <p class="adm-muted">${formatDate(order.createdAt)}</p>
-        </div>
-        <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
-          <strong>Total: ${money(order.total)}</strong>
-          <label>
-            <span class="sr-only">Estado del pedido ${order.id}</span>
-            <select class="adm-select" data-order-id="${order.id}"></select>
-          </label>
-        </div>
-      </div>
-      <div>
-        <p style="margin:0 0 .25rem"><strong>Cliente:</strong> ${order.customerName} · ${order.customerPhone}</p>
-        <p class="adm-muted" style="margin:0 0 .5rem"><strong>Entrega:</strong> ${delivery}${order.notes ? ' · <strong>Notas:</strong> ' + order.notes : ''}</p>
-        <ul class="adm-order-items">${itemsHtml}</ul>
-      </div>
-    `;
-
-    const sel = card.querySelector('select');
-    ORDER_STATUSES.forEach(st => {
-      const opt = document.createElement('option');
-      opt.value = st;
-      opt.textContent = st;
-      opt.selected = order.status === st;
-      sel.append(opt);
+    if (!visible.length) {
+      box.append(el('p', 'admin-empty', 'No hay pedidos que coincidan con los filtros.'));
+      return;
+    }
+    visible.forEach(o => {
+      const meta = `${fmtDate(o.createdAt)} · ${o.customerName} · ${money(Number(o.total) || 0)}`;
+      box.append(row(`Pedido ${o.id}`, meta,
+        [btn('Ver detalle', () => showOrderDetail(o.id))],
+        [{label: o.status, tone: o.status === 'Cancelado' ? 'off' : ''}]));
     });
-
-    sel.addEventListener('change', async () => {
-      try {
-        await updateOrderStatus(order.id, sel.value);
-        showToast(`Pedido ${order.id} actualizado a "${sel.value}"`);
-      } catch (err) {
-        showToast('Error al actualizar estado: ' + err.message);
-      }
-    });
-
-    return card;
-  }));
+  } catch (err) { statusMsg(err.message, true); }
 }
 
-// ── Pestaña 2: Catálogo ──────────────────────────────────────
-async function renderBooks(query = '') {
-  // MOCK: reemplazar por llamada HTTP al backend (GET /api/books)
-  allBooks = await getBooks();
-  $('#countBooks').textContent = allBooks.length;
+async function showOrderDetail(id) {
+  const order = (await getOrders()).find(o => o.id === id);
+  if (!order) return;
+  const box = $('#orderDetail');
+  box.replaceChildren();
+  box.hidden = false;
+  box.append(el('h3', null, `Detalle del pedido ${order.id}`));
 
-  const q = query.trim().toLowerCase();
-  const filtered = q
-    ? allBooks.filter(b => b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q))
-    : allBooks;
+  const dl = el('dl');
+  const add = (key, value) => { dl.append(el('dt', null, key), el('dd', null, String(value ?? ''))); };
+  add('Fecha', fmtDate(order.createdAt));
+  add('Cliente', order.customerName);
+  add('Teléfono', order.customerPhone);
+  add('Entrega', order.deliveryType === 'envio' ? `Envío a ${order.address}` : 'Retiro en el local');
+  if (order.notes) add('Notas', order.notes);
+  add('Total', money(Number(order.total) || 0));
+  box.append(dl);
 
-  const wrap = $('#booksList');
-  if (!filtered.length) {
-    wrap.innerHTML = '<div class="adm-empty"><p class="adm-muted">No se encontraron libros con esa búsqueda.</p></div>';
-    return;
-  }
+  const ul = el('ul');
+  (order.items || []).forEach(it => ul.append(el('li', null,
+    `${it.title} (${it.format === 'ebook' ? 'Ebook' : 'Físico'}) x${it.qty} — ${money(it.price * it.qty)}`)));
+  box.append(el('strong', null, 'Libros'), ul);
 
-  const table = document.createElement('table');
-  table.className = 'adm-table';
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>Libro</th>
-        <th>Físico</th>
-        <th>Ebook</th>
-        <th>Estado</th>
-        <th>Oferta</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `;
+  const phone = String(order.customerPhone || '').replace(/\D/g, '');
+  const wa = el('a', 'btn btn--sm', 'Abrir chat de WhatsApp');
+  wa.href = `https://wa.me/${phone}?text=${encodeURIComponent(`Hola ${order.customerName}, te escribo sobre tu pedido ${order.id}.`)}`;
+  wa.target = '_blank';
+  wa.rel = 'noopener noreferrer';
 
-  const tbody = table.querySelector('tbody');
-  filtered.forEach(book => {
-    const tr = document.createElement('tr');
-    const offerText = book.offer && book.offer.percent > 0
-      ? `<span class="adm-tag adm-tag--offer">-${book.offer.percent}%</span><br><span class="adm-muted">${book.offer.start || '—'} a ${book.offer.end || '—'}</span>`
-      : '<span class="adm-muted">Sin oferta</span>';
-
-    tr.innerHTML = `
-      <td>
-        <div class="adm-book-cell">
-          <span class="adm-swatch" style="background:${book.cover?.bg || '#6C4DF6'};color:${book.cover?.fg || '#fff'}" aria-hidden="true">HF</span>
-          <div>
-            <strong>${book.title}</strong><br>
-            <span class="adm-muted">${book.author}</span>
-          </div>
-        </div>
-      </td>
-      <td>${book.physicalPrice > 0 ? money(book.physicalPrice) : '—'}</td>
-      <td>${book.ebookAuthorized && book.ebookPrice > 0 ? money(book.ebookPrice) : '—'}</td>
-      <td>
-        <span class="adm-tag ${book.available ? '' : 'adm-tag--out'}">
-          ${book.available ? 'Disponible' : 'Agotado'}
-        </span>
-      </td>
-      <td>${offerText}</td>
-      <td><button type="button" class="adm-btn adm-btn--ghost adm-btn--sm" data-edit="${book.id}">Editar</button></td>
-    `;
-
-    tr.querySelector('[data-edit]').addEventListener('click', () => openEditDialog(book));
-    tbody.append(tr);
+  const select = el('select');
+  STATUSES.forEach(s => {
+    const op = el('option', null, s);
+    op.value = s;
+    if (s === order.status) op.selected = true;
+    select.append(op);
   });
+  const apply = btn('Cambiar estado', async () => {
+    try {
+      await updateOrderStatus(order.id, select.value);
+      statusMsg(`Pedido ${order.id} actualizado a ${select.value}`);
+      await renderOrders();
+      await showOrderDetail(order.id);
+    } catch (err) { statusMsg(err.message, true); }
+  }, 'btn btn--sm btn--sun');
 
-  wrap.replaceChildren(table);
+  const actions = el('div', 'admin-actions');
+  actions.append(wa, select, apply, btn('Cerrar detalle', () => { box.hidden = true; }));
+  box.append(actions);
 }
 
-function openEditDialog(book) {
-  const dlg = $('#editBookDlg');
-  $('#editId').value = book.id;
-  $('#editBookMeta').textContent = `${book.title} — ${book.author}`;
-  $('#editPhysical').value = book.physicalPrice || 0;
-  $('#editEbook').value = book.formats?.ebook?.price || book.ebookPrice || 0;
-  $('#editAvailable').checked = book.available !== false;
-  $('#editEbookAuth').checked = Boolean(book.ebookAuthorized);
-  $('#editOfferPct').value = book.offer?.percent || 0;
-  $('#editOfferStart').value = book.offer?.start || '';
-  $('#editOfferEnd').value = book.offer?.end || '';
-  dlg.showModal();
+// ---------------------------------------------------------------- catálogo
+async function renderBooks() {
+  const box = $('#booksAdminList');
+  box.replaceChildren();
+  try {
+    const books = await getBooks({includeHidden: true});
+    books.forEach(b => {
+      const meta = `${b.author} · ${money(b.physicalPrice || 0)}${b.ebookPrice ? ' / ebook ' + money(b.ebookPrice) : ''} · ${b.pages || 0} pág.`;
+      const tags = [{label: b.available ? 'Disponible' : 'Agotado', tone: b.available ? '' : 'off'}];
+      if (b.hidden) tags.push({label: 'Oculto', tone: 'off'});
+      if (b.offer) tags.push({label: `${b.isOfferActive ? 'Vigente' : 'Programada'} -${b.offer.percent}%`, tone: 'warn'});
+      const actions = [
+        btn('Editar', () => fillBookForm(b)),
+        btn(b.hidden ? 'Mostrar' : 'Ocultar', async () => {
+          await adminSaveBook({...b, hidden: !b.hidden});
+          statusMsg(b.hidden ? 'Libro visible en la tienda' : 'Libro oculto de la tienda');
+          await renderBooks();
+        }),
+        btn(b.available ? 'Marcar agotado' : 'Marcar disponible', async () => {
+          await adminToggleAvailability(b.id);
+          statusMsg('Disponibilidad actualizada');
+          await Promise.all([renderBooks(), renderOffers()]);
+        }),
+        deleteBtn(async () => {
+          await adminDeleteBook(b.id);
+          statusMsg('Libro eliminado del catálogo');
+          await Promise.all([renderBooks(), renderOffers(), fillSelects()]);
+        })
+      ];
+      box.append(row(b.title, meta, actions, tags));
+    });
+  } catch (err) { statusMsg(err.message, true); }
 }
 
-function initEditForm() {
-  const dlg = $('#editBookDlg');
-  const form = $('#editBookForm');
+function setCheck(id, value) { $(id).checked = Boolean(value); }
+function fillBookForm(b) {
+  $('#bookFormTitle').textContent = `Editar: ${b.title}`;
+  $('#bId').value = b.id || '';
+  $('#bTitle').value = b.title || '';
+  $('#bAuthor').value = b.author || '';
+  $('#bAuthorId').value = b.authorId || '';
+  $('#bGenres').value = (b.genres || []).join(', ');
+  $('#bThemes').value = (b.themes || []).join(', ');
+  $('#bCollections').value = (b.collections || []).join(', ');
+  $('#bPages').value = b.pages || 0;
+  $('#bReadingTime').value = b.readingTime || 0;
+  $('#bPhysical').value = b.physicalPrice || 0;
+  $('#bEbook').value = b.ebookPrice || 0;
+  $('#bOfferPct').value = b.offer ? b.offer.percent : 0;
+  $('#bOfferStart').value = b.offer?.start || '';
+  $('#bOfferEnd').value = b.offer?.end || '';
+  $('#bCover').value = b.cover?.image || '';
+  $('#bBg').value = b.cover?.bg || '#2B1B7A';
+  $('#bFg').value = b.cover?.fg || '#FFC800';
+  $('#bMood').value = b.quiz?.mood || '';
+  $('#bPace').value = b.quiz?.pace || '';
+  $('#bSynopsis').value = b.synopsis || '';
+  setCheck('#bAvailable', b.available !== false);
+  setCheck('#bHidden', b.hidden);
+  setCheck('#bEbookAuth', b.ebookAuthorized);
+  setCheck('#bIsNew', b.isNew);
+  setCheck('#bBest', b.bestseller);
+  setCheck('#bFeature', b.featured);
+  $('#bookForm').hidden = false;
+}
+$('#newBookBtn').onclick = () => {
+  $('#bookForm').reset();
+  $('#bookFormTitle').textContent = 'Nuevo libro';
+  $('#bId').value = '';
+  $('#bBg').value = '#2B1B7A';
+  $('#bFg').value = '#FFC800';
+  setCheck('#bAvailable', true);
+  setCheck('#bHidden', false);
+  $('#bookForm').hidden = false;
+  $('#bTitle').focus();
+};
+$('#bookCancel').onclick = () => { $('#bookForm').hidden = true; };
 
-  $('#closeEditDlg').addEventListener('click', () => dlg.close());
-  $('#cancelEditDlg').addEventListener('click', () => dlg.close());
-
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    const id = $('#editId').value;
-    const base = allBooks.find(b => b.id === id);
-    if (!base) return;
-
-    const phys = parseFloat($('#editPhysical').value) || 0;
-    const ebook = parseFloat($('#editEbook').value) || 0;
-    const pct = parseInt($('#editOfferPct').value, 10) || 0;
-    const start = $('#editOfferStart').value;
-    const end = $('#editOfferEnd').value;
-
-    const formats = {};
-    if (phys > 0) formats.physical = { price: phys };
-    if (ebook > 0) formats.ebook = { price: ebook };
-
-    const updated = {
-      ...base,
-      available: $('#editAvailable').checked,
-      ebookAuthorized: $('#editEbookAuth').checked && ebook > 0,
-      formats,
-      offer: pct > 0 ? { percent: pct, start, end } : null
+$('#bookForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    const id = $('#bId').value.trim() || slug($('#bTitle').value);
+    if (!id) throw new Error('Escribe un título o un ID para el libro.');
+    const physical = Number($('#bPhysical').value) || 0;
+    const ebook = Number($('#bEbook').value) || 0;
+    const pct = Number($('#bOfferPct').value) || 0;
+    const book = {
+      id,
+      title: $('#bTitle').value.trim(),
+      author: $('#bAuthor').value.trim(),
+      authorId: $('#bAuthorId').value.trim(),
+      genres: list($('#bGenres').value),
+      themes: list($('#bThemes').value),
+      collections: list($('#bCollections').value),
+      pages: Number($('#bPages').value) || 0,
+      readingTime: Number($('#bReadingTime').value) || 0,
+      available: $('#bAvailable').checked,
+      hidden: $('#bHidden').checked,
+      ebookAuthorized: $('#bEbookAuth').checked,
+      formats: {
+        ...(physical > 0 ? {physical: {price: physical}} : {}),
+        ...(ebook > 0 ? {ebook: {price: ebook}} : {})
+      },
+      cover: {
+        ...($('#bCover').value.trim() ? {image: $('#bCover').value.trim()} : {}),
+        bg: $('#bBg').value || '#2B1B7A',
+        fg: $('#bFg').value || '#FFC800'
+      },
+      synopsis: $('#bSynopsis').value.trim(),
+      quiz: {mood: $('#bMood').value.trim(), pace: $('#bPace').value.trim()},
+      isNew: $('#bIsNew').checked,
+      bestseller: $('#bBest').checked,
+      featured: $('#bFeature').checked,
+      offer: pct > 0 ? {
+        percent: pct,
+        ...($('#bOfferStart').value ? {start: $('#bOfferStart').value} : {}),
+        ...($('#bOfferEnd').value ? {end: $('#bOfferEnd').value} : {})
+      } : null
     };
+    const existing = await getBook(id, {includeHidden: true});
+    await adminSaveBook(existing ? {...existing, ...book} : book);
+    statusMsg(`Libro «${book.title}» guardado`);
+    $('#bookForm').hidden = true;
+    await Promise.all([renderBooks(), renderOffers(), fillSelects()]);
+  } catch (err) { statusMsg(err.message, true); }
+});
 
-    // MOCK: reemplazar por llamada HTTP al backend (PUT /api/books/:id)
-    await adminSaveBook(updated);
-    dlg.close();
-    await renderBooks($('#bookSearch').value);
-    showToast(`Libro "${base.title}" actualizado`);
+// ---------------------------------------------------------------- colecciones
+async function renderCollections() {
+  const box = $('#collectionsList');
+  box.replaceChildren();
+  try {
+    const items = await getCollections();
+    items.forEach(c => box.append(row(c.name, `${c.bookIds?.length || 0} libros · ${c.slogan || ''}`, [
+      btn('Editar', () => fillCollectionForm(c)),
+      deleteBtn(async () => {
+        await adminDeleteCollection(c.id);
+        statusMsg('Colección eliminada');
+        await renderCollections();
+      })
+    ])));
+  } catch (err) { statusMsg(err.message, true); }
+}
+function fillCollectionForm(c) {
+  $('#collectionFormTitle').textContent = `Editar: ${c.name}`;
+  $('#cId').value = c.id;
+  $('#cName').value = c.name;
+  $('#cSlogan').value = c.slogan || '';
+  $('#cBooks').value = (c.bookIds || []).join(', ');
+  $('#collectionForm').hidden = false;
+}
+$('#newCollectionBtn').onclick = () => {
+  $('#collectionForm').reset();
+  $('#collectionFormTitle').textContent = 'Nueva colección';
+  $('#collectionForm').hidden = false;
+  $('#cId').focus();
+};
+$('#collectionCancel').onclick = () => { $('#collectionForm').hidden = true; };
+$('#collectionForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    await adminSaveCollection({
+      id: $('#cId').value.trim(), name: $('#cName').value.trim(),
+      slogan: $('#cSlogan').value.trim(), bookIds: list($('#cBooks').value)
+    });
+    statusMsg('Colección guardada');
+    $('#collectionForm').hidden = true;
+    await renderCollections();
+  } catch (err) { statusMsg(err.message, true); }
+});
+
+// ---------------------------------------------------------------- escritores
+async function renderWriters() {
+  const box = $('#writersAdminList');
+  box.replaceChildren();
+  try {
+    const items = await getWriters();
+    items.forEach(w => box.append(row(w.name, `${w.bookIds?.length || 0} obras · ${(w.bio || '').slice(0, 90)}`, [
+      btn('Editar', () => fillWriterForm(w)),
+      deleteBtn(async () => {
+        await adminDeleteWriter(w.id);
+        statusMsg('Escritor eliminado');
+        await renderWriters();
+      })
+    ])));
+  } catch (err) { statusMsg(err.message, true); }
+}
+function fillWriterForm(w) {
+  $('#writerFormTitle').textContent = `Editar: ${w.name}`;
+  $('#wId').value = w.id;
+  $('#wName').value = w.name;
+  $('#wBio').value = w.bio || '';
+  $('#wBooks').value = (w.bookIds || []).join(', ');
+  $('#writerForm').hidden = false;
+}
+$('#newWriterBtn').onclick = () => {
+  $('#writerForm').reset();
+  $('#writerFormTitle').textContent = 'Nuevo escritor';
+  $('#writerForm').hidden = false;
+  $('#wId').focus();
+};
+$('#writerCancel').onclick = () => { $('#writerForm').hidden = true; };
+$('#writerForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    await adminSaveWriter({
+      id: $('#wId').value.trim(), name: $('#wName').value.trim(),
+      bio: $('#wBio').value.trim(), bookIds: list($('#wBooks').value)
+    });
+    statusMsg('Escritor guardado');
+    $('#writerForm').hidden = true;
+    await renderWriters();
+  } catch (err) { statusMsg(err.message, true); }
+});
+
+// ---------------------------------------------------------------- ofertas
+async function renderOffers() {
+  const box = $('#offersAdminList');
+  box.replaceChildren();
+  try {
+    const books = await getBooks({includeHidden: true});
+    const withOffer = books.filter(b => b.offer);
+    if (!withOffer.length) box.append(el('p', 'admin-empty', 'No hay ofertas programadas.'));
+    withOffer.forEach(b => box.append(row(b.title,
+      `-${b.offer.percent}% · ${b.offer.start || 'sin inicio'} → ${b.offer.end || 'sin fin'} · ${money(b.physicalPrice || 0)}`,
+      [
+        btn('Editar libro', () => fillBookForm(b)),
+        btn('Quitar oferta', async () => {
+          await adminSaveBook({...b, offer: null});
+          statusMsg('Oferta eliminada');
+          await Promise.all([renderOffers(), renderBooks()]);
+        })
+      ],
+      [{label: b.isOfferActive ? 'Vigente' : 'Programada', tone: b.isOfferActive ? '' : 'off'}])));
+    await fillSelects();
+  } catch (err) { statusMsg(err.message, true); }
+}
+async function fillSelects() {
+  const books = await getBooks();
+  [$('#offerBook'), $('#pickBook')].forEach(sel => {
+    if (!sel) return;
+    const current = sel.value;
+    sel.replaceChildren();
+    books.forEach(b => {
+      const op = el('option', null, b.title);
+      op.value = b.id;
+      sel.append(op);
+    });
+    if (current && books.some(b => b.id === current)) sel.value = current;
   });
 }
+$('#offerForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    const book = await getBook($('#offerBook').value);
+    if (!book) throw new Error('Selecciona un libro.');
+    const offer = {
+      percent: Number($('#offerPct').value) || 0,
+      ...($('#offerStart').value ? {start: $('#offerStart').value} : {}),
+      ...($('#offerEnd').value ? {end: $('#offerEnd').value} : {})
+    };
+    if (offer.percent < 1 || offer.percent > 100) throw new Error('El descuento debe estar entre 1 y 100.');
+    await adminSaveBook({...book, offer});
+    statusMsg(`Oferta de ${offer.percent}% guardada para «${book.title}»`);
+    await Promise.all([renderOffers(), renderBooks()]);
+  } catch (err) { statusMsg(err.message, true); }
+});
 
-// ── Pestaña 3: Suscriptores ──────────────────────────────────
-async function renderSubscribers() {
-  // MOCK: reemplazar por llamada HTTP al backend (GET /api/subscriptions)
-  const subs = await getSubscriptions();
-  $('#countSubs').textContent = subs.filter(s => s.active !== false).length;
-
-  const wrap = $('#subsList');
-  if (!subs.length) {
-    wrap.innerHTML = `
-      <div class="adm-empty">
-        <h3>Sin suscriptores todavía</h3>
-        <p class="adm-muted">Los correos registrados en el formulario de newsletter aparecerán aquí.</p>
-      </div>`;
-    return;
-  }
-
-  const table = document.createElement('table');
-  table.className = 'adm-table';
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th>Correo electrónico</th>
-        <th>Fecha de registro</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `;
-
-  const tbody = table.querySelector('tbody');
-  subs.forEach(sub => {
-    const tr = document.createElement('tr');
-    const active = sub.active !== false;
-    tr.innerHTML = `
-      <td><strong>${sub.email}</strong></td>
-      <td>${formatDate(sub.subscribedAt)}</td>
-      <td><span class="adm-tag ${active ? '' : 'adm-tag--out'}">${active ? 'Activo' : 'Dado de baja'}</span></td>
-      <td style="display:flex;gap:.4rem;flex-wrap:wrap">
-        ${active ? `<button type="button" class="adm-btn adm-btn--ghost adm-btn--sm" data-unsub="${sub.email}">Desuscribir</button>` : ''}
-        <button type="button" class="adm-btn adm-btn--danger adm-btn--sm" data-del="${sub.email}">Eliminar</button>
-      </td>
-    `;
-
-    tr.querySelector('[data-unsub]')?.addEventListener('click', async () => {
-      await unsubscribe(sub.email);
-      await renderSubscribers();
-      showToast(`Suscripción cancelada para ${sub.email}`);
-    });
-
-    tr.querySelector('[data-del]').addEventListener('click', async () => {
-      await adminDeleteSubscription(sub.email);
-      await renderSubscribers();
-      showToast(`Suscriptor ${sub.email} eliminado`);
-    });
-
-    tbody.append(tr);
-  });
-
-  wrap.replaceChildren(table);
+// ---------------------------------------------------------------- recomendación semanal
+async function renderPick() {
+  try {
+    const pick = await getWeeklyPick();
+    $('#pickCurrent').textContent = pick
+      ? `Libro actual: ${pick.title} (seleccionado el ${fmtDate(pick.updatedAt)})`
+      : 'Aún no hay libro recomendado esta semana.';
+    await fillSelects();
+    if (pick) $('#pickBook').value = pick.bookId;
+  } catch (err) { statusMsg(err.message, true); }
 }
+$('#pickForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    const pick = await setWeeklyPick($('#pickBook').value);
+    statusMsg(`Recomendación semanal: ${pick.title}`);
+    await renderPick();
+  } catch (err) { statusMsg(err.message, true); }
+});
 
-// ── Inicio ───────────────────────────────────────────────────
-initTabs();
-initEditForm();
-$('#refreshOrders').addEventListener('click', renderOrders);
-$('#bookSearch').addEventListener('input', e => renderBooks(e.target.value));
-
-(async () => {
-  await Promise.all([renderOrders(), renderBooks(), renderSubscribers()]);
-})();
+// ---------------------------------------------------------------- suscriptores
+$('#subsRefreshBtn').onclick = () => renderSubs();
+async function renderSubs() {
+  const box = $('#subsList');
+  box.replaceChildren();
+  try {
+    const subs = await getSubscriptions();
+    if (!subs.length) { box.append(el('p', 'admin-empty', 'Todavía no hay suscriptores.')); return; }
+    subs.forEach(s => {
+      const meta = `Alta: ${fmtDate(s.subscribedAt)}${s.consentAt ? ' · Consentimiento: ' + fmtDate(s.consentAt) : ''}${s.unsubscribedAt ? ' · Baja: ' + fmtDate(s.unsubscribedAt) : ''}`;
+      const action = btn(s.active ? 'Dar de baja' : 'Reactivar', async () => {
+        if (s.active) await unsubscribe(s.email);
+        else await subscribe(s.email, true);
+        statusMsg(s.active ? 'Baja registrada' : 'Suscripción reactivada');
+        await renderSubs();
+      });
+      box.append(row(s.email, meta, [action],
+        [{label: s.active ? 'Activa' : 'Dada de baja', tone: s.active ? '' : 'off'}]));
+    });
+  } catch (err) { statusMsg(err.message, true); }
+}

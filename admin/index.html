@@ -1,137 +1,195 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <title>Panel de Administración | Historias Fantásticas</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panel de administración | Historias Fantásticas</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="hf-base" content="../">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <script type="module" src="./admin.js"></script>
 </head>
-<body>
-  <header class="adm-header">
-    <div class="adm-wrap adm-header__row">
-      <div class="adm-brand">
-        <span class="adm-brand__mark" aria-hidden="true">HF</span>
-        <div>
-          <h1>Panel de Administración</h1>
-          <p class="adm-muted">Historias Fantásticas · Modo simulado (localStorage)</p>
-        </div>
-      </div>
-      <a class="adm-btn adm-btn--ghost" href="../index.html">← Volver a la tienda</a>
-    </div>
-  </header>
+<body class="admin-body">
+<main class="admin-shell">
 
-  <main class="adm-wrap adm-main">
-    <nav class="adm-tabs" role="tablist" aria-label="Secciones de administración">
-      <button class="adm-tab" role="tab" id="tab-orders" aria-selected="true" aria-controls="panel-orders">
-        Pedidos <span class="adm-badge" id="countOrders">0</span>
-      </button>
-      <button class="adm-tab" role="tab" id="tab-catalog" aria-selected="false" aria-controls="panel-catalog">
-        Catálogo <span class="adm-badge" id="countBooks">0</span>
-      </button>
-      <button class="adm-tab" role="tab" id="tab-subs" aria-selected="false" aria-controls="panel-subs">
-        Suscriptores <span class="adm-badge" id="countSubs">0</span>
-      </button>
+  <!-- Acceso restringido (RF14, RNF09) -->
+  <section id="loginView" class="admin-login">
+    <a class="logo" href="../index.html"><img class="logo__img" src="../assets/logo.svg" alt="Historias Fantásticas"></a>
+    <form id="loginForm" class="admin-card">
+      <h1>Acceso al panel</h1>
+      <p class="muted">Solo el administrador de la tienda puede entrar.</p>
+      <label>Usuario<input id="loginUser" name="user" autocomplete="username" value="admin" required></label>
+      <label>Contraseña<input id="loginPass" name="password" type="password" autocomplete="current-password" required></label>
+      <p id="loginErr" class="admin-error" role="alert"></p>
+      <button class="btn" type="submit">Entrar</button>
+      <p class="muted admin-hint">Demo de laboratorio: usuario <code>admin</code>, contraseña <code>historias2026</code>.</p>
+    </form>
+  </section>
+
+  <div id="adminView" hidden>
+    <header class="admin-head">
+      <div>
+        <h1>Panel de administración</h1>
+        <p class="muted">Historias Fantásticas · acceso restringido · no indexado</p>
+      </div>
+      <div class="admin-head__actions">
+        <a class="btn btn--sm" href="../index.html">Ver tienda</a>
+        <button class="btn btn--sm" id="logoutBtn">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <p id="adminStatus" class="admin-status" role="status"></p>
+
+    <nav class="admin-tabs" aria-label="Secciones del panel">
+      <button class="admin-tab" type="button" data-tab="pedidos">Pedidos</button>
+      <button class="admin-tab" type="button" data-tab="catalogo">Catálogo</button>
+      <button class="admin-tab" type="button" data-tab="colecciones">Colecciones</button>
+      <button class="admin-tab" type="button" data-tab="escritores">Escritores</button>
+      <button class="admin-tab" type="button" data-tab="ofertas">Ofertas</button>
+      <button class="admin-tab" type="button" data-tab="recomendacion">Recomendación</button>
+      <button class="admin-tab" type="button" data-tab="suscriptores">Suscriptores</button>
     </nav>
 
-    <!-- Pestaña 1: Pedidos -->
-    <section id="panel-orders" class="adm-panel" role="tabpanel" aria-labelledby="tab-orders">
-      <div class="adm-panel__head">
-        <div>
-          <h2>Gestión de pedidos</h2>
-          <p class="adm-muted">Pedidos registrados desde el sitio web, ordenados del más reciente al más antiguo.</p>
-        </div>
-        <button class="adm-btn adm-btn--ghost" id="refreshOrders" type="button">Actualizar</button>
+    <!-- RF15: gestión de pedidos -->
+    <section class="admin-card admin-section" id="tab-pedidos" aria-labelledby="pedidos-t">
+      <h2 id="pedidos-t">Pedidos</h2>
+      <div class="admin-filters">
+        <label>Estado
+          <select id="orderStatusFilter">
+            <option value="">Todos</option>
+            <option>Nuevo</option><option>Confirmado</option><option>Pagado</option>
+            <option>Entregado</option><option>Cancelado</option>
+          </select>
+        </label>
+        <label>Fecha<input type="date" id="orderDateFilter"></label>
+        <button class="btn btn--sm" type="button" id="orderRefreshBtn">Actualizar</button>
       </div>
-      <div id="ordersList" class="adm-stack"></div>
+      <div id="ordersList" class="admin-list"></div>
+      <div id="orderDetail" class="admin-detail" hidden></div>
     </section>
 
-    <!-- Pestaña 2: Catálogo -->
-    <section id="panel-catalog" class="adm-panel" role="tabpanel" aria-labelledby="tab-catalog" hidden>
-      <div class="adm-panel__head">
-        <div>
-          <h2>Gestión de catálogo</h2>
-          <p class="adm-muted">Edita precios, disponibilidad y ofertas. Los cambios se reflejan de inmediato en la tienda.</p>
+    <!-- RF14: catálogo -->
+    <section class="admin-card admin-section" id="tab-catalogo" aria-labelledby="catalogo-t" hidden>
+      <h2 id="catalogo-t">Catálogo</h2>
+      <button class="btn btn--sm" type="button" id="newBookBtn">+ Nuevo libro</button>
+      <div id="booksAdminList" class="admin-list"></div>
+      <form id="bookForm" class="admin-form" hidden>
+        <h3 id="bookFormTitle">Editar libro</h3>
+        <div class="admin-grid">
+          <label>ID<input id="bId" name="id" required></label>
+          <label>Título<input id="bTitle" name="title" required></label>
+          <label>Autor<input id="bAuthor" name="author" required></label>
+          <label>ID de autor<input id="bAuthorId" name="authorId"></label>
+          <label>Géneros (separados por coma)<input id="bGenres" name="genres"></label>
+          <label>Temáticas (separadas por coma)<input id="bThemes" name="themes"></label>
+          <label>Colecciones (IDs separados por coma)<input id="bCollections" name="collections"></label>
+          <label>Páginas<input id="bPages" name="pages" type="number" min="0"></label>
+          <label>Minutos de lectura<input id="bReadingTime" name="readingTime" type="number" min="0"></label>
+          <label>Precio físico<input id="bPhysical" name="physical" type="number" min="0" step="0.01"></label>
+          <label>Precio ebook<input id="bEbook" name="ebook" type="number" min="0" step="0.01"></label>
+          <label>Descuento % (ofertas)<input id="bOfferPct" name="offerPct" type="number" min="0" max="100"></label>
+          <label>Inicio de oferta<input id="bOfferStart" name="offerStart" type="date"></label>
+          <label>Fin de oferta<input id="bOfferEnd" name="offerEnd" type="date"></label>
+          <label>Ruta de portada (webp)<input id="bCover" name="cover" placeholder="assets/Portadas%20de%20libros/ejemplo.webp"></label>
+          <label>Color de portada (respaldo)<input id="bBg" name="bg" type="color" value="#2B1B7A"></label>
+          <label>Color de texto (respaldo)<input id="bFg" name="fg" type="color" value="#FFC800"></label>
+          <label>Estado de ánimo (quiz)<input id="bMood" name="mood"></label>
+          <label>Ritmo (quiz)<input id="bPace" name="pace"></label>
         </div>
-        <label class="adm-search">
-          <span class="sr-only">Buscar libro</span>
-          <input type="search" id="bookSearch" placeholder="Buscar por título o autor…">
-        </label>
-      </div>
-      <div id="booksList" class="adm-table-wrap"></div>
+        <label>Sinopsis<textarea id="bSynopsis" name="synopsis" rows="3"></textarea></label>
+        <div class="admin-checks">
+          <label><input id="bAvailable" type="checkbox" checked> Disponible</label>
+          <label><input id="bHidden" type="checkbox"> Oculto en la tienda</label>
+          <label><input id="bEbookAuth" type="checkbox"> Ebook autorizado</label>
+          <label><input id="bIsNew" type="checkbox"> Novedad</label>
+          <label><input id="bBest" type="checkbox"> Más vendido</label>
+          <label><input id="bFeature" type="checkbox"> Destacado</label>
+        </div>
+        <div class="admin-actions">
+          <button class="btn btn--sm" type="submit">Guardar libro</button>
+          <button class="btn btn--sm" type="button" id="bookCancel">Cancelar</button>
+        </div>
+      </form>
     </section>
 
-    <!-- Pestaña 3: Suscriptores -->
-    <section id="panel-subs" class="adm-panel" role="tabpanel" aria-labelledby="tab-subs" hidden>
-      <div class="adm-panel__head">
-        <div>
-          <h2>Suscriptores del boletín</h2>
-          <p class="adm-muted">Correos registrados con consentimiento explícito en la newsletter.</p>
+    <!-- RF14: colecciones -->
+    <section class="admin-card admin-section" id="tab-colecciones" aria-labelledby="colecciones-t" hidden>
+      <h2 id="colecciones-t">Colecciones temáticas</h2>
+      <button class="btn btn--sm" type="button" id="newCollectionBtn">+ Nueva colección</button>
+      <div id="collectionsList" class="admin-list"></div>
+      <form id="collectionForm" class="admin-form" hidden>
+        <h3 id="collectionFormTitle">Nueva colección</h3>
+        <div class="admin-grid">
+          <label>ID<input id="cId" required></label>
+          <label>Nombre<input id="cName" required></label>
         </div>
-      </div>
-      <div id="subsList" class="adm-table-wrap"></div>
+        <label>Eslogan<input id="cSlogan"></label>
+        <label>Libros (IDs separados por coma)<input id="cBooks"></label>
+        <div class="admin-actions">
+          <button class="btn btn--sm" type="submit">Guardar colección</button>
+          <button class="btn btn--sm" type="button" id="collectionCancel">Cancelar</button>
+        </div>
+      </form>
     </section>
-  </main>
 
-  <!-- Modal para editar libro -->
-  <dialog id="editBookDlg" class="adm-dlg" aria-labelledby="editBookTitle">
-    <form id="editBookForm" class="adm-dlg__form" method="dialog">
-      <div class="adm-dlg__head">
-        <h2 id="editBookTitle">Editar libro</h2>
-        <button type="button" class="adm-btn adm-btn--ghost adm-btn--sm" id="closeEditDlg" aria-label="Cerrar">✕</button>
-      </div>
-      <p class="adm-muted" id="editBookMeta"></p>
-      <input type="hidden" name="id" id="editId">
-
-      <div class="adm-grid-2">
-        <label class="adm-field">
-          <span>Precio físico (USD)</span>
-          <input type="number" name="physicalPrice" id="editPhysical" min="0" step="0.01" placeholder="0.00">
-        </label>
-        <label class="adm-field">
-          <span>Precio ebook (USD)</span>
-          <input type="number" name="ebookPrice" id="editEbook" min="0" step="0.01" placeholder="0.00">
-        </label>
-      </div>
-
-      <div class="adm-checks">
-        <label class="adm-check">
-          <input type="checkbox" name="available" id="editAvailable">
-          <span>Disponible para la venta</span>
-        </label>
-        <label class="adm-check">
-          <input type="checkbox" name="ebookAuthorized" id="editEbookAuth">
-          <span>Ebook autorizado</span>
-        </label>
-      </div>
-
-      <fieldset class="adm-fieldset">
-        <legend>Oferta (dejar porcentaje en 0 para quitar oferta)</legend>
-        <div class="adm-grid-3">
-          <label class="adm-field">
-            <span>Descuento (%)</span>
-            <input type="number" name="offerPercent" id="editOfferPct" min="0" max="90" step="1" value="0">
-          </label>
-          <label class="adm-field">
-            <span>Inicio</span>
-            <input type="date" name="offerStart" id="editOfferStart">
-          </label>
-          <label class="adm-field">
-            <span>Fin</span>
-            <input type="date" name="offerEnd" id="editOfferEnd">
-          </label>
+    <!-- RF14: escritores -->
+    <section class="admin-card admin-section" id="tab-escritores" aria-labelledby="escritores-t" hidden>
+      <h2 id="escritores-t">Escritores emergentes</h2>
+      <button class="btn btn--sm" type="button" id="newWriterBtn">+ Nuevo escritor</button>
+      <div id="writersAdminList" class="admin-list"></div>
+      <form id="writerForm" class="admin-form" hidden>
+        <h3 id="writerFormTitle">Nuevo escritor</h3>
+        <div class="admin-grid">
+          <label>ID<input id="wId" required></label>
+          <label>Nombre<input id="wName" required></label>
         </div>
-      </fieldset>
+        <label>Biografía<textarea id="wBio" rows="3"></textarea></label>
+        <label>Obras (IDs de libros separados por coma)<input id="wBooks"></label>
+        <div class="admin-actions">
+          <button class="btn btn--sm" type="submit">Guardar escritor</button>
+          <button class="btn btn--sm" type="button" id="writerCancel">Cancelar</button>
+        </div>
+      </form>
+    </section>
 
-      <div class="adm-dlg__actions">
-        <button type="button" class="adm-btn adm-btn--ghost" id="cancelEditDlg">Cancelar</button>
-        <button type="submit" class="adm-btn">Guardar cambios</button>
-      </div>
-    </form>
-  </dialog>
+    <!-- RF05 / RF14: ofertas -->
+    <section class="admin-card admin-section" id="tab-ofertas" aria-labelledby="ofertas-t" hidden>
+      <h2 id="ofertas-t">Ofertas y fechas</h2>
+      <p class="muted">Fuera del rango de fechas el libro vuelve a su precio normal automáticamente.</p>
+      <div id="offersAdminList" class="admin-list"></div>
+      <form id="offerForm" class="admin-form">
+        <h3>Programar oferta</h3>
+        <div class="admin-grid">
+          <label>Libro<select id="offerBook" required></select></label>
+          <label>Descuento %<input id="offerPct" type="number" min="1" max="100" value="20" required></label>
+          <label>Desde<input id="offerStart" type="date"></label>
+          <label>Hasta<input id="offerEnd" type="date"></label>
+        </div>
+        <div class="admin-actions"><button class="btn btn--sm" type="submit">Guardar oferta</button></div>
+      </form>
+    </section>
 
-  <div class="adm-toast" id="admToast" role="status" aria-live="polite" hidden></div>
-  <script type="module" src="admin.js"></script>
+    <!-- RF12: recomendación semanal -->
+    <section class="admin-card admin-section" id="tab-recomendacion" aria-labelledby="recom-t" hidden>
+      <h2 id="recom-t">Recomendación semanal</h2>
+      <p class="muted">El libro elegido se usa en el correo semanal de la newsletter.</p>
+      <p id="pickCurrent" class="admin-current"></p>
+      <form id="pickForm" class="admin-form">
+        <label>Libro recomendado<select id="pickBook" required></select></label>
+        <div class="admin-actions"><button class="btn btn--sm" type="submit">Guardar selección</button></div>
+      </form>
+    </section>
+
+    <!-- RF12 / RNF10: suscriptores -->
+    <section class="admin-card admin-section" id="tab-suscriptores" aria-labelledby="subs-t" hidden>
+      <h2 id="subs-t">Suscriptores</h2>
+      <p class="muted">Correos con consentimiento explícito. Los datos personales solo son visibles en este panel.</p>
+      <button class="btn btn--sm" type="button" id="subsRefreshBtn">Actualizar</button>
+      <div id="subsList" class="admin-list"></div>
+    </section>
+  </div>
+</main>
 </body>
 </html>

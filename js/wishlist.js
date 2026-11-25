@@ -1,5 +1,5 @@
 import {$,$$,el,bump,money,goCat} from './utils.js';
-import {openBookDetail} from './cards.js';
+import {coverImage, openBookDetail} from './cards.js';
 
 const KEY = 'ds-wish';
 let set = new Set();
@@ -71,18 +71,25 @@ export function initWishlist(books) {
     items.forEach(b => {
       const row = el('article', 'line');
 
-      // Portada pequeña
-      const cv = el('div', 'line__cover');
+      // Portada pequeña: botón para abrir la ficha con teclado
+      const cv = el('button', 'line__cover');
+      cv.type = 'button';
       cv.style.background = b.bg;
-      cv.style.cursor = 'pointer';
-      cv.setAttribute('aria-hidden', 'true');
+      cv.setAttribute('aria-label', `Ver detalles de ${b.t}`);
       cv.onclick = () => openBookDetail(b);
+      const lineImg = coverImage(b);
+      if (lineImg) {
+        cv.classList.add('line__cover--image');
+        cv.append(lineImg);
+      } else cv.textContent = b.t.slice(0, 2);
 
       // Info
       const info = el('div');
-      const h3 = el('h3', null, b.t);
-      h3.style.cursor = 'pointer';
-      h3.onclick = () => openBookDetail(b);
+      const h3 = el('h3');
+      const titleBtn = el('button', 'book__title-btn', b.t);
+      titleBtn.type = 'button';
+      titleBtn.onclick = () => openBookDetail(b);
+      h3.append(titleBtn);
       info.append(h3, el('p', 'book__author', b.a));
 
       const tags = el('div');
