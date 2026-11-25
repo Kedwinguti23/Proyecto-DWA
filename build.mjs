@@ -41,7 +41,52 @@ cpSync('admin/index.html', 'dist/admin/index.html');
 
 // 4. Generador de páginas estáticas (opción A — build.mjs, RF SEO)
 // Cada sub-página comparte la misma SPA con metadatos propios para SEO.
-const BASE_HTML = readFileSync('index.html', 'utf8');
+
+/**
+ * Genera una variante de index.html con metadatos, H1 y datos estructurados propios.
+ * Las rutas se reescriben con "../" porque la página vive en /slug/; el prefix
+ * se comunica a la SPA mediante <meta name="hf-base"> para que fetch y el logo
+ * sigan apuntando a la raíz. El scroll se hace con un script externo (CSP).
+ */
+function makePage({ slug, title, description, section, h1, lead }) {
+  const canonical = `${SITE_URL}/${slug}/`;
+  let html = BASE_HTML
+    .replace(/<title>[^<]*<\/title>/, `<title>${title} | Historias Fantásticas</title>`)
+    .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${description}"`)
+    .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonical}"`)
+    .replace(/(<meta property="og:title" content=")[^"]*"/, `$1${title} | Historias Fantásticas"`)
+    .replace(/(<meta property="og:url" content=")[^"]*"/, `$1${canonical}"`)
+    .replace(/(<meta property="og:description" content=")[^"]*"/, `$1${description}"`)
+    .replace(/<h1>[^<]*<\/h1>/, `<h1>${h1}</h1>`)
+    .replace(/(<p class="muted">)Libros físicos con envío rápido y ebooks con descarga inmediata\.(<\/p>)/, `$1${lead}$2`)
+    // Rutas relativas a la raíz desde /slug/
+    .replace(/(href|src)="(assets|css|js)\//g, '$1="../$2/');
+
+  // Prefijo de rutas y sección objetivo para js/section.js
+  html = html.replace(/(<meta name="viewport"[^>]*>)/,
+    `$1\n  <meta name="hf-base" content="../">\n  <meta name="hf-section" content="${section}">`);
+
+  // WebPage propio por página: evita que las 5 variantes compartan el mismo @id
+  const ldTag = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  if (ldTag) {
+    try {
+      const data = JSON.parse(ldTag[1]);
+      data['@graph'].push({
+        '@type': 'WebPage',
+        '@id': `${canonical}#webpage`,
+        url: canonical,
+        name: `${title} | Historias Fantásticas`,
+        description,
+        isPartOf: {'@id': `${SITE_URL}/#tienda`}
+      });
+      html = html.replace(ldTag[0], `<script type="application/ld+json">${JSON.stringify(data)}</script>`);
+    } catch (_) {}
+  }
+
+  // Script externo: el inline sería bloqueado por script-src 'self'
+  html = html.replace('</body>', '<script type="module" src="../js/section.js"></script>\n</body>');
+  return html;
+}
 
 const pages = [
   {
@@ -85,46 +130,6 @@ const pages = [
     description: 'Contáctanos por WhatsApp. Horario: lunes a sábado 8 a. m. a 8 p. m. Colonia Vista Hermosa, San Miguel, El Salvador.'
   }
 ];
-/**
- * Genera una variante de index.html con metadatos, H1 y datos estructurados propios.
- * Las rutas se reescriben con "../" porque la página vive en /slug/; el prefix
- * se comunica a la SPA mediante <meta name="hf-base"> para que fetch y el logo
- * sigan apuntando a la raíz. El scroll se hace con un script externo (CSP).
- */
-function makePage({ slug, title, description, section, h1, lead }) {
-  const canonical = `${SITE_URL}/${slug}/`;
-  let html = BASE_HTML
-    .replace(/<title>[^<]*<\/title>/, `<title>${title} | Historias Fantásticas</title>`)
-    .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${description}"`)
-    .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonical}"`)
-    .replace(/(<meta property="og:title" content=")[^"]*"/, `$1${title} | Historias Fantásticas"`)
-    .replace(/(<meta property="og:url" content=")[^"]*"/, `$1${canonical}"`)
-    .replace(/(<meta property="og:description" content=")[^"]*"/, `$1${description}"`)
-    .replace(/<h1>[^<]*<\/h1>/, `<h1>${h1}</h1>`)
-    .replace(/(<p class="muted">)Libros físicos con envío rápido y ebooks con descarga inmediata\.(<\/p>)/, `$1${lead}$2`)
-    // Rutas relativas a la raíz desde /slug/
-    .replace(/(href|src)="(assets|css|js)\//g, '$1="../$2/');
-
-  // Prefijo de rutas y sección objetivo para js/section.js
-  html = html.replace(/(<meta name="viewport"[^>]*>)/,
-    `$1\n  <meta name="hf-base" content="../">\n  <meta name="hf-section" content="${section}">`);
-
-  // WebPage propio por página: evita que las 5 variantes compartan el mismo @id
-  const ldTag = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-  if (ldTag) {
-    try {
-      const data = JSON.parse(ldTag[1]);
-      data['@graph'].push({
-        '@type': 'WebPage',
-        '@id': `${canonical}#webpage`,
-        url: canonical,
-        name: `${title} | Historias Fantásticas`,
-        description,
-        isPartOf: {'@id': `${SITE_URL}/#tienda`}
-      });
-      html = html.replace(ldTag[0], `<script type="application/ld+json">${JSON.stringify(data)}</script>`);
-    } catch (_) {}
-  }
 
 for (const page of pages) {
   const dir = `dist/${page.slug}`;
