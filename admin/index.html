@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel de Administración | Historias Fantásticas</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="adm-header">
+    <div class="adm-wrap adm-header__row">
+      <div class="adm-brand">
+        <span class="adm-brand__mark" aria-hidden="true">HF</span>
+        <div>
+          <h1>Panel de Administración</h1>
+          <p class="adm-muted">Historias Fantásticas · Modo simulado (localStorage)</p>
+        </div>
+      </div>
+      <a class="adm-btn adm-btn--ghost" href="../index.html">← Volver a la tienda</a>
+    </div>
+  </header>
+
+  <main class="adm-wrap adm-main">
+    <nav class="adm-tabs" role="tablist" aria-label="Secciones de administración">
+      <button class="adm-tab" role="tab" id="tab-orders" aria-selected="true" aria-controls="panel-orders">
+        Pedidos <span class="adm-badge" id="countOrders">0</span>
+      </button>
+      <button class="adm-tab" role="tab" id="tab-catalog" aria-selected="false" aria-controls="panel-catalog">
+        Catálogo <span class="adm-badge" id="countBooks">0</span>
+      </button>
+      <button class="adm-tab" role="tab" id="tab-subs" aria-selected="false" aria-controls="panel-subs">
+        Suscriptores <span class="adm-badge" id="countSubs">0</span>
+      </button>
+    </nav>
+
+    <!-- Pestaña 1: Pedidos -->
+    <section id="panel-orders" class="adm-panel" role="tabpanel" aria-labelledby="tab-orders">
+      <div class="adm-panel__head">
+        <div>
+          <h2>Gestión de pedidos</h2>
+          <p class="adm-muted">Pedidos registrados desde el sitio web, ordenados del más reciente al más antiguo.</p>
+        </div>
+        <button class="adm-btn adm-btn--ghost" id="refreshOrders" type="button">Actualizar</button>
+      </div>
+      <div id="ordersList" class="adm-stack"></div>
+    </section>
+
+    <!-- Pestaña 2: Catálogo -->
+    <section id="panel-catalog" class="adm-panel" role="tabpanel" aria-labelledby="tab-catalog" hidden>
+      <div class="adm-panel__head">
+        <div>
+          <h2>Gestión de catálogo</h2>
+          <p class="adm-muted">Edita precios, disponibilidad y ofertas. Los cambios se reflejan de inmediato en la tienda.</p>
+        </div>
+        <label class="adm-search">
+          <span class="sr-only">Buscar libro</span>
+          <input type="search" id="bookSearch" placeholder="Buscar por título o autor…">
+        </label>
+      </div>
+      <div id="booksList" class="adm-table-wrap"></div>
+    </section>
+
+    <!-- Pestaña 3: Suscriptores -->
+    <section id="panel-subs" class="adm-panel" role="tabpanel" aria-labelledby="tab-subs" hidden>
+      <div class="adm-panel__head">
+        <div>
+          <h2>Suscriptores del boletín</h2>
+          <p class="adm-muted">Correos registrados con consentimiento explícito en la newsletter.</p>
+        </div>
+      </div>
+      <div id="subsList" class="adm-table-wrap"></div>
+    </section>
+  </main>
+
+  <!-- Modal para editar libro -->
+  <dialog id="editBookDlg" class="adm-dlg" aria-labelledby="editBookTitle">
+    <form id="editBookForm" class="adm-dlg__form" method="dialog">
+      <div class="adm-dlg__head">
+        <h2 id="editBookTitle">Editar libro</h2>
+        <button type="button" class="adm-btn adm-btn--ghost adm-btn--sm" id="closeEditDlg" aria-label="Cerrar">✕</button>
+      </div>
+      <p class="adm-muted" id="editBookMeta"></p>
+      <input type="hidden" name="id" id="editId">
+
+      <div class="adm-grid-2">
+        <label class="adm-field">
+          <span>Precio físico (USD)</span>
+          <input type="number" name="physicalPrice" id="editPhysical" min="0" step="0.01" placeholder="0.00">
+        </label>
+        <label class="adm-field">
+          <span>Precio ebook (USD)</span>
+          <input type="number" name="ebookPrice" id="editEbook" min="0" step="0.01" placeholder="0.00">
+        </label>
+      </div>
+
+      <div class="adm-checks">
+        <label class="adm-check">
+          <input type="checkbox" name="available" id="editAvailable">
+          <span>Disponible para la venta</span>
+        </label>
+        <label class="adm-check">
+          <input type="checkbox" name="ebookAuthorized" id="editEbookAuth">
+          <span>Ebook autorizado</span>
+        </label>
+      </div>
+
+      <fieldset class="adm-fieldset">
+        <legend>Oferta (dejar porcentaje en 0 para quitar oferta)</legend>
+        <div class="adm-grid-3">
+          <label class="adm-field">
+            <span>Descuento (%)</span>
+            <input type="number" name="offerPercent" id="editOfferPct" min="0" max="90" step="1" value="0">
+          </label>
+          <label class="adm-field">
+            <span>Inicio</span>
+            <input type="date" name="offerStart" id="editOfferStart">
+          </label>
+          <label class="adm-field">
+            <span>Fin</span>
+            <input type="date" name="offerEnd" id="editOfferEnd">
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="adm-dlg__actions">
+        <button type="button" class="adm-btn adm-btn--ghost" id="cancelEditDlg">Cancelar</button>
+        <button type="submit" class="adm-btn">Guardar cambios</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="adm-toast" id="admToast" role="status" aria-live="polite" hidden></div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

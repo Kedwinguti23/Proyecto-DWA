@@ -24,7 +24,8 @@ export function isOfferActive(offer) {
 let cachedRawData = null;
 async function fetchBaseData() {
   if (cachedRawData) return cachedRawData;
-  const res = await fetch('data/books.json');
+  const basePath = location.pathname.includes('/admin') ? '../data/books.json' : 'data/books.json';
+  const res = await fetch(basePath);
   if (!res.ok) throw new Error('No se pudo cargar data/books.json');
   cachedRawData = await res.json();
   return cachedRawData;
@@ -308,4 +309,29 @@ export async function adminToggleAvailability(bookId) {
     return book;
   }
   throw new Error('Libro no encontrado');
+}
+
+/** NUEVAS FUNCIONES ------------- T-04
+ * Obtiene la lista de suscriptores de la newsletter.
+ * // MOCK: reemplazar por llamada HTTP al backend (GET /api/subscriptions)
+ */
+export async function getSubscriptions() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEYS.SUBSCRIPTIONS) || '[]');
+  } catch (_) {
+    return [];
+  }
+}
+
+/**
+ * Elimina un suscriptor de la lista local.
+ * // MOCK: reemplazar por llamada HTTP al backend (DELETE /api/subscriptions/:email)
+ */
+export async function adminDeleteSubscription(email) {
+  const normalized = email.trim().toLowerCase();
+  const subs = (await getSubscriptions()).filter(s => s.email !== normalized);
+  try {
+    localStorage.setItem(STORAGE_KEYS.SUBSCRIPTIONS, JSON.stringify(subs));
+  } catch (_) {}
+  return { ok: true, email: normalized };
 }

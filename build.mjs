@@ -104,5 +104,26 @@ const extraUrls = pages.map(p =>
 const updatedSitemap = sitemapBase.replace('</urlset>', extraUrls + '\n</urlset>');
 writeFileSync('dist/sitemap.xml', updatedSitemap, 'utf8');
 
+// 6. Empaquetar Panel de Administración (T-04)
+mkdirSync('dist/admin', {recursive: true});
+await build({
+  entryPoints: {'admin/admin': 'admin/admin.js'},
+  outdir: 'dist',
+  bundle: true,
+  minify: true,
+  target: ['es2020'],
+  format: 'esm',
+  legalComments: 'none'
+});
+await build({
+  entryPoints: {'admin/admin': 'admin/admin.css'},
+  outdir: 'dist',
+  bundle: true,
+  minify: true,
+  external: ['*.woff2'],
+  legalComments: 'none'
+});
+cpSync('admin/index.html', 'dist/admin/index.html');
+
 console.log('Build listo en dist/');
 console.log('Páginas generadas:', pages.map(p => `/${p.slug}/`).join(', '));
