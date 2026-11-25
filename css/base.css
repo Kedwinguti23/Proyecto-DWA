@@ -1,5 +1,6 @@
 /* ===== base.css ===== */
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:5rem;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 var(--fs-body)/1.6 var(--font-body)}
@@ -7,7 +8,7 @@ h1,h2,h3{font-family:var(--font-display);line-height:1.1;margin:0;font-weight:80
 h1{font-size:var(--fs-hero)} h2{font-size:var(--fs-h2)} h3{font-size:var(--fs-h3);font-weight:700}
 p{margin:0;max-width:65ch} a{color:var(--violet)}
 button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--sky);outline-offset:3px;border-radius:8px}
+:focus-visible{outline:3px solid var(--violet-700);outline-offset:3px;border-radius:8px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .wrap{width:min(1120px,100% - 2rem);margin-inline:auto}
 section{padding-block:var(--s7)}

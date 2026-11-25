@@ -11,7 +11,7 @@ const Q=[
 ["¿Qué extensión prefieres?","l",[["corta","Corta, menos de 150 páginas"],["media","Media, de 150 a 319 páginas"],["larga","Larga, para sumergirme"],["","Me da igual"]]],
 ["¿En qué formato lo quieres?","f",[["fisico","Físico"],["ebook","Ebook"],["","Me da igual"]]],
 ["¿Qué te llama más la atención?","t",[["explorar","Explorar lugares desconocidos"],["enigma","Resolver un enigma"],["sentir","Historias de personas y memoria"],["reir","Reírme de la vida"],["aprender","Aprender algo nuevo"]]]];
-const T={explorar:["exploración","mapas","viajes","imaginación"],enigma:["misterio","thriller","secretos","identidad","trenes","tiempo"],sentir:["memoria","esperanza","familia","duelo","mar","naturaleza"],reir:["humor","desamor","cocina","vida cotidiana","noche"],aprender:["ciencia","curiosidad","calma","ensayo","divulgación"]};
+const T={explorar:["mapas","viajes","imaginación","piratas","aventura","sociedad"],enigma:["investigación","secretos","identidad","sobrenatural","tiempo","misterio","justicia"],sentir:["memoria","esperanza","familia","amor","obsesión","culpa","drama"],reir:["humor","vida cotidiana","realidad","escritura","sátira"],aprender:["ciencia","curiosidad","ensayo","divulgación","historia","libros","filosofía","poder"]};
 function score(b,a){
   let s=0;if(b.mq[0]===a.m)s+=3;if(b.mq[1]===a.p)s+=2;if(a.l&&lenOf(b.n)===a.l)s+=2;
   if(a.f){if(a.f==='fisico'?b.p:b.e)s+=1;else s-=10}

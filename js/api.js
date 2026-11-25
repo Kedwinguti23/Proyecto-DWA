@@ -4,10 +4,12 @@
 
 const STORAGE_KEYS = {
   BOOKS: 'hf_books_override',
+  DELETED_BOOKS: 'hf_books_deleted',
   ORDERS: 'hf_orders',
   SUBSCRIPTIONS: 'hf_subscriptions',
   WRITERS: 'hf_writers_override',
-  COLLECTIONS: 'hf_collections_override'
+  COLLECTIONS: 'hf_collections_override',
+  WEEKLY_PICK: 'hf_weekly_pick'
 };
 
 // Utilidad para evaluar si una oferta por fechas está vigente hoy
@@ -20,11 +22,16 @@ export function isOfferActive(offer) {
   return now >= start && now <= end;
 }
 
+// Prefijo de rutas: las páginas generadas y el panel viven un nivel por debajo de la raíz.
+function basePath() {
+  return document.querySelector('meta[name="hf-base"]')?.content || '';
+}
+
 // Carga inicial desde books.json
 let cachedRawData = null;
 async function fetchBaseData() {
   if (cachedRawData) return cachedRawData;
-  const res = await fetch('data/books.json');
+  const res = await fetch(`${basePath()}data/books.json`);
   if (!res.ok) throw new Error('No se pudo cargar data/books.json');
   cachedRawData = await res.json();
   return cachedRawData;
@@ -34,7 +41,7 @@ async function fetchBaseData() {
  * Obtiene todos los libros del catálogo, aplicando modificaciones locales del admin y calculando ofertas activas.
  * // MOCK: reemplazar por llamada HTTP al backend (GET /api/books)
  */
-export async function getBooks() {
+export async function getBooks(options = {}) {
   const base = await fetchBaseData();
   let books = [...base.books];
 
@@ -52,6 +59,17 @@ export async function getBooks() {
       });
     }
   } catch (_) {}
+
+  // Los libros eliminados por el administrador no vuelven a aparecer desde books.json.
+  // Los ocultos siguen en la base pero no se muestran en la tienda (RF14).
+  try {
+    const deleted = JSON.parse(localStorage.getItem(STORAGE_KEYS.DELETED_BOOKS) || '[]');
+    if (Array.isArray(deleted) && deleted.length) {
+      const removed = new Set(deleted);
+      books = books.filter(b => !removed.has(b.id));
+    }
+  } catch (_) {}
+  if (!options.includeHidden) books = books.filter(b => b.hidden !== true);
 
   // Normalizar campos y procesar ofertas por fecha
   return books.map(b => {
@@ -89,8 +107,8 @@ export async function getBooks() {
  * Obtiene un libro específico por su identificador.
  * // MOCK: reemplazar por llamada HTTP al backend (GET /api/books/:id)
  */
-export async function getBook(id) {
-  const books = await getBooks();
+export async function getBook(id, options = {}) {
+  const books = await getBooks(options);
   return books.find(b => b.id === id) || null;
 }
 
@@ -100,15 +118,12 @@ export async function getBook(id) {
  */
 export async function getCollections() {
   const base = await fetchBaseData();
-  let collections = [...base.collections];
+  // El panel guarda la lista completa: así se reflejan altas, ediciones y bajas.
   try {
-    const custom = JSON.parse(localStorage.getItem(STORAGE_KEYS.COLLECTIONS) || '[]');
-    if (Array.isArray(custom) && custom.length > 0) {
-      const map = new Map(custom.map(c => [c.id, c]));
-      collections = collections.map(c => map.get(c.id) || c);
-    }
+    const custom = JSON.parse(localStorage.getItem(STORAGE_KEYS.COLLECTIONS) || 'null');
+    if (Array.isArray(custom)) return custom;
   } catch (_) {}
-  return collections;
+  return [...base.collections];
 }
 
 /**
@@ -117,18 +132,11 @@ export async function getCollections() {
  */
 export async function getWriters() {
   const base = await fetchBaseData();
-  let writers = [...(base.writers || [])];
   try {
-    const custom = JSON.parse(localStorage.getItem(STORAGE_KEYS.WRITERS) || '[]');
-    if (Array.isArray(custom) && custom.length > 0) {
-      const map = new Map(custom.map(w => [w.id, w]));
-      writers = writers.map(w => map.get(w.id) || w);
-      custom.forEach(w => {
-        if (!writers.some(x => x.id === w.id)) writers.push(w);
-      });
-    }
+    const custom = JSON.parse(localStorage.getItem(STORAGE_KEYS.WRITERS) || 'null');
+    if (Array.isArray(custom)) return custom;
   } catch (_) {}
-  return writers;
+  return [...(base.writers || [])];
 }
 
 /**
@@ -136,15 +144,51 @@ export async function getWriters() {
  * // MOCK: reemplazar por llamada HTTP al backend (POST /api/orders)
  */
 export async function createOrder(orderInput) {
-  // Validar libros y disponibilidad
+  // Validar datos del cliente (el "servidor" no confía en el navegador)
+  const name = String(orderInput.customerName || '').trim();
+  const phone = String(orderInput.customerPhone || '').trim();
+  if (name.length < 2) throw new Error('Escribe tu nombre completo.');
+  if (phone.replace(/\D/g, '').length < 8) throw new Error('Escribe un teléfono válido.');
+  if (!['retiro', 'envio'].includes(orderInput.deliveryType)) throw new Error('Elige una forma de entrega.');
+  if (orderInput.deliveryType === 'envio' && !String(orderInput.address || '').trim()) {
+    throw new Error('Escribe la dirección de entrega.');
+  }
+  if (!Array.isArray(orderInput.items) || orderInput.items.length === 0) {
+    throw new Error('Tu carrito está vacío.');
+  }
+
+  // Validar libros, formato y disponibilidad; recalcular precios y total
   const books = await getBooks();
   const booksMap = new Map(books.map(b => [b.id, b]));
 
-  for (const item of orderInput.items) {
+  const items = orderInput.items.map(item => {
     const b = booksMap.get(item.id);
     if (!b) throw new Error(`El libro "${item.id}" no existe.`);
     if (!b.available) throw new Error(`El libro "${b.title}" se encuentra agotado.`);
-  }
+
+    const isEbook = item.format === 'ebook';
+    if (isEbook && (!b.ebookAuthorized || !b.ebookPrice)) {
+      throw new Error(`"${b.title}" no tiene versión ebook autorizada.`);
+    }
+    if (!isEbook && !b.physicalPrice) {
+      throw new Error(`"${b.title}" no tiene versión física.`);
+    }
+
+    const base = isEbook ? b.ebookPrice : b.physicalPrice;
+    const price = Math.round(base * (100 - (b.discountPct || 0))) / 100;
+    const qty = isEbook ? 1 : Math.max(1, Math.min(9, Number(item.qty) || 1));
+
+    return {
+      id: b.id,
+      title: b.title,
+      author: b.author,
+      format: isEbook ? 'ebook' : 'fisico',
+      qty,
+      price
+    };
+  });
+
+  const total = Math.round(items.reduce((sum, it) => sum + it.price * it.qty, 0) * 100) / 100;
 
   // Generar ID único: HF-AAAAMMDD-XXXX
   const now = new Date();
@@ -158,23 +202,13 @@ export async function createOrder(orderInput) {
     id: orderId,
     createdAt: now.toISOString(),
     status: 'Nuevo', // Estados: Nuevo, Confirmado, Pagado, Entregado, Cancelado
-    customerName: orderInput.customerName.trim(),
-    customerPhone: orderInput.customerPhone.trim(),
+    customerName: name.slice(0, 120),
+    customerPhone: phone.slice(0, 30),
     deliveryType: orderInput.deliveryType, // 'retiro' | 'envio'
-    address: orderInput.address ? orderInput.address.trim() : '',
-    notes: orderInput.notes ? orderInput.notes.trim() : '',
-    items: orderInput.items.map(it => {
-      const b = booksMap.get(it.id);
-      return {
-        id: it.id,
-        title: b.title,
-        author: b.author,
-        format: it.format,
-        qty: it.qty,
-        price: it.price
-      };
-    }),
-    total: orderInput.total
+    address: String(orderInput.address || '').trim().slice(0, 200),
+    notes: String(orderInput.notes || '').trim().slice(0, 500),
+    items,
+    total
   };
 
   // Guardar en localStorage
@@ -233,16 +267,20 @@ export async function subscribe(email, consent) {
     subs = JSON.parse(localStorage.getItem(STORAGE_KEYS.SUBSCRIPTIONS) || '[]');
   } catch (_) {}
 
+  const consentAt = new Date().toISOString();
   const existing = subs.find(s => s.email === normalizedEmail);
   if (existing) {
     existing.active = true;
-    existing.subscribedAt = new Date().toISOString();
+    existing.consent = true;
+    existing.subscribedAt = consentAt;
+    existing.consentAt = consentAt;
   } else {
     subs.push({
       email: normalizedEmail,
       consent: true,
       active: true,
-      subscribedAt: new Date().toISOString()
+      subscribedAt: consentAt,
+      consentAt
     });
   }
 
@@ -280,32 +318,95 @@ export async function unsubscribe(email) {
 // // MOCK: reemplazar por llamadas HTTP protegidas con JWT al backend
 // -------------------------------------------------------------
 
-export async function adminSaveBook(book) {
-  const books = await getBooks();
-  const idx = books.findIndex(b => b.id === book.id);
-  if (idx >= 0) {
-    books[idx] = { ...books[idx], ...book };
-  } else {
-    books.unshift(book);
+function readStorage(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || '');
+    return Array.isArray(value) ? value : fallback;
+  } catch (_) {
+    return fallback;
   }
-  localStorage.setItem(STORAGE_KEYS.BOOKS, JSON.stringify(books));
+}
+function writeStorage(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); }
+  catch (_) {}
+}
+
+export async function adminSaveBook(book) {
+  if (!book || !book.id) throw new Error('El libro necesita un identificador.');
+  const custom = readStorage(STORAGE_KEYS.BOOKS, []);
+  const idx = custom.findIndex(b => b.id === book.id);
+  if (idx >= 0) custom[idx] = {...custom[idx], ...book};
+  else custom.push({...book});
+  writeStorage(STORAGE_KEYS.BOOKS, custom);
+
+  // Si se vuelve a crear un libro eliminado, quitamos la marca de borrado
+  const deleted = readStorage(STORAGE_KEYS.DELETED_BOOKS, []);
+  writeStorage(STORAGE_KEYS.DELETED_BOOKS, deleted.filter(id => id !== book.id));
   return book;
 }
 
 export async function adminDeleteBook(bookId) {
-  let books = await getBooks();
-  books = books.filter(b => b.id !== bookId);
-  localStorage.setItem(STORAGE_KEYS.BOOKS, JSON.stringify(books));
-  return { ok: true, id: bookId };
+  const deleted = readStorage(STORAGE_KEYS.DELETED_BOOKS, []);
+  if (!deleted.includes(bookId)) deleted.push(bookId);
+  writeStorage(STORAGE_KEYS.DELETED_BOOKS, deleted);
+  writeStorage(STORAGE_KEYS.BOOKS, readStorage(STORAGE_KEYS.BOOKS, []).filter(b => b.id !== bookId));
+  return {ok: true, id: bookId};
 }
 
 export async function adminToggleAvailability(bookId) {
-  const books = await getBooks();
-  const book = books.find(b => b.id === bookId);
-  if (book) {
-    book.available = !book.available;
-    localStorage.setItem(STORAGE_KEYS.BOOKS, JSON.stringify(books));
-    return book;
-  }
-  throw new Error('Libro no encontrado');
+  const book = await getBook(bookId, {includeHidden: true});
+  if (!book) throw new Error('Libro no encontrado');
+  return adminSaveBook({...book, available: !book.available});
+}
+
+export async function adminSaveCollection(collection) {
+  if (!collection || !collection.id) throw new Error('La colección necesita un identificador.');
+  const all = await getCollections();
+  const idx = all.findIndex(c => c.id === collection.id);
+  if (idx >= 0) all[idx] = {...all[idx], ...collection};
+  else all.push({...collection});
+  writeStorage(STORAGE_KEYS.COLLECTIONS, all);
+  return collection;
+}
+
+export async function adminDeleteCollection(collectionId) {
+  const all = await getCollections();
+  writeStorage(STORAGE_KEYS.COLLECTIONS, all.filter(c => c.id !== collectionId));
+  return {ok: true, id: collectionId};
+}
+
+export async function adminSaveWriter(writer) {
+  if (!writer || !writer.id) throw new Error('El escritor necesita un identificador.');
+  const all = await getWriters();
+  const idx = all.findIndex(w => w.id === writer.id);
+  if (idx >= 0) all[idx] = {...all[idx], ...writer};
+  else all.push({...writer});
+  writeStorage(STORAGE_KEYS.WRITERS, all);
+  return writer;
+}
+
+export async function adminDeleteWriter(writerId) {
+  const all = await getWriters();
+  writeStorage(STORAGE_KEYS.WRITERS, all.filter(w => w.id !== writerId));
+  return {ok: true, id: writerId};
+}
+
+/** Lista de correos y consentimientos para el panel (RF12, RNF10). */
+export async function getSubscriptions() {
+  return readStorage(STORAGE_KEYS.SUBSCRIPTIONS, []);
+}
+
+/** Libro elegido para la recomendación semanal (RF12). */
+export async function getWeeklyPick() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEYS.WEEKLY_PICK) || 'null'); }
+  catch (_) { return null; }
+}
+
+export async function setWeeklyPick(bookId) {
+  const book = await getBook(bookId);
+  if (!book) throw new Error('Libro no encontrado');
+  const pick = {bookId, title: book.title, updatedAt: new Date().toISOString()};
+  try { localStorage.setItem(STORAGE_KEYS.WEEKLY_PICK, JSON.stringify(pick)); }
+  catch (_) {}
+  return pick;
 }

@@ -14,6 +14,15 @@ export const CONFIG = {
     link: 'https://wa.me/50377578592'
   },
   schedule: 'Lunes a sábado, 8:00 a. m. a 8:00 p. m.',
+
+  // Acceso al panel (MOCK: solo demostración; en producción esto vive en el backend)
+  admin: {
+    username: 'admin',
+    passwordHash: '0bb94ffc', // hashPassword('historias2026'), ver js/hash.js
+    maxAttempts: 5,
+    lockMinutes: 15,
+    sessionHours: 8
+  },
   location: {
     address: 'Colonia Vista Hermosa',
     city: 'San Miguel',
@@ -69,7 +78,7 @@ export const CONFIG = {
     productionDomain: 'https://historiasfantasticas.example',
 
     // PENDIENTE: confirmar con el cliente P07: normativa legal de protección de datos personales y texto legal del aviso de privacidad
-    privacyPolicyText: 'Historias Fantásticas trata sus datos personales únicamente para gestionar sus pedidos y consultas. No compartimos sus datos con terceros.',
+    privacyPolicyText: 'Historias Fantásticas usa tu nombre, teléfono, dirección y correo solo para gestionar pedidos, coordinar entregas por WhatsApp y enviar la recomendación semanal cuando das tu consentimiento. Solo puede consultarlos el administrador y no los compartimos con terceros.',
 
     // PENDIENTE: confirmar con el cliente P08: alcance detallado del programa de apoyo editorial a escritores emergentes
     writerSupportScope: 'Revisión editorial, visibilidad en catálogo y coordinación de ventas físicas y digitales.',

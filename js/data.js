@@ -8,6 +8,10 @@ export async function loadCatalog() {
     getWriters()
   ]);
 
+  // Las portadas viven en assets/Portadas de libros. En las páginas generadas
+  // hay que anteponer "../" para que la ruta siga apuntando a la raíz.
+  const base = document.querySelector('meta[name="hf-base"]')?.content || '';
+
   const books = rawBooks.map(b => {
     return {
       id: String(b.id),
@@ -16,8 +20,9 @@ export async function loadCatalog() {
       authorId: b.authorId || '',
       p: b.physicalPrice,
       e: b.ebookPrice,
-      bg: b.cover.bg,
-      fg: b.cover.fg,
+      img: b.cover?.image ? `${base}${b.cover.image}` : '',
+      bg: b.cover?.bg || '#2B1B7A',
+      fg: b.cover?.fg || '#FFC800',
       f: (b.isNew ? 'n' : '') + (b.bestseller ? 'b' : '') + (b.featured ? 'f' : ''),
       c: Array.isArray(b.collections) ? b.collections : (b.collection ? [b.collection] : []),
       d: Number(b.discountPct) || 0,

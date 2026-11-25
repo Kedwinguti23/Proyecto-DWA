@@ -3,6 +3,18 @@ import {isWished} from './wishlist.js';
 
 const HEART='<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>';
 
+// Portada real (.webp) con color de respaldo si la imagen no está disponible.
+export function coverImage(b){
+  if(!b.img) return null;
+  const img = el('img','book__cover-img');
+  img.src = b.img;
+  img.alt = '';
+  img.loading = 'lazy';
+  img.decoding = 'async';
+  img.onerror = () => img.remove();
+  return img;
+}
+
 export function openBookDetail(b){
   let dlg = document.querySelector('#bookDetailDlg');
   if(!dlg){
@@ -26,11 +38,16 @@ export function openBookDetail(b){
   const body = el('div');
   body.style.cssText = 'display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(240px,1fr));align-items:start;margin-top:var(--s4)';
 
-  const cover = el('div','book__cover', b.t.split(':')[0].split(' y ')[0]);
+  const cover = el('div','book__cover');
   cover.style.background = b.bg;
   cover.style.color = b.fg;
   cover.style.minHeight = '280px';
   cover.setAttribute('aria-hidden','true');
+  const detailImg = coverImage(b);
+  if (detailImg) {
+    cover.classList.add('book__cover--image');
+    cover.append(detailImg);
+  } else cover.textContent = b.t.split(':')[0].split(' y ')[0];
 
   const info = el('div');
   info.style.cssText = 'display:grid;gap:var(--s3)';
@@ -108,13 +125,18 @@ export function openBookDetail(b){
 export function card(b){
   const c = el('article','book');
   
-  // Portada interactiva
-  const cv = el('div','book__cover', b.t.split(':')[0].split(' y ')[0]);
+  // Portada interactiva: botón para abrir la ficha también con teclado
+  const cv = el('button','book__cover');
+  cv.type = 'button';
   cv.style.background = b.bg;
   cv.style.color = b.fg;
-  cv.style.cursor = 'pointer';
-  cv.setAttribute('aria-hidden','true');
+  cv.setAttribute('aria-label', `Ver detalles de ${b.t}`);
   cv.onclick = () => openBookDetail(b);
+  const cardImg = coverImage(b);
+  if (cardImg) {
+    cv.classList.add('book__cover--image');
+    cv.append(cardImg);
+  } else cv.textContent = b.t.split(':')[0].split(' y ')[0];
 
   // Botón Wishlist
   const w = el('button','wish');
@@ -125,9 +147,11 @@ export function card(b){
 
   // Información del libro
   const info = el('div');
-  const tEl = el('h3',null,b.t);
-  tEl.style.cursor = 'pointer';
-  tEl.onclick = () => openBookDetail(b);
+  const tEl = el('h3');
+  const tBtn = el('button','book__title-btn',b.t);
+  tBtn.type = 'button';
+  tBtn.onclick = () => openBookDetail(b);
+  tEl.append(tBtn);
   info.append(tEl, el('p','book__author',b.a));
 
   // Metadatos y etiquetas
