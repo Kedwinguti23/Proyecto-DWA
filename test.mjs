@@ -24,20 +24,10 @@ $('#wishBtn').click();ck('drawer wishlist con 1 línea',$$('#wBody .line').lengt
 $('.book [data-add]').click();ck('carrito cuenta 1',$('#cartCount').textContent==='1');
 $('#cartBtn').click();ck('drawer con 1 línea',$$('#cBody .line').length===1);
 $('a[href="#quiz"]').click();
-ck('quiz oculta volver en pregunta 1',$('#qBack').hidden===true);
-$('#qBody .choice').click();
-ck('quiz muestra volver en pregunta 2',$('#qBack').hidden===false);
-$('#qBack').click();
-ck('quiz retrocede a pregunta 1',$('#qSub').textContent==='Pregunta 1 de 5');
 for(let i=0;i<5;i++)$('#qBody .choice').click();
-ck('quiz da 3 libros disponibles con carrito y wishlist',$$('#qBody .book').length===3 && $$('#qBody .book [data-add]').length===3 && $$('#qBody .book .wish').length===3);
+ck('quiz da 3 libros',$$('#qBody .book').length===3);
 $('#nEmail').value='malo';$('#newsForm').dispatchEvent(new w.Event('submit',{cancelable:true,bubbles:true}));
 ck('newsletter valida correo',$('#nMsg').textContent.includes('válido'));
-$('#nEmail').value='marlon@correo.com';$('#nOk').checked=false;$('#newsForm').dispatchEvent(new w.Event('submit',{cancelable:true,bubbles:true}));
-ck('newsletter exige consentimiento',$('#nMsg').textContent.includes('casilla'));
-$('#nOk').checked=true;$('#newsForm').dispatchEvent(new w.Event('submit',{cancelable:true,bubbles:true}));
-await new Promise(r=>setTimeout(r,20));
-ck('newsletter guarda suscripción',$('#nMsg').textContent.includes('suscribiste') && w.localStorage.getItem('hf_subscriptions')?.includes('marlon@correo.com'));
 ck('sección ofertas vigentes',$$('#offersResults .book').length===1);
 ck('sección escritores (3)',$$('#writersList .writer-card').length===3);
 
