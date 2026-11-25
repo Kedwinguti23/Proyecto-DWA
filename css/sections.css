@@ -77,7 +77,89 @@ dialog.drawer::backdrop{background:rgb(35 31 61/.55)}
 .toast.is-on{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .toast .btn{--c:var(--sun);--c-d:var(--sun-700);--fg:#231F3D}
 @media (max-width:760px){.toast{bottom:5.5rem}}
-/* Secciones finales */
+/* ── Formulario de pedido (RF09) ──────────────────────────── */
+dialog.order-dlg{
+  margin:auto;
+  padding:0;
+  width:min(900px,100% - 1rem);
+  max-height:calc(100dvh - 2rem);
+  border:2px solid var(--line);
+  border-radius:24px;
+  background:var(--bg);
+  color:var(--ink);
+  overflow:auto;
+  box-shadow:0 8px 0 var(--line);
+}
+dialog.order-dlg::backdrop{background:rgb(35 31 61/.55)}
+.order-dlg__in{
+  display:grid;
+  grid-template-columns:1fr 1.6fr;
+  min-height:min(600px,80dvh);
+}
+.order-summary{
+  padding:var(--s5);
+  background:var(--violet);
+  color:#fff;
+  border-radius:22px 0 0 22px;
+  display:grid;
+  align-content:start;
+  gap:var(--s3);
+}
+.order-summary__heading{font-size:1.1rem;margin-bottom:var(--s2)}
+.order-summary__list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.order-summary__item{display:flex;justify-content:space-between;gap:var(--s2);font-size:.9rem;padding-bottom:var(--s2);border-bottom:1px solid rgb(255 255 255/.2)}
+.order-summary__title{flex:1}
+.order-summary__price{font-weight:800;white-space:nowrap}
+.order-summary__total{display:flex;justify-content:space-between;font:800 1.2rem var(--font-display);margin-top:var(--s2);padding-top:var(--s3);border-top:2px solid rgb(255 255 255/.4)}
+.order-dlg__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--s3)}
+.order-dlg__sub{margin-bottom:var(--s4)}
+dialog.order-dlg section{padding:var(--s5);overflow:auto}
+.order-err{min-height:1.4rem;color:var(--coral);font-weight:700;margin-bottom:var(--s2)}
+.order-field{display:grid;gap:var(--s1);margin-bottom:var(--s3)}
+.order-field label,.order-field legend{font-weight:700;font-size:.95rem}
+.order-field input[type=text],
+.order-field input[type=tel],
+.order-field textarea{
+  padding:.6rem .9rem;
+  border:2px solid var(--line);
+  border-radius:var(--r-md);
+  background:var(--surface);
+  color:var(--ink);
+  font:inherit;
+  transition:border-color .2s;
+}
+.order-field input:focus,
+.order-field textarea:focus{outline:none;border-color:var(--violet)}
+.order-field--radio{border:0;padding:0;margin:0 0 var(--s3)}
+.order-radio{display:flex;align-items:baseline;gap:var(--s2);font-size:.95rem;margin-bottom:var(--s2);cursor:pointer}
+.order-radio input{accent-color:var(--violet)}
+.order-consent{display:flex;gap:var(--s2);align-items:flex-start;font-size:.88rem;margin-bottom:var(--s4)}
+.order-consent input{margin-top:.2rem;accent-color:var(--violet)}
+.order-submit{width:100%;justify-content:center}
+/* Pantalla de confirmación */
+.order-confirm{
+  display:grid;
+  gap:var(--s3);
+  justify-items:center;
+  text-align:center;
+  padding:var(--s6) var(--s4);
+}
+.order-confirm__icon{font-size:3rem}
+.order-confirm__code{
+  font:800 1.6rem var(--font-display);
+  color:var(--violet);
+  background:var(--violet-100);
+  padding:.4rem 1.2rem;
+  border-radius:var(--r-pill);
+  letter-spacing:.05em;
+}
+/* Responsive */
+@media(max-width:680px){
+  .order-dlg__in{grid-template-columns:1fr}
+  .order-summary{border-radius:22px 22px 0 0}
+}
+/* Fin formulario de pedido */
+
 .cmp{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-top:var(--s5)}
 .cmp__card{display:grid;gap:var(--s3);align-content:start;padding:var(--s5);border:2px solid var(--line);border-radius:24px;background:var(--surface)}
 .cmp__card--p{border-color:var(--violet);box-shadow:0 6px 0 var(--violet)}
@@ -117,3 +199,10 @@ dialog.drawer::backdrop{background:rgb(35 31 61/.55)}
 .foot a:hover{color:var(--violet);text-decoration:underline}
 .foot small{display:block;margin-top:var(--s6);color:var(--ink-soft)}
 @media (max-width:760px){.cmp{grid-template-columns:1fr}.foot__grid{grid-template-columns:1fr 1fr}.foot__grid>div:first-child{grid-column:1/-1}}
+
+/* ── Sección Contacto (T-09) ─────────────────────────── */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--s4);margin-top:var(--s5)}
+.contact-card{display:flex;gap:var(--s4);align-items:flex-start;padding:var(--s5);border:2px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
+.contact-card__icon{font-size:1.8rem;line-height:1;flex-shrink:0}
+.contact-card h3{font-size:1rem;margin-bottom:var(--s1)}
+.contact-card p{margin:0;color:var(--ink-soft);font-size:.95rem;line-height:1.5}

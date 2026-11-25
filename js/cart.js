@@ -1,8 +1,8 @@
 import {$,el,bump,money,goCat} from './utils.js';
 export function initCart(D){
 const byId=Object.create(null);D.forEach(b=>byId[b.id]=b);
-// Carrito
-const KEY='ds-cart',FREE=40;let items=[];
+// Carrito (RF07: sin barra de envío gratis, pago por WhatsApp)
+const KEY='ds-cart';let items=[];
 try{const v=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(v))items=v.filter(x=>typeof x.i==='string'&&byId[x.i]&&(x.fmt==='fisico'?byId[x.i].p:x.fmt==='ebook'&&byId[x.i].e)&&x.qty>=1&&x.qty<=9).map(x=>({i:x.i,fmt:x.fmt,qty:x.fmt==='ebook'?1:x.qty}))}catch(_){}
 const price=(b,f)=>Math.round((f==='fisico'?b.p:b.e)*(100-b.d))/100;
 const cartDlg=$('#cartDlg'),cBody=$('#cBody'),cFoot=$('#cFoot');
@@ -10,6 +10,7 @@ const toastEl=el('div','toast'),toastMsg=el('span'),toastBtn=el('button','btn bt
 toastEl.setAttribute('role','status');toastEl.append(toastMsg,toastBtn);document.body.append(toastEl);
 let tt;const toast=m=>{toastMsg.textContent=m;toastEl.classList.add('is-on');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('is-on'),3200)};
 const openCart=()=>{toastEl.classList.remove('is-on');renderCart();cartDlg.showModal()};
+
 function update(){
   try{localStorage.setItem(KEY,JSON.stringify(items))}catch(_){}
   const c=$('#cartCount');c.textContent=items.reduce((n,l)=>n+l.qty,0);bump(c);
@@ -50,17 +51,14 @@ function renderCart(){
     }
     end.append(el('strong',null,money(price(b,l.fmt)*l.qty)));row.append(cv,info,end);cBody.append(row);
   });
-  const sum=f=>items.filter(l=>!f||l.fmt===f).reduce((n,l)=>n+price(byId[l.i],l.fmt)*l.qty,0),ph=sum('fisico');
-  if(ph>0){
-    const bar=el('div','bar');bar.append(el('i'));bar.firstElementChild.style.width=Math.min(100,ph/FREE*100)+'%';
-    cFoot.append(el('p','muted',ph>=FREE?'¡Tienes envío gratis!':'Te faltan '+money(FREE-ph)+' en libros físicos para el envío gratis.'),bar);
-  }
-  if(items.some(l=>l.fmt==='ebook'))cFoot.append(el('p','muted','Los ebooks se descargan al instante tras el pago.'));
+  const sum=()=>items.reduce((n,l)=>n+price(byId[l.i],l.fmt)*l.qty,0);
+  if(items.some(l=>l.fmt==='ebook'))cFoot.append(el('p','muted','📱 Los ebooks se coordinan por WhatsApp tras el pedido.'));
   const tot=el('div','total');tot.append(el('span',null,'Total'),el('span',null,money(sum())));
-  const status=el('p','muted');status.setAttribute('role','status');
-  const pay=el('button','btn','Ir a pagar'),more=el('button','btn btn--ghost','Seguir explorando');pay.style.justifyContent=more.style.justifyContent='center';
-  pay.onclick=()=>{status.textContent='Demo: aquí conectaremos un checkout externo, por ejemplo Stripe.'};more.onclick=()=>cartDlg.close();
-  cFoot.append(tot,status,pay,more);
+  const order=el('button','btn','🛍️ Hacer pedido'),more=el('button','btn btn--ghost','Seguir explorando');
+  order.style.justifyContent=more.style.justifyContent='center';
+  order.onclick=()=>{cartDlg.close();if(window.__openOrder)window.__openOrder();else $('#orderDlg').showModal()};
+  more.onclick=()=>cartDlg.close();
+  cFoot.append(tot,order,more);
   if(ak){const t=cBody.querySelector('[data-k="'+ak+'"]');(t||$('#cTitle')).focus()}
 }
 $('#cartBtn').onclick=toastBtn.onclick=openCart;
@@ -72,4 +70,6 @@ document.addEventListener('click',e=>{
   const a=e.target.closest('[data-add]');if(!a||!byId[a.dataset.add])return;
   addItem(a.dataset.add);a.dataset.t=a.dataset.t||a.textContent;a.textContent='¡Añadido!';setTimeout(()=>a.textContent=a.dataset.t,1200);
 });
+// Exponer funciones para order.js
+window.__cart={getItems:()=>items.map(l=>{const b=byId[l.i];return{id:l.i,title:b.t,author:b.a,format:l.fmt,qty:l.qty,price:price(b,l.fmt)}}),clear:()=>{items=[];update()},total:()=>items.reduce((n,l)=>n+price(byId[l.i],l.fmt)*l.qty,0)};
 }

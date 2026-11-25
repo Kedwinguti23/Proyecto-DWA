@@ -8,6 +8,7 @@ import {initQuiz} from './quiz.js';
 import {initCart} from './cart.js';
 import {initOffers} from './offers.js';
 import {initWriters} from './writers.js';
+import {initOrder} from './order.js';
 import {CONFIG} from './config.js';
 
 // Botón flotante WhatsApp: apunta al mensaje de ventas/pedidos
@@ -15,6 +16,13 @@ const waFab = document.getElementById('waFab');
 if (waFab) {
   const msg = encodeURIComponent(CONFIG.whatsappMessages.sales);
   waFab.href = `${CONFIG.whatsapp.link}?text=${msg}`;
+}
+
+// Botón WhatsApp de la sección Contacto
+const contactWaBtn = document.getElementById('contactWaBtn');
+if (contactWaBtn) {
+  const msg = encodeURIComponent(CONFIG.whatsappMessages.general);
+  contactWaBtn.href = `${CONFIG.whatsapp.link}?text=${msg}`;
 }
 
 initMenu();
@@ -30,6 +38,7 @@ initForm();
     initCart(books);
     initOffers(books);
     initWriters(writers, books);
+    initOrder();
   } catch (err) {
     const p = document.createElement('p');
     p.className = 'muted';

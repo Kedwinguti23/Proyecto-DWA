@@ -13,9 +13,57 @@
 <meta property="og:type" content="website"><meta property="og:site_name" content="Historias Fantásticas"><meta property="og:locale" content="es_SV">
 <meta property="og:title" content="Historias Fantásticas | Librería en San Miguel, El Salvador"><meta property="og:url" content="https://historiasfantasticas.example/">
 <meta property="og:description" content="Librería Historias Fantásticas en San Miguel, El Salvador. Libros físicos y ebooks para descubrir tu próxima lectura.">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<!-- PENDIENTE: og:image definitiva cuando el cliente apruebe el diseño final -->
+<meta property="og:image" content="https://historiasfantasticas.example/assets/og-cover.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://historiasfantasticas.example/assets/og-cover.png">
 <link rel="stylesheet" href="css/main.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BookStore","name":"Historias Fantásticas","description":"Librería de libros físicos y ebooks en San Miguel, El Salvador.","address":{"@type":"PostalAddress","streetAddress":"Colonia Vista Hermosa","addressLocality":"San Miguel","addressCountry":"SV"},"telephone":"+50377578592","openingHours":"Mo-Sa 08:00-20:00","priceRange":"$"}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BookStore",
+      "@id": "https://historiasfantasticas.example/#tienda",
+      "name": "Historias Fantásticas",
+      "description": "Librería de libros físicos y ebooks en San Miguel, El Salvador. Especializada en fantasía, aventura, misterio y autores emergentes.",
+      "url": "https://historiasfantasticas.example/",
+      "telephone": "+50377578592",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Colonia Vista Hermosa",
+        "addressLocality": "San Miguel",
+        "addressRegion": "San Miguel",
+        "addressCountry": "SV"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "08:00",
+          "closes": "20:00"
+        }
+      ],
+      "priceRange": "$",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": "+50377578592",
+        "contactOption": "TollFree",
+        "availableLanguage": "Spanish"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"¿Cómo recibo un ebook?","acceptedAnswer":{"@type":"Answer","text":"Al confirmar el pedido y pago por WhatsApp, compartimos el enlace de descarga o archivo digital directo."}},
+        {"@type":"Question","name":"¿Cómo se coordinan las entregas?","acceptedAnswer":{"@type":"Answer","text":"Puedes retirar en nuestro local en Colonia Vista Hermosa, San Miguel, o coordinamos envío a domicilio por WhatsApp."}},
+        {"@type":"Question","name":"¿Puedo devolver un libro?","acceptedAnswer":{"@type":"Answer","text":"Los libros físicos se pueden cambiar si están en perfecto estado. Los ebooks no se devuelven una vez descargados."}},
+        {"@type":"Question","name":"¿Cómo funciona el quiz de lectura?","acceptedAnswer":{"@type":"Answer","text":"Responde 5 preguntas y te recomendamos 3 libros disponibles del catálogo. No necesitas crear una cuenta."}}
+      ]
+    }
+  ]
+}</script>
 </head>
 <body>
 <header class="header" id="header">
@@ -183,13 +231,48 @@
     </div>
   </section>
 
+  <!-- ── Contacto (T-09) ──────────────────────────────────── -->
+  <section class="pad" id="contacto" aria-labelledby="contact-t">
+    <div class="wrap">
+      <h2 id="contact-t">Contáctanos</h2>
+      <p class="muted" style="margin-top:var(--s2);max-width:52ch">Estamos aquí para ayudarte a encontrar tu próxima lectura. Escríbenos por WhatsApp y te respondemos en horario de atención.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <span class="contact-card__icon" aria-hidden="true">📍</span>
+          <div>
+            <h3>Ubicación</h3>
+            <p>Colonia Vista Hermosa<br>San Miguel, El Salvador</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card__icon" aria-hidden="true">🕐</span>
+          <div>
+            <h3>Horario de atención</h3>
+            <p>Lunes a sábado<br>8:00 a.&nbsp;m. a 8:00 p.&nbsp;m.</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-card__icon" aria-hidden="true">💬</span>
+          <div>
+            <h3>WhatsApp</h3>
+            <p>+503 7757 8592</p>
+            <a id="contactWaBtn" class="btn btn--sm" style="margin-top:var(--s3)" href="https://wa.me/50377578592" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18" style="fill:currentColor;flex-shrink:0"><path d="M20.52 3.48A11.84 11.84 0 0 0 12 0C5.37 0 0 5.37 0 12a11.87 11.87 0 0 0 1.59 5.97L0 24l6.22-1.63A11.86 11.86 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.21-3.48-8.52Zm-8.52 18.4a9.84 9.84 0 0 1-5.01-1.37l-.36-.22-3.7.97.98-3.6-.23-.37A9.84 9.84 0 0 1 2.17 12C2.17 6.57 6.57 2.17 12 2.17S21.83 6.57 21.83 12 17.43 21.88 12 21.88Zm5.39-7.37c-.3-.15-1.76-.87-2.03-.96-.28-.1-.47-.15-.67.15s-.77.96-.94 1.16c-.17.2-.35.22-.65.07a8.17 8.17 0 0 1-2.4-1.48 9 9 0 0 1-1.66-2.07c-.17-.3 0-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.57-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.01-1.04 2.47s1.07 2.87 1.22 3.07c.14.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35Z"/></svg>
+              Escribir por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 <footer class="foot">
   <div class="wrap">
     <div class="foot__grid">
       <div><a class="logo" href="#top" aria-label="Historias Fantásticas, inicio"><span class="logo__mark" aria-hidden="true">HF</span>Historias Fantásticas</a><p class="muted" style="margin-top:var(--s3)">Librería en San Miguel, El Salvador. Libros físicos y ebooks para descubrir tu próxima gran historia.</p><p class="muted" style="font-size:var(--fs-sm);margin-top:var(--s2)">Colonia Vista Hermosa, San Miguel<br>Lunes a sábado, 8:00 a. m. a 8:00 p. m.</p></div>
       <div><h2>Explorar</h2><ul><li><a href="#catalogo">Catálogo</a></li><li><a href="#mas-vendidos">Más vendidos</a></li><li><a href="#mundos-por-explorar">Colecciones</a></li><li><a href="#catalogo" data-apply="f:ebook">Ebooks</a></li></ul></div>
-      <div><h2>Ayuda</h2><ul><li><a href="#faq">Preguntas frecuentes</a></li><li><a href="#faq">Envíos y devoluciones</a></li><li><a href="#quiz">Encuentra tu lectura</a></li></ul></div>
+      <div><h2>Ayuda</h2><ul><li><a href="#faq">Preguntas frecuentes</a></li><li><a href="#faq">Envíos y devoluciones</a></li><li><a href="#quiz">Encuentra tu lectura</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
       <div><h2>Legal</h2><ul><li><a href="#">Privacidad</a></li><li><a href="#">Términos de compra</a></li><li><a href="#">Cookies</a></li></ul></div>
     </div>
     <small>© 2026 Historias Fantásticas. Todos los derechos reservados.</small>
@@ -211,6 +294,60 @@
     <div class="drawer__head"><h2 id="cTitle" tabindex="-1">Tu carrito</h2><button class="icon-btn" id="cClose" aria-label="Cerrar carrito"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <div id="cBody"></div>
     <div id="cFoot" style="display:grid;gap:var(--s3)"></div>
+  </div>
+</dialog>
+
+<!-- ── Formulario de pedido (RF09) ───────────────────────── -->
+<dialog class="order-dlg" id="orderDlg" aria-labelledby="orderTitle">
+  <div class="order-dlg__in">
+    <!-- Panel izquierdo: resumen del pedido -->
+    <aside id="orderSummary" class="order-summary" aria-label="Resumen del pedido"></aside>
+    <!-- Panel derecho: formulario -->
+    <section>
+      <div class="order-dlg__head">
+        <h2 id="orderTitle" tabindex="-1">Datos para el pedido</h2>
+        <button class="icon-btn" id="orderClose" aria-label="Cerrar formulario de pedido"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <p class="muted order-dlg__sub">Te contactaremos por WhatsApp para coordinar el pago y la entrega.</p>
+      <p id="orderErr" class="order-err" role="alert" aria-live="assertive"></p>
+      <form id="orderForm" novalidate>
+        <div class="order-field">
+          <label for="orderName">Nombre completo <span aria-hidden="true">*</span></label>
+          <input id="orderName" name="orderName" type="text" required autocomplete="name" placeholder="Tu nombre completo">
+        </div>
+        <div class="order-field">
+          <label for="orderPhone">Teléfono <span aria-hidden="true">*</span></label>
+          <input id="orderPhone" name="orderPhone" type="tel" required autocomplete="tel" placeholder="Ej. 7000-0000">
+        </div>
+        <fieldset class="order-field order-field--radio">
+          <legend>Forma de entrega <span aria-hidden="true">*</span></legend>
+          <label class="order-radio"><input type="radio" name="deliveryType" value="retiro" required checked> Retiro en el local <span class="muted">(Colonia Vista Hermosa, San Miguel)</span></label>
+          <label class="order-radio"><input type="radio" name="deliveryType" value="envio"> Envío a domicilio</label>
+        </fieldset>
+        <div class="order-field" id="addrWrap" hidden>
+          <label for="orderAddress">Dirección de entrega <span aria-hidden="true">*</span></label>
+          <input id="orderAddress" name="orderAddress" type="text" autocomplete="street-address" placeholder="Colonia, calle, número de casa…">
+        </div>
+        <div class="order-field">
+          <label for="orderNotes">Notas adicionales <span class="muted">(opcional)</span></label>
+          <textarea id="orderNotes" name="orderNotes" rows="3" placeholder="Alguna preferencia o indicación especial…"></textarea>
+        </div>
+        <label class="order-consent">
+          <input type="checkbox" name="orderPrivacy" required>
+          <span>He leído el <a href="#faq" target="_blank">aviso de privacidad</a>. Mis datos se usan solo para gestionar este pedido.</span>
+        </label>
+        <button type="submit" class="btn order-submit">Confirmar pedido por WhatsApp</button>
+      </form>
+      <!-- Pantalla de confirmación (se muestra tras enviar) -->
+      <div id="orderConfirm" class="order-confirm" hidden>
+        <div class="order-confirm__icon" aria-hidden="true">✅</div>
+        <h3>¡Pedido enviado!</h3>
+        <p>Tu número de pedido es:</p>
+        <p class="order-confirm__code" id="confirmCode"></p>
+        <p class="muted">Se abrió WhatsApp con el resumen. Coordinaremos el pago y la entrega por chat.</p>
+        <button class="btn" id="confirmClose">Listo</button>
+      </div>
+    </section>
   </div>
 </dialog>
 <dialog class="drawer" id="wishDlg" aria-labelledby="wTitle">
