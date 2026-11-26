@@ -18,6 +18,7 @@ export function initWishlist(books) {
   // Filtrar IDs conocidos
   set = new Set([...set].filter(id => byId[id]));
   $('#wishCount').textContent = set.size;
+  $('#wishCount').closest('button').setAttribute('aria-label', set.size + ', lista de deseos');
 
   const wishDlg = $('#wishDlg');
   const wBody = $('#wBody');
@@ -31,6 +32,7 @@ export function initWishlist(books) {
     const c = $('#wishCount');
     if (c) {
       c.textContent = set.size;
+      c.closest('button').setAttribute('aria-label', set.size + ', lista de deseos');
       bump(c);
     }
 
@@ -113,7 +115,7 @@ export function initWishlist(books) {
       if (b.available) {
         const addBtn = el('button', 'btn btn--sm', 'Al carrito');
         addBtn.dataset.add = b.id;
-        addBtn.setAttribute('aria-label', `Añadir ${b.t} al carrito`);
+        addBtn.setAttribute('aria-label', `Al carrito: ${b.t}`);
         end.append(addBtn);
       } else {
         const outSpan = el('span', 'tag tag--out', 'Agotado');

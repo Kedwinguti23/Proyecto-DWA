@@ -11,6 +11,7 @@ export const CONFIG = {
   whatsapp: {
     number: '+503 7757 8592',
     raw: '50377578592',
+    countryCode: '503',
     link: 'https://wa.me/50377578592'
   },
   schedule: 'Lunes a sábado, 8:00 a. m. a 8:00 p. m.',

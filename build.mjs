@@ -14,7 +14,6 @@ await build({
     'css/main': 'css/main.css',
     'css/admin': 'css/admin.css',
     'js/main': 'js/main.js',
-    'js/section': 'js/section.js',
     'admin/admin': 'admin/admin.js'
   },
   outdir: 'dist',
@@ -46,11 +45,13 @@ cpSync('admin/index.html', 'dist/admin/index.html');
  * Genera una variante de index.html con metadatos, H1 y datos estructurados propios.
  * Las rutas se reescriben con "../" porque la página vive en /slug/; el prefix
  * se comunica a la SPA mediante <meta name="hf-base"> para que fetch y el logo
- * sigan apuntando a la raíz. El scroll se hace con un script externo (CSP).
+ * sigan apuntando a la raíz. El orden de secciones se decide con CSS para
+ * evitar cambios de layout (CLS) causados por un scroll programado.
  */
 function makePage({ slug, title, description, section, h1, lead }) {
   const canonical = `${SITE_URL}/${slug}/`;
   let html = BASE_HTML
+    .replace('<html lang="es">', `<html lang="es" data-hf-page data-hf-section="${section}">`)
     .replace(/<title>[^<]*<\/title>/, `<title>${title} | Historias Fantásticas</title>`)
     .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${description}"`)
     .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonical}"`)
@@ -62,7 +63,7 @@ function makePage({ slug, title, description, section, h1, lead }) {
     // Rutas relativas a la raíz desde /slug/
     .replace(/(href|src)="(assets|css|js)\//g, '$1="../$2/');
 
-  // Prefijo de rutas y sección objetivo para js/section.js
+  // Prefijo de rutas y sección objetivo (orden visual resuelto en CSS)
   html = html.replace(/(<meta name="viewport"[^>]*>)/,
     `$1\n  <meta name="hf-base" content="../">\n  <meta name="hf-section" content="${section}">`);
 
@@ -83,8 +84,8 @@ function makePage({ slug, title, description, section, h1, lead }) {
     } catch (_) {}
   }
 
-  // Script externo: el inline sería bloqueado por script-src 'self'
-  html = html.replace('</body>', '<script type="module" src="../js/section.js"></script>\n</body>');
+  // La sección se coloca primero con CSS (data-hf-section), sin scroll JS:
+  // un scroll programado después del primer pintado cuenta como CLS.
   return html;
 }
 

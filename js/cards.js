@@ -4,11 +4,15 @@ import {isWished} from './wishlist.js';
 const HEART='<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>';
 
 // Portada real (.webp) con color de respaldo si la imagen no está disponible.
-export function coverImage(b){
+export function coverImage(b, full = false){
   if(!b.img) return null;
   const img = el('img','book__cover-img');
-  img.src = b.img;
-  img.alt = '';
+  img.src = full ? (b.imgFull || b.img) : b.img;
+  // Texto alternativo descriptivo (RNF04/RNF05): la portada comunica el título.
+  img.alt = `Portada de ${b.t}`;
+  // Proporción estable antes de que cargue la imagen; el CSS aplica object-fit.
+  img.width = b.imgW || 400;
+  img.height = b.imgH || 600;
   img.loading = 'lazy';
   img.decoding = 'async';
   img.onerror = () => img.remove();
@@ -43,7 +47,7 @@ export function openBookDetail(b){
   cover.style.color = b.fg;
   cover.style.minHeight = '280px';
   cover.setAttribute('aria-hidden','true');
-  const detailImg = coverImage(b);
+  const detailImg = coverImage(b, true);
   if (detailImg) {
     cover.classList.add('book__cover--image');
     cover.append(detailImg);
@@ -72,6 +76,7 @@ export function openBookDetail(b){
     el('li',null,`Tiempo estimado de lectura: ~${b.readingTime || Math.round(b.n * 1.3)} minutos`)
   );
   if (b.g && b.g.length) metaList.append(el('li',null,`Géneros: ${b.g.join(', ')}`));
+  if (b.cn && b.cn.length) metaList.append(el('li',null,`Colección: ${b.cn.join(', ')}`));
 
   const pricesDiv = el('div','row');
   pricesDiv.style.margin = '0';
@@ -192,7 +197,7 @@ export function card(b){
   } else {
     add = el('button','btn btn--sm','Añadir al carrito');
     add.dataset.add = b.id;
-    add.setAttribute('aria-label','Añadir ' + b.t + ' al carrito');
+    add.setAttribute('aria-label','Añadir al carrito: ' + b.t);
   }
 
   c.append(cv, w, info, meta, add);

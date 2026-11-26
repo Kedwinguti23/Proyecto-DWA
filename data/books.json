@@ -55,19 +55,25 @@
       "id": "george-orwell",
       "name": "George Orwell",
       "bio": "Escritor y periodista británico, autor de novelas que definieron la literatura distópica del siglo XX. Su obra explora el poder, la verdad y la memoria colectiva.",
-      "bookIds": ["1984"]
+      "bookIds": [
+        "1984"
+      ]
     },
     {
       "id": "agatha-christie",
       "name": "Agatha Christie",
       "bio": "Maestra de la novela de misterio y una de las escritoras más leídas de todos los tiempos. Sus historias convierten cada pista en una invitación a leer más rápido.",
-      "bookIds": ["asesinato-en-el-orient-express"]
+      "bookIds": [
+        "asesinato-en-el-orient-express"
+      ]
     },
     {
       "id": "gabriel-garcia-marquez",
       "name": "Gabriel García Márquez",
       "bio": "Narrador colombiano y Premio Nobel de Literatura. Su prosa retrata la vida cotidiana con una intensidad que hacía de la literatura un espejo de América Latina.",
-      "bookIds": ["el-coronel-no-tiene-quien-le-escriba"]
+      "bookIds": [
+        "el-coronel-no-tiene-quien-le-escriba"
+      ]
     }
   ],
   "books": [
@@ -76,25 +82,43 @@
       "title": "1984",
       "author": "George Orwell",
       "authorId": "george-orwell",
-      "genres": ["ciencia ficción", "distopía"],
-      "themes": ["poder", "vigilancia", "memoria"],
+      "genres": [
+        "ciencia ficción",
+        "distopía"
+      ],
+      "themes": [
+        "poder",
+        "vigilancia",
+        "memoria"
+      ],
       "pages": 328,
       "readingTime": 425,
       "collection": "ideas-que-transforman",
-      "collections": ["ideas-que-transforman"],
+      "collections": [
+        "ideas-que-transforman"
+      ],
       "available": true,
       "ebookAuthorized": true,
       "formats": {
-        "physical": { "price": 22.9 },
-        "ebook": { "price": 9.9 }
+        "physical": {
+          "price": 22.9
+        },
+        "ebook": {
+          "price": 9.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/1984.webp",
         "bg": "#231F3D",
-        "fg": "#FFC800"
+        "fg": "#FFC800",
+        "width": 486,
+        "height": 778
       },
       "synopsis": "En una sociedad donde el Estado observa cada gesto y reescribe el pasado, Winston Smith intenta conservar una verdad que el sistema quiere borrar.",
-      "quiz": { "mood": "reflexivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "reflexivo",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": true,
       "featured": true
@@ -104,24 +128,39 @@
       "title": "Asesinato en el Orient Express",
       "author": "Agatha Christie",
       "authorId": "agatha-christie",
-      "genres": ["misterio", "novela negra"],
-      "themes": ["investigación", "secretos"],
+      "genres": [
+        "misterio",
+        "novela negra"
+      ],
+      "themes": [
+        "investigación",
+        "secretos"
+      ],
       "pages": 256,
       "readingTime": 330,
       "collection": "misterio-y-suspenso",
-      "collections": ["misterio-y-suspenso"],
+      "collections": [
+        "misterio-y-suspenso"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 18.9 }
+        "physical": {
+          "price": 18.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/asesinatoexpresoriente.webp",
         "bg": "#0B5A8F",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 741,
+        "height": 1000
       },
       "synopsis": "Un tren detenido por la nieve, un pasajero muerto y trece sospechosos. Hercule Poirot tiene una noche para descubrir quién miente.",
-      "quiz": { "mood": "misterio", "pace": "rapido" },
+      "quiz": {
+        "mood": "misterio",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": true,
       "featured": false
@@ -131,24 +170,39 @@
       "title": "Guía del autoestopista galáctico",
       "author": "Douglas Adams",
       "authorId": "douglas-adams",
-      "genres": ["ciencia ficción", "humor"],
-      "themes": ["viajes", "imaginación"],
+      "genres": [
+        "ciencia ficción",
+        "humor"
+      ],
+      "themes": [
+        "viajes",
+        "imaginación"
+      ],
       "pages": 296,
       "readingTime": 385,
       "collection": "aventuras-y-mundos-extraordinarios",
-      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "collections": [
+        "aventuras-y-mundos-extraordinarios"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 21.0 }
+        "physical": {
+          "price": 21
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/autoestopista.webp",
         "bg": "#1CB0F6",
-        "fg": "#231F3D"
+        "fg": "#231F3D",
+        "width": 449,
+        "height": 683
       },
       "synopsis": "La Tierra va a ser demolida para construir una autopista hiperespacial. Arthur Dent huye con una toalla, un amigo extraterrestre y una guía poco fiable.",
-      "quiz": { "mood": "humor", "pace": "rapido" },
+      "quiz": {
+        "mood": "humor",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -158,25 +212,42 @@
       "title": "Una breve historia de casi todo",
       "author": "Bill Bryson",
       "authorId": "bill-bryson",
-      "genres": ["divulgación", "ensayo"],
-      "themes": ["ciencia", "curiosidad"],
+      "genres": [
+        "divulgación",
+        "ensayo"
+      ],
+      "themes": [
+        "ciencia",
+        "curiosidad"
+      ],
       "pages": 640,
       "readingTime": 820,
       "collection": "ideas-que-transforman",
-      "collections": ["ideas-que-transforman"],
+      "collections": [
+        "ideas-que-transforman"
+      ],
       "available": true,
       "ebookAuthorized": true,
       "formats": {
-        "physical": { "price": 26.0 },
-        "ebook": { "price": 4.5 }
+        "physical": {
+          "price": 26
+        },
+        "ebook": {
+          "price": 4.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/BreveHistoriaDeCasiTodo.webp",
         "bg": "#19C3B1",
-        "fg": "#231F3D"
+        "fg": "#231F3D",
+        "width": 433,
+        "height": 660
       },
       "synopsis": "Un recorrido divertido y riguroso por las preguntas más grandes de la ciencia: cómo empezó el universo, por qué somos aquí y qué sabemos realmente.",
-      "quiz": { "mood": "reflexivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "reflexivo",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -186,24 +257,39 @@
       "title": "Crimen y castigo",
       "author": "Fiódor Dostoyevski",
       "authorId": "fiodor-dostoyevski",
-      "genres": ["drama", "novela psicológica"],
-      "themes": ["culpa", "justicia"],
+      "genres": [
+        "drama",
+        "novela psicológica"
+      ],
+      "themes": [
+        "culpa",
+        "justicia"
+      ],
       "pages": 560,
       "readingTime": 720,
       "collection": "misterio-y-suspenso",
-      "collections": ["misterio-y-suspenso"],
+      "collections": [
+        "misterio-y-suspenso"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 24.9 }
+        "physical": {
+          "price": 24.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/CrimenCastigo.webp",
         "bg": "#4A2FCB",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 361,
+        "height": 554
       },
       "synopsis": "Raskólnikov cree que un crimen puede justificarse con una idea. La ciudad, su conciencia y Sonya demuestran lo contrario.",
-      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -213,24 +299,39 @@
       "title": "Cumbres borrascosas",
       "author": "Emily Brontë",
       "authorId": "emily-bronte",
-      "genres": ["romance", "drama"],
-      "themes": ["obsesión", "familia"],
+      "genres": [
+        "romance",
+        "drama"
+      ],
+      "themes": [
+        "obsesión",
+        "familia"
+      ],
       "pages": 416,
       "readingTime": 540,
       "collection": "clasicos-para-empezar",
-      "collections": ["clasicos-para-empezar"],
+      "collections": [
+        "clasicos-para-empezar"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 17.9 }
+        "physical": {
+          "price": 17.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/cumbres.webp",
         "bg": "#0B7A6E",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 358,
+        "height": 558
       },
       "synopsis": "En los páramos de Yorkshire, Heathcliff y Catherine convierten el amor en una promesa imposible que atraviesa generaciones.",
-      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -240,24 +341,39 @@
       "title": "Drácula",
       "author": "Bram Stoker",
       "authorId": "bram-stoker",
-      "genres": ["terror", "misterio"],
-      "themes": ["sobrenatural", "secretos"],
+      "genres": [
+        "terror",
+        "misterio"
+      ],
+      "themes": [
+        "sobrenatural",
+        "secretos"
+      ],
       "pages": 416,
       "readingTime": 535,
       "collection": "misterio-y-suspenso",
-      "collections": ["misterio-y-suspenso"],
+      "collections": [
+        "misterio-y-suspenso"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 16.5 }
+        "physical": {
+          "price": 16.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/Dracula.webp",
         "bg": "#D32F24",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 451,
+        "height": 679
       },
       "synopsis": "Diarios, cartas y telegramas reconstruyen la llegada de un conde a Inglaterra y la lucha de un pequeño grupo por detenerlo.",
-      "quiz": { "mood": "misterio", "pace": "rapido" },
+      "quiz": {
+        "mood": "misterio",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -267,12 +383,20 @@
       "title": "El coronel no tiene quien le escriba",
       "author": "Gabriel García Márquez",
       "authorId": "gabriel-garcia-marquez",
-      "genres": ["novela corta", "drama"],
-      "themes": ["esperanza", "justicia"],
+      "genres": [
+        "novela corta",
+        "drama"
+      ],
+      "themes": [
+        "esperanza",
+        "justicia"
+      ],
       "pages": 112,
       "readingTime": 145,
       "collection": "clasicos-para-empezar",
-      "collections": ["clasicos-para-empezar"],
+      "collections": [
+        "clasicos-para-empezar"
+      ],
       "available": true,
       "ebookAuthorized": true,
       "offer": {
@@ -281,16 +405,25 @@
         "end": "2026-12-31"
       },
       "formats": {
-        "physical": { "price": 12.0 },
-        "ebook": { "price": 5.9 }
+        "physical": {
+          "price": 12
+        },
+        "ebook": {
+          "price": 5.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/ElCoronel.webp",
         "bg": "#F2A900",
-        "fg": "#231F3D"
+        "fg": "#231F3D",
+        "width": 1066,
+        "height": 1535
       },
       "synopsis": "Un coronel retirado espera cada viernes la carta que reconozca sus derechos, mientras su pueblo y su casa se quedan sin dinero.",
-      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -300,25 +433,42 @@
       "title": "Ficciones",
       "author": "Jorge Luis Borges",
       "authorId": "jorge-luis-borges",
-      "genres": ["cuentos", "fantasía"],
-      "themes": ["laberintos", "realidad"],
+      "genres": [
+        "cuentos",
+        "fantasía"
+      ],
+      "themes": [
+        "laberintos",
+        "realidad"
+      ],
       "pages": 148,
       "readingTime": 190,
       "collection": "clasicos-para-empezar",
-      "collections": ["clasicos-para-empezar"],
+      "collections": [
+        "clasicos-para-empezar"
+      ],
       "available": true,
       "ebookAuthorized": true,
       "formats": {
-        "physical": { "price": 11.9 },
-        "ebook": { "price": 5.5 }
+        "physical": {
+          "price": 11.9
+        },
+        "ebook": {
+          "price": 5.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/ficciones.webp",
         "bg": "#6C4DF6",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 640,
+        "height": 973
       },
       "synopsis": "Bibliotecas infinitas, detectives imposibles y destinos que se bifurcan: diecisiete relatos que reinventan lo que puede ser un cuento.",
-      "quiz": { "mood": "reflexivo", "pace": "rapido" },
+      "quiz": {
+        "mood": "reflexivo",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -328,24 +478,39 @@
       "title": "Juego de tronos",
       "author": "George R. R. Martin",
       "authorId": "george-r-r-martin",
-      "genres": ["fantasía", "aventura"],
-      "themes": ["poder", "familias"],
+      "genres": [
+        "fantasía",
+        "aventura"
+      ],
+      "themes": [
+        "poder",
+        "familias"
+      ],
       "pages": 688,
       "readingTime": 880,
       "collection": "aventuras-y-mundos-extraordinarios",
-      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "collections": [
+        "aventuras-y-mundos-extraordinarios"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 22.9 }
+        "physical": {
+          "price": 22.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/GameofThrones.webp",
         "bg": "#231F3D",
-        "fg": "#FFC800"
+        "fg": "#FFC800",
+        "width": 393,
+        "height": 508
       },
       "synopsis": "Siete reinos, una corona y muchas familias dispuestas a todo. La primera entrega de la saga que redefinió la fantasía épica.",
-      "quiz": { "mood": "aventura", "pace": "pausado" },
+      "quiz": {
+        "mood": "aventura",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -355,24 +520,39 @@
       "title": "Grub",
       "author": "Elise Blackwell",
       "authorId": "elise-blackwell",
-      "genres": ["humor", "novela"],
-      "themes": ["escritura", "vida cotidiana"],
+      "genres": [
+        "humor",
+        "novela"
+      ],
+      "themes": [
+        "escritura",
+        "vida cotidiana"
+      ],
       "pages": 336,
       "readingTime": 430,
       "collection": "ideas-que-transforman",
-      "collections": ["ideas-que-transforman"],
+      "collections": [
+        "ideas-que-transforman"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 14.9 }
+        "physical": {
+          "price": 14.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/Grub.webp",
         "bg": "#C2410C",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 552,
+        "height": 836
       },
       "synopsis": "Una reescritura satírica sobre escritores, editoriales y ambiciones literarias en el mercado actual.",
-      "quiz": { "mood": "humor", "pace": "rapido" },
+      "quiz": {
+        "mood": "humor",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -382,24 +562,39 @@
       "title": "Harry Potter y la piedra filosofal",
       "author": "J. K. Rowling",
       "authorId": "j-k-rowling",
-      "genres": ["fantasía", "aventura"],
-      "themes": ["amistad", "magia"],
+      "genres": [
+        "fantasía",
+        "aventura"
+      ],
+      "themes": [
+        "amistad",
+        "magia"
+      ],
       "pages": 264,
       "readingTime": 340,
       "collection": "aventuras-y-mundos-extraordinarios",
-      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "collections": [
+        "aventuras-y-mundos-extraordinarios"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 19.5 }
+        "physical": {
+          "price": 19.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/HarryPotter.webp",
         "bg": "#2B1B7A",
-        "fg": "#FFC800"
+        "fg": "#FFC800",
+        "width": 360,
+        "height": 555
       },
       "synopsis": "Harry descubre que es hijo de dos magos y que su primer año en Hogwarts esconde un misterio sobre la piedra filosofal.",
-      "quiz": { "mood": "aventura", "pace": "rapido" },
+      "quiz": {
+        "mood": "aventura",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -409,25 +604,42 @@
       "title": "El infinito en un junco",
       "author": "Irene Vallejo",
       "authorId": "irene-vallejo",
-      "genres": ["ensayo", "divulgación"],
-      "themes": ["libros", "historia"],
+      "genres": [
+        "ensayo",
+        "divulgación"
+      ],
+      "themes": [
+        "libros",
+        "historia"
+      ],
       "pages": 452,
       "readingTime": 580,
       "collection": "ideas-que-transforman",
-      "collections": ["ideas-que-transforman"],
+      "collections": [
+        "ideas-que-transforman"
+      ],
       "available": true,
       "ebookAuthorized": true,
       "formats": {
-        "physical": { "price": 24.9 },
-        "ebook": { "price": 11.5 }
+        "physical": {
+          "price": 24.9
+        },
+        "ebook": {
+          "price": 11.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/InfinitoJunco.webp",
         "bg": "#0B7A6E",
-        "fg": "#FFC800"
+        "fg": "#FFC800",
+        "width": 360,
+        "height": 555
       },
       "synopsis": "Un viaje por casi treinta siglos de historia del libro, desde los papiros de Alejandría hasta las bibliotecas que hoy protegemos.",
-      "quiz": { "mood": "reflexivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "reflexivo",
+        "pace": "pausado"
+      },
       "isNew": true,
       "bestseller": true,
       "featured": false
@@ -437,24 +649,38 @@
       "title": "La isla del tesoro",
       "author": "Robert Louis Stevenson",
       "authorId": "robert-louis-stevenson",
-      "genres": ["aventura"],
-      "themes": ["mapas", "piratas"],
+      "genres": [
+        "aventura"
+      ],
+      "themes": [
+        "mapas",
+        "piratas"
+      ],
       "pages": 144,
       "readingTime": 185,
       "collection": "aventuras-y-mundos-extraordinarios",
-      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "collections": [
+        "aventuras-y-mundos-extraordinarios"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 10.5 }
+        "physical": {
+          "price": 10.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/LaIslaDelTesoro.webp",
         "bg": "#0B5A8F",
-        "fg": "#FFC800"
+        "fg": "#FFC800",
+        "width": 372,
+        "height": 537
       },
       "synopsis": "Jim Hawkins encuentra un mapa, se embarca rumbo a una isla y descubre que la tripulación esconde más de un secreto.",
-      "quiz": { "mood": "aventura", "pace": "rapido" },
+      "quiz": {
+        "mood": "aventura",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -464,12 +690,20 @@
       "title": "Los viajes de Gulliver",
       "author": "Jonathan Swift",
       "authorId": "jonathan-swift",
-      "genres": ["aventura", "sátira"],
-      "themes": ["viajes", "sociedad"],
+      "genres": [
+        "aventura",
+        "sátira"
+      ],
+      "themes": [
+        "viajes",
+        "sociedad"
+      ],
       "pages": 336,
       "readingTime": 435,
       "collection": "aventuras-y-mundos-extraordinarios",
-      "collections": ["aventuras-y-mundos-extraordinarios"],
+      "collections": [
+        "aventuras-y-mundos-extraordinarios"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "offer": {
@@ -478,15 +712,22 @@
         "end": "2025-02-01"
       },
       "formats": {
-        "physical": { "price": 17.5 }
+        "physical": {
+          "price": 17.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/losviajesdegulliver.webp",
         "bg": "#1CB0F6",
-        "fg": "#231F3D"
+        "fg": "#231F3D",
+        "width": 667,
+        "height": 1000
       },
       "synopsis": "Liliput, Brobdingnag y la isla voladora de Laputa son el escenario de una sátira sobre el poder y la condición humana.",
-      "quiz": { "mood": "aventura", "pace": "pausado" },
+      "quiz": {
+        "mood": "aventura",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -496,24 +737,39 @@
       "title": "Nuestra Señora de París",
       "author": "Victor Hugo",
       "authorId": "victor-hugo",
-      "genres": ["drama", "romance"],
-      "themes": ["familia", "justicia"],
+      "genres": [
+        "drama",
+        "romance"
+      ],
+      "themes": [
+        "familia",
+        "justicia"
+      ],
       "pages": 512,
       "readingTime": 660,
       "collection": "clasicos-para-empezar",
-      "collections": ["clasicos-para-empezar"],
+      "collections": [
+        "clasicos-para-empezar"
+      ],
       "available": false,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 21.0 }
+        "physical": {
+          "price": 21
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/NuestraseñoraParis.webp",
         "bg": "#6C4DF6",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 360,
+        "height": 555
       },
       "synopsis": "Quasímodo, Esmeralda y Claude Frollo habitan una catedral que es testigo de amores imposibles y decisiones fatales.",
-      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -523,24 +779,39 @@
       "title": "Orgullo y prejuicio",
       "author": "Jane Austen",
       "authorId": "jane-austen",
-      "genres": ["romance", "humor"],
-      "themes": ["amor", "familia"],
+      "genres": [
+        "romance",
+        "humor"
+      ],
+      "themes": [
+        "amor",
+        "familia"
+      ],
       "pages": 464,
       "readingTime": 600,
       "collection": "clasicos-para-empezar",
-      "collections": ["clasicos-para-empezar"],
+      "collections": [
+        "clasicos-para-empezar"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 14.9 }
+        "physical": {
+          "price": 14.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/OrgulloYPrejuicio.webp",
         "bg": "#F2A900",
-        "fg": "#231F3D"
+        "fg": "#231F3D",
+        "width": 682,
+        "height": 1000
       },
       "synopsis": "Elizabeth Bennet y el señor Darcy deben desaprender sus primeras impresiones antes de descubrir que el orgullo y el prejuicio dicen más de uno que del otro.",
-      "quiz": { "mood": "emotivo", "pace": "pausado" },
+      "quiz": {
+        "mood": "emotivo",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -550,24 +821,39 @@
       "title": "Las siete muertes de Evelyn Hardcastle",
       "author": "Stuart Turton",
       "authorId": "stuart-turton",
-      "genres": ["misterio", "ciencia ficción"],
-      "themes": ["tiempo", "identidad"],
+      "genres": [
+        "misterio",
+        "ciencia ficción"
+      ],
+      "themes": [
+        "tiempo",
+        "identidad"
+      ],
       "pages": 480,
       "readingTime": 615,
       "collection": "misterio-y-suspenso",
-      "collections": ["misterio-y-suspenso"],
+      "collections": [
+        "misterio-y-suspenso"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 18.9 }
+        "physical": {
+          "price": 18.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/sietemuertes.webp",
         "bg": "#4A2FCB",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 662,
+        "height": 1000
       },
       "synopsis": "El mismo día, el mismo asesinato y siete cuerpos distintos: Aiden debe resolver el crimen antes de que la noche se repita otra vez.",
-      "quiz": { "mood": "misterio", "pace": "rapido" },
+      "quiz": {
+        "mood": "misterio",
+        "pace": "rapido"
+      },
       "isNew": true,
       "bestseller": false,
       "featured": false
@@ -577,24 +863,39 @@
       "title": "El mito de Sísifo",
       "author": "Albert Camus",
       "authorId": "albert-camus",
-      "genres": ["ensayo", "filosofía"],
-      "themes": ["absurdo", "vida cotidiana"],
+      "genres": [
+        "ensayo",
+        "filosofía"
+      ],
+      "themes": [
+        "absurdo",
+        "vida cotidiana"
+      ],
       "pages": 128,
       "readingTime": 165,
       "collection": "ideas-que-transforman",
-      "collections": ["ideas-que-transforman"],
+      "collections": [
+        "ideas-que-transforman"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 11.9 }
+        "physical": {
+          "price": 11.9
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/Sisifo.webp",
         "bg": "#231F3D",
-        "fg": "#FFC800"
+        "fg": "#FFC800",
+        "width": 440,
+        "height": 697
       },
       "synopsis": "Camus toma el castigo de Sísifo para preguntar cómo vivir cuando no hay respuestas definitivas. Una lectura breve y destabilizadora.",
-      "quiz": { "mood": "reflexivo", "pace": "rapido" },
+      "quiz": {
+        "mood": "reflexivo",
+        "pace": "rapido"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
@@ -604,24 +905,39 @@
       "title": "El visitante",
       "author": "Stephen King",
       "authorId": "stephen-king",
-      "genres": ["thriller", "misterio"],
-      "themes": ["identidad", "sobrenatural"],
+      "genres": [
+        "thriller",
+        "misterio"
+      ],
+      "themes": [
+        "identidad",
+        "sobrenatural"
+      ],
       "pages": 592,
       "readingTime": 760,
       "collection": "misterio-y-suspenso",
-      "collections": ["misterio-y-suspenso"],
+      "collections": [
+        "misterio-y-suspenso"
+      ],
       "available": true,
       "ebookAuthorized": false,
       "formats": {
-        "physical": { "price": 19.5 }
+        "physical": {
+          "price": 19.5
+        }
       },
       "cover": {
         "image": "assets/Portadas%20de%20libros/visitante.webp",
         "bg": "#D32F24",
-        "fg": "#FFFFFF"
+        "fg": "#FFFFFF",
+        "width": 652,
+        "height": 1000
       },
       "synopsis": "Un niño ha sido asesinado y el principal sospechoso sostiene que el verdadero culpable es un hombre que solo existe en su mente.",
-      "quiz": { "mood": "misterio", "pace": "pausado" },
+      "quiz": {
+        "mood": "misterio",
+        "pace": "pausado"
+      },
       "isNew": false,
       "bestseller": false,
       "featured": false
