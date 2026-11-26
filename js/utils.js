@@ -1,7 +1,14 @@
 export const $=(s,r=document)=>r.querySelector(s);
 export const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 export const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n};
-export const bump=e=>{e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump')};
+export const bump = e => {
+  e.classList.remove('bump');
+  if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(() => requestAnimationFrame(() => e.classList.add('bump')));
+  } else {
+    e.classList.add('bump');
+  }
+};
 export const money=n=>'$'+n.toFixed(2);
 export const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 export const cap=s=>s[0].toUpperCase()+s.slice(1);
