@@ -1,7 +1,7 @@
-import {$,el,mm} from './utils.js';
-import {card} from './cards.js';
+import { $, el, mm } from './utils.js';
+import { card } from './cards.js';
 
-export function renderShelves(D, collections){
+export async function renderShelves(D, collections) {
   const SHELVES = [
     ['mas-vendidos', 'Más vendidos', 'Lo que más se está leyendo esta semana.', b => b.f.includes('b'), 1],
     ...collections.map(c => [
@@ -14,9 +14,12 @@ export function renderShelves(D, collections){
 
   const CH = d => '<svg viewBox="0 0 24 24"><path d="' + (d < 0 ? 'm15 5-7 7 7 7' : 'm9 5 7 7-7 7') + '"/></svg>';
   const host = $('#shelves');
-  host.replaceChildren();
+  const hostFrag = document.createDocumentFragment();
 
-  SHELVES.forEach(([id, title, desc, fn, lg]) => {
+  for (const [id, title, desc, fn, lg] of SHELVES) {
+    const books = D.filter(fn);
+    if (!books.length) continue;
+
     const sec = el('section', 'shelf');
     sec.id = id;
     sec.setAttribute('aria-labelledby', id + '-t');
@@ -43,9 +46,14 @@ export function renderShelves(D, collections){
       arrows.append(b);
     });
 
+    const frag = document.createDocumentFragment();
+    for (const b of books) frag.append(card(b));
+    track.append(frag);
+
     head.append(txt, arrows);
-    D.filter(fn).forEach(b => track.append(card(b)));
     sec.append(head, track);
-    host.append(sec);
-  });
+    hostFrag.append(sec);
+  }
+
+  host.replaceChildren(hostFrag);
 }

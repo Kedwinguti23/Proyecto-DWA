@@ -59,21 +59,42 @@ if (contactWaBtn) {
 initMenu();
 initForm();
 
-(async () => {
+const yieldToMain = () => new Promise(resolve => setTimeout(resolve, 0));
+
+const runWhenIdle = cb => {
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(cb, { timeout: 200 });
+  } else {
+    setTimeout(cb, 100);
+  }
+};
+
+runWhenIdle(async () => {
   try {
     const {books, collections, writers} = await loadCatalog();
+
+    // 1. Estado ligero e interactividad (carrito, wishlist, quiz, pedidos)
     initWishlist(books);
-    renderShelves(books, collections);
-    initCatalog(books);
-    initQuiz(books);
     initCart(books);
-    initOffers(books);
-    initWriters(writers, books);
     initOrder();
+    initQuiz(books);
+    await yieldToMain();
+
+    // 2. Renderizado pesado dividido por secciones para no bloquear el hilo principal
+    await renderShelves(books, collections);
+    await yieldToMain();
+
+    initCatalog(books);
+    await yieldToMain();
+
+    initOffers(books);
+    await yieldToMain();
+
+    initWriters(writers, books);
   } catch (err) {
     const p = document.createElement('p');
     p.className = 'muted';
     p.textContent = 'No pudimos cargar el catálogo. Recarga la página en unos minutos.';
     document.querySelector('#shelves')?.append(p);
   }
-})();
+});

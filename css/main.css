@@ -1,12 +1,15 @@
-@import "fonts.css";
-@import "tokens.css";
-@import "base.css";
-@import "components.css";
-@import "sections.css";
-@import "mobile.css";
 @supports (content-visibility:auto){
-  #shelves,.shelf,#catalogo,#ofertas,#escritores,#faq,.quotes,.news,.foot{
-    content-visibility:auto;
-    contain-intrinsic-size:auto 720px;
+  main#top > section.pad,
+  #shelves,
+  .shelf,
+  .foot {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
   }
+}
+
+.foot ul a {
+  display: inline-block;
+  padding-block: 4px;
+  min-height: 24px;
 }
