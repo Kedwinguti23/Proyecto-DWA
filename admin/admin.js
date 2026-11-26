@@ -2,6 +2,7 @@
 // Toda la persistencia pasa por js/api.js: cambiar la capa de datos no obliga a tocar esta UI.
 import {$, $$, el, money} from '../js/utils.js';
 import {login, logout, isAuthenticated} from '../js/auth.js';
+import {CONFIG} from '../js/config.js';
 import {
   getOrders, updateOrderStatus, getBooks, getBook, getCollections, getWriters,
   getSubscriptions, subscribe, unsubscribe, adminSaveBook, adminDeleteBook,
@@ -57,7 +58,7 @@ const deleteBtn = onConfirm => {
 function enterPanel() {
   $('#loginView').hidden = true;
   $('#adminView').hidden = false;
-  $$('.admin-tab')[0].setAttribute('aria-selected', 'true');
+  selectTab('pedidos');
   refreshAll();
 }
 $('#loginForm').addEventListener('submit', e => {
@@ -80,13 +81,12 @@ $('#logoutBtn').onclick = () => {
 if (isAuthenticated()) enterPanel();
 
 // ---------------------------------------------------------------- tabs
-$$('.admin-tab').forEach(tab => {
-  tab.onclick = () => {
-    $$('.admin-tab').forEach(x => x.setAttribute('aria-selected', String(x === tab)));
-    $$('.admin-section').forEach(s => { s.hidden = s.id !== `tab-${tab.dataset.tab}`; });
-    refreshTab(tab.dataset.tab);
-  };
-});
+function selectTab(tab) {
+  $$('.admin-tab').forEach(x => x.setAttribute('aria-selected', String(x.dataset.tab === tab)));
+  $$('.admin-section').forEach(s => { s.hidden = s.id !== `tab-${tab}`; });
+  refreshTab(tab);
+}
+$$('.admin-tab').forEach(tab => { tab.onclick = () => selectTab(tab.dataset.tab); });
 async function refreshAll() {
   await Promise.all([renderOrders(), renderBooks(), renderCollections(), renderWriters(),
     renderOffers(), renderPick(), renderSubs()]);
@@ -151,7 +151,9 @@ async function showOrderDetail(id) {
     `${it.title} (${it.format === 'ebook' ? 'Ebook' : 'Físico'}) x${it.qty} — ${money(it.price * it.qty)}`)));
   box.append(el('strong', null, 'Libros'), ul);
 
-  const phone = String(order.customerPhone || '').replace(/\D/g, '');
+  const digits = String(order.customerPhone || '').replace(/\D/g, '');
+  // wa.me espera el número con indicativo; el formulario pide 8 dígitos locales.
+  const phone = digits.length <= 8 ? CONFIG.whatsapp.countryCode + digits : digits;
   const wa = el('a', 'btn btn--sm', 'Abrir chat de WhatsApp');
   wa.href = `https://wa.me/${phone}?text=${encodeURIComponent(`Hola ${order.customerName}, te escribo sobre tu pedido ${order.id}.`)}`;
   wa.target = '_blank';

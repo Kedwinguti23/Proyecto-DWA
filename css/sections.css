@@ -198,7 +198,7 @@ dialog.order-dlg section{padding:var(--s5);overflow:auto}
 .news .consent input{margin-top:.25rem;accent-color:var(--sun)}
 .news__msg{min-height:1.5rem;margin:0;font-weight:700}
 .news__legal{font-size:.8rem;color:#fff}
-.news__legal a{color:var(--sun);font-weight:700}
+.news__legal a{color:#fff;font-weight:700;text-decoration:underline}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .foot{margin-top:var(--s7);padding-block:var(--s7) var(--s6);border-top:2px solid var(--line)}
 .foot__grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:var(--s6)}

@@ -110,6 +110,7 @@ export function initOrder() {
     summary.append(el('h3', 'order-summary__heading', 'Tu pedido'), ul, tot);
 
     dlg.showModal();
+    $('#orderTitle').focus();
   };
 
   // Envío del formulario
@@ -118,7 +119,7 @@ export function initOrder() {
 
     const cart = window.__cart;
     const items = cart ? cart.getItems() : [];
-    const delivery = deliveryRa().find(r => r.checked)?.value || 'retiro';
+    const delivery = deliveryRa().find(r => r.checked)?.value;
 
     const errors = validate(items, delivery);
     if (errors.length) {

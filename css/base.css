@@ -13,3 +13,23 @@ button{font:inherit;color:inherit;cursor:pointer}
 .wrap{width:min(1120px,100% - 2rem);margin-inline:auto}
 section{padding-block:var(--s7)}
 .muted{color:var(--ink-soft)}
+
+/* El navegador omite layout y pintado de lo que está fuera de pantalla.
+   `auto` recuerda la altura real medida y evita saltos al volver a entrar. */
+@supports (content-visibility:auto){
+  .shelf,#catalogo,#ofertas,#escritores,#faq,.quotes,.news{
+    content-visibility:auto;
+    contain-intrinsic-size:auto 720px;
+  }
+}
+
+/* Páginas estáticas generadas: la sección principal va justo después del hero.
+   Se resuelve en el primer pintado (sin scroll JS) para no generar CLS. */
+html[data-hf-page] main{display:flex;flex-direction:column}
+html[data-hf-page] main>*{order:3}
+html[data-hf-page] main>.hero{order:1}
+html[data-hf-page][data-hf-section="catalogo"] #catalogo,
+html[data-hf-page][data-hf-section="ofertas"] #ofertas,
+html[data-hf-page][data-hf-section="escritores"] #escritores,
+html[data-hf-page][data-hf-section="contacto"] #contacto,
+html[data-hf-page][data-hf-section="mas-vendidos"] #shelves{order:2}

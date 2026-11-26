@@ -14,12 +14,13 @@ const STORAGE_KEYS = {
 
 // Utilidad para evaluar si una oferta por fechas está vigente hoy
 export function isOfferActive(offer) {
-  if (!offer || typeof offer.percent !== 'number' || offer.percent <= 0) return false;
-  if (!offer.start || !offer.end) return true; // Si no tiene fechas, se asume permanente
+  if (!offer || typeof offer.percent !== 'number' || offer.percent <= 0 || offer.percent > 100) return false;
   const now = new Date();
-  const start = new Date(offer.start + 'T00:00:00');
-  const end = new Date(offer.end + 'T23:59:59');
-  return now >= start && now <= end;
+  // Cada límite se evalúa por separado: una oferta solo con "end" vencido
+  // no debe quedar activa para siempre.
+  if (offer.start && now < new Date(offer.start + 'T00:00:00')) return false;
+  if (offer.end && now > new Date(offer.end + 'T23:59:59')) return false;
+  return true;
 }
 
 // Prefijo de rutas: las páginas generadas y el panel viven un nivel por debajo de la raíz.
@@ -28,13 +29,18 @@ function basePath() {
 }
 
 // Carga inicial desde books.json
-let cachedRawData = null;
-async function fetchBaseData() {
-  if (cachedRawData) return cachedRawData;
-  const res = await fetch(`${basePath()}data/books.json`);
-  if (!res.ok) throw new Error('No se pudo cargar data/books.json');
-  cachedRawData = await res.json();
-  return cachedRawData;
+// Se cachea la PROMESA, no el resultado: getBooks/getCollections/getWriters
+// se ejecutan en paralelo y antes se descargaba el JSON tres veces.
+let cachedRawDataPromise = null;
+function fetchBaseData() {
+  if (!cachedRawDataPromise) {
+    cachedRawDataPromise = (async () => {
+      const res = await fetch(`${basePath()}data/books.json`);
+      if (!res.ok) throw new Error('No se pudo cargar data/books.json');
+      return res.json();
+    })().catch(err => { cachedRawDataPromise = null; throw err; });
+  }
+  return cachedRawDataPromise;
 }
 
 /**
@@ -176,7 +182,7 @@ export async function createOrder(orderInput) {
 
     const base = isEbook ? b.ebookPrice : b.physicalPrice;
     const price = Math.round(base * (100 - (b.discountPct || 0))) / 100;
-    const qty = isEbook ? 1 : Math.max(1, Math.min(9, Number(item.qty) || 1));
+    const qty = isEbook ? 1 : Math.max(1, Math.min(9, Math.floor(Number(item.qty) || 1)));
 
     return {
       id: b.id,
@@ -216,7 +222,10 @@ export async function createOrder(orderInput) {
     const orders = JSON.parse(localStorage.getItem(STORAGE_KEYS.ORDERS) || '[]');
     orders.unshift(newOrder);
     localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(orders));
-  } catch (_) {}
+  } catch (_) {
+    // No mostrar una confirmación falsa si no se pudo guardar el pedido.
+    throw new Error('No pudimos guardar el pedido. Revisa el navegador e inténtalo de nuevo.');
+  }
 
   return newOrder;
 }

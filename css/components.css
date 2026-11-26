@@ -15,6 +15,7 @@
 .tag{display:inline-block;padding:.15rem .7rem;border-radius:var(--r-pill);font:700 var(--fs-sm)/1.5 var(--font-body);background:var(--violet-100);color:var(--violet)}
 .tag--ebook{background:var(--teal-100);color:var(--teal)}
 .tag--offer{background:var(--sun);color:#231F3D}
+.tag--out{background:var(--ink);color:#fff}
 
 /* Header */
 .header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);
@@ -51,7 +52,7 @@
 .book:hover{transform:translateY(-4px);border-color:var(--violet);box-shadow:0 6px 0 var(--violet)}
 .book__cover{aspect-ratio:2/3;border-radius:10px;padding:var(--s4);display:flex;flex-direction:column;justify-content:flex-end;color:#fff;
   font:800 1.3rem/1.1 var(--font-display);box-shadow:inset 8px 0 0 rgb(0 0 0/.18)}
-.book__cover--image{padding:0;overflow:hidden;box-shadow:none}
+.book__cover--image{padding:0;overflow:hidden;box-shadow:none;height:auto;aspect-ratio:auto}
 .book__cover-img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
 button.book__cover{border:0;width:100%;text-align:left;cursor:pointer}
 .book__title-btn{background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
