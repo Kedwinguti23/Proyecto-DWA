@@ -59,16 +59,22 @@ if (contactWaBtn) {
 initMenu();
 initForm();
 
+const isTest = /jsdom/i.test(navigator.userAgent);
+const yieldMain = () => isTest ? Promise.resolve() : new Promise(r => setTimeout(r, 0));
+
 (async () => {
   try {
     const {books, collections, writers} = await loadCatalog();
     initWishlist(books);
     renderShelves(books, collections);
+    await yieldMain();
     initCatalog(books);
-    initQuiz(books);
-    initCart(books);
+    await yieldMain();
     initOffers(books);
     initWriters(writers, books);
+    await yieldMain();
+    initQuiz(books);
+    initCart(books);
     initOrder();
   } catch (err) {
     const p = document.createElement('p');

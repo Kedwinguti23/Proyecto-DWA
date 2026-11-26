@@ -149,3 +149,5 @@ writeFileSync('dist/sitemap.xml', updatedSitemap, 'utf8');
 
 console.log('Build listo en dist/');
 console.log('Páginas generadas:', pages.map(p => `/${p.slug}/`).join(', '));
+
+writeFileSync('dist/vercel.json', JSON.stringify({ trailingSlash: true }, null, 2), 'utf8');
