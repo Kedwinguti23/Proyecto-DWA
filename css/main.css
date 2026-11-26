@@ -4,3 +4,9 @@
 @import "components.css";
 @import "sections.css";
 @import "mobile.css";
+@supports (content-visibility:auto){
+  #shelves,.shelf,#catalogo,#ofertas,#escritores,#faq,.quotes,.news,.foot{
+    content-visibility:auto;
+    contain-intrinsic-size:auto 720px;
+  }
+}
